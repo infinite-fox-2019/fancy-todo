@@ -4,14 +4,23 @@ if(process.env.NODE_ENV === 'development') {
 
 const morgan = require('morgan')
 const express = require('express')
+const cors = require('cors')
+const mongoose = require('mongoose')
 const routes = require('./routes')
+const errorHandler = require('./middlewares/errorHandler')
 
 const app = express()
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT
 
+app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
-app.use('/',routes)
 
+
+app.use('/',routes)
+mongoose.connect(process.env.URL_MONGOOSE,{useNewUrlParser: true,useUnifiedTopology: true})
+
+
+app.use(errorHandler)
 app.listen(PORT,_=>{console.log(`listening on port ${PORT}`)})
