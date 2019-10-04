@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Do SomeThing</title>
+  </head>
+  <body>
+    
+    <div ng-app="todo-app">
+        <div ng-controller="Tasks">
+          <div class="window-wrapper">
+            <div class="controls">
+              <div class="btns">
+                <div class="add-task btn active" ng-click="showFunction('add');">
+                  <i class="fa fa-plus"></i>
+                </div>
+                <div class="my-account">
+                  <div>
+                    <img src="https://api.adorable.io/avatars/32/dfasdsdfadsdfadfasdfasdfdfas.png">
+                  </div>
+                  <div>
+                    <a href="#" class="mx-2 my-1">Arnold</a>
+                    <span class="mx-2 my-1">Logged in </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="main-area">
+
+                <div id="myDIV" class="header">
+                    <h2 style="margin:5px">Do Something</h2>
+                    <input type="text" id="myInput" placeholder="Title...">
+                    <span onclick="newElement()" class="addBtn">Add</span>
+                  </div>
+                  
+                  <ul id="myUL">
+                    <li>Hit the gym</li>
+                    <li class="checked">Pay bills</li>
+                    <li>Meet George</li>
+                    <li>Buy eggs</li>
+                    <li>Read a book</li>
+                    <li>Organize office</li>
+                  </ul>
+            </div>
+            <div class="footer">
+              <span>You have: {{tasks.length}} total items, {{undone}} undone items and {{done}} done items.</span>
+            </div>
+          </div>
+        </div>
+
+        </div>
+    <!-- Optional JavaScript -->
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
