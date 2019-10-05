@@ -1,7 +1,6 @@
 $(document).ready(() => {
     $('#main-page').hide()
     $('#sign-up').hide()
-
     $('#sign-up').submit((e) => {
         e.preventDefault()
         $.ajax({
@@ -19,13 +18,10 @@ $(document).ready(() => {
             $('#password-sign-up').val('')
             $('#sign-in').show()
         })
-        .catch(err => {
-            swal(err.responseJSON.title, err.responseJSON.message, "error");
-        })
+        .fail(showSwal)
     })
 
     $('#sign-in').submit((e) => {
-        console.log('masuk')
         e.preventDefault()
         $.ajax({
             url: 'http://localhost:3000/users/signIn',
@@ -40,9 +36,32 @@ $(document).ready(() => {
             $('#auth-page').hide()
             $('#main-page').show()
         })
-        .catch(err => {
-            swal(err.responseJSON.title, err.responseJSON.message, "error");
+        .fail(showSwal)
+    })
+
+    $('#add-task').submit((e) => {
+        e.preventDefault()
+        $.ajax({
+            url: 'http://localhost:3000/tasks/',
+            type: 'post',
+            data: {
+                name: $('#name-add-task').val(),
+                startDate: $('#start-date-add-task').val(),
+                dueDate: $('#due-date-add-task').val()
+            },
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                token: localStorage.token
+            }
         })
+        .done(() => {
+            getAllTasks()
+            $('#close-add-task').click()
+            $('#name-add-task').val('')
+            $('#start-date-add-task').val('')
+            $('#due-date-add-task').val('')
+        })
+        .fail(showSwal)
     })
 
     onSignIn = (googleUser) => {
@@ -59,9 +78,7 @@ $(document).ready(() => {
             $("#auth-page").hide()
             $("#main-page").show()
         })
-        .fail(err => {
-            console.log(err)
-        })
+        .fail(showSwal)
     }
 
     signOut = () => {
@@ -85,5 +102,77 @@ $(document).ready(() => {
         $('#email-sign-up').val('')
         $('#password-sign-up').val('')
         $('#sign-in').show()
+    }
+
+    getAllTasks = () => {
+        $('#show-now-tasks').hide()
+        $('#show-all-tasks').empty()
+        $('#show-all-tasks').show()
+        $.ajax({
+            url: 'http://localhost:3000/tasks/',
+            type: 'get',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                token: localStorage.token
+            }
+        })
+        .done((tasks) => {
+            if(tasks.length === 0) {
+                $('#show-all-tasks').append('No Task')
+            } else {
+                strTasks = `<ul class="list-group">`
+                tasks.forEach(task => {
+                    strTasks += `
+                    <li class="list-group-item list-group-item-action">
+                    ${task.name}
+                    <span class="badge badge-primary badge-pill">14</span>
+                    </li>
+                    `
+                })
+                strTasks += `</ul>`
+                $('#show-all-tasks').append(strTasks)
+            }
+        })
+        .fail(showSwal)
+    }
+
+    getNowTasks = () => {
+        $('#show-all-tasks').hide()
+        $('#show-now-tasks').empty()
+        $('#show-now-tasks').show()
+        $.ajax({
+            url: 'http://localhost:3000/tasks/now',
+            type: 'get',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                token: localStorage.token
+            }
+        })
+        .done((tasks) => {
+            if(tasks.length === 0) {
+                $('#show-now-tasks').append('No Task')
+            } else {
+                strTasks = `<ul class="list-group">`
+                tasks.forEach(task => {
+                    strTasks += `
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${task.name}
+                    <span class="badge badge-primary badge-pill">14</span>
+                    </li>
+                    `
+                })
+                strTasks += `</ul>`
+                $('#show-now-tasks').append(strTasks)
+            }
+        })
+        .fail(showSwal)
+    }
+
+    showSwal = (err) => {
+        if(!err.responseJSON) {
+            err.responseJSON.title = 'Connection Failed'
+            err.responseJSON.message = 'Couldn\'t connect to the server'
+        }
+        swal(err.responseJSON.title, err.responseJSON.message, "error");
     }
 })
