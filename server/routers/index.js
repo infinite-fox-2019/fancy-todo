@@ -7,5 +7,5 @@ router.get('/', (req, res, next) => {
 })
 
 router.use('/todos', todosRouter)
-router.use('/user', usersRouter)
+router.use('/users', usersRouter)
 module.exports = router
