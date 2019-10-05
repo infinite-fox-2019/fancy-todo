@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const { createToken, verifyUser } = require('../helpers/jwt')
 const { compare } = require('../helpers/bcryptjs')
+const md5 = require('md5')
 
 class UserController {
     static create(req, res, next) {
@@ -14,6 +15,7 @@ class UserController {
                 res.status(201).json({
                     username: User.username,
                     email: User.email,
+                    gravatar: md5(User.email),
                     token
                 })
             })
@@ -29,6 +31,7 @@ class UserController {
                     res.status(200).json({
                         username: User.username,
                         email: User.email,
+                        gravatar: md5(User.email),
                         token
                     })
                 } else {

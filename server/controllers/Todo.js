@@ -15,6 +15,8 @@ class TodoController {
     static read(req, res, next) {
         const id = req.decode.id
         Todo.find({ owner: id, inProject: null })
+            .populate('owner', '-password')
+            .sort({ updatedAt: -1 })
             .then((Todos) => {
                 res.status(200).json(Todos)
             })
