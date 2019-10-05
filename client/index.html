@@ -6,11 +6,55 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="google-signin-client_id" content="163019021233-i4ddev11u6284in4j8tgepkbar2ghsr7.apps.googleusercontent.com">
   
-  <title>Document</title>
+  <title>FancyToDo</title>
 </head>
 <body>
-  
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+  <!-- landing page -->
+    <div class="landingPage" style="display: none">
+      <div class="logo">
+          <h1>Fancy To DO</h1>
+      </div>
+      <div class="account">
+        <div class="register-box" style="display: none">
+          <h1>Sign Up</h1>
+          <form>
+            <div class="input">
+                <input type="text" placeholder="Name" id="nameRegis">
+            </div>
+
+            <div class="input">
+                <input type="password" placeholder="Password" id="passwordRegis">
+            </div>
+
+            <div class="input">
+                <input type="email" placeholder="Email" id="emailRegis">
+            </div>
+            <input type="submit" value="Register" id="btn-register">
+          </form>
+          <p>Already have an Account? Sign In <a href="#" id="toLogin">here</a></p>
+        </div>
+
+          <div class="login-box">
+            <h1>Sign In</h1>
+            <form>
+              <div class="input">
+                  <input type="email" placeholder="Email" id="emailLogin">
+              </div>
+
+              <div class="input">
+                  <input type="password" placeholder="Password" id="passwordLogin">
+              </div>
+              <input type="submit" value="Sign In" id="btn-login">
+              <p>Don't have an Account? Create <a href="#" id="toRegister">here</a></p>
+              <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </form>
+        </div>
+      </div>
+    </div>
+
+
+  <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
 
   <a href="#" onclick="signOut();">Sign out</a>
 
@@ -20,7 +64,8 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-  <script src="./script/script.js"></script>
-  <script src="./script/login.js"></script>
+  <script src="/script/script.js"></script>
+  <script src="/script/landingPage.js"></script>
+  <script src="/script/login.js"></script>
 </body>
 </html>

@@ -1,38 +1,115 @@
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
   console.log('Name: ' + profile.getName());
   console.log('Email: ' + profile.getEmail());
   
-  var id_token = googleUser.getAuthResponse().id_token;// This is null if the 'email' scope is not present.
+  var id_token = googleUser.getAuthResponse().id_token;
   Swal.fire({
     title: `Connecting to server...`,
     allowOutsideClick: () => !Swal.isLoading()
   });
   Swal.showLoading();
   $.ajax({
-      url: `${baseURL}/users/logingoogle`,
-      method: 'post',
-      data: {
-          token: id_token
-      }
+    url: `${baseURL}/users/logingoogle`,
+    method: 'post',
+    data: {
+        token: id_token
+    }
   })
-      .done(({ token }) => {
-          localStorage.setItem('token', token)
-          $('.landingPage').hide()
-          $('.main').show()
-          Swal.close()
-          Swal.fire('Success!', "Your Account is Logged in!", 'success')
-      })
-      .fail(err => {
-          let msg = "Fail to Login";
-          Swal.fire("Error!", msg, "error");
-      })
+  .done(({ token }) => {
+      localStorage.setItem('token', token)
+      $('.landingPage').hide()
+      $('.main').show()
+      Swal.close()
+      Swal.fire('Success!', "Your Account is Logged in!", 'success')
+  })
+  .fail(err => {
+      let msg = "Fail to Login";
+      Swal.fire("Error!", msg, "error");
+  })
+}
+
+function getRegister() {
+  let name = $('#nameRegis').val()
+  let email = $('#emailRegis').val()
+  let password = $('#passwordRegis').val()
+
+  Swal.fire({
+      title: `Creating Your Account...`,
+      allowOutsideClick: () => !Swal.isLoading()
+  });
+  Swal.showLoading();
+
+  $.ajax({
+    url: `${baseURL}/users/register`,
+    method: `post`,
+    data: {
+        name, email, password
+    }
+  })
+    .done(({ token }) => {
+      localStorage.setItem('token', token)
+      $('.landingPage').hide()
+      $('.main').show()
+      Swal.close()
+      Swal.fire('Success!', "Your Account is Created!", 'success')
+    })
+    .fail(err => {
+      let msg = "Fail to Register";
+      Swal.fire("Error!", msg, "error");
+    })
+    .always(() => {
+      $('#nameRegis').val('')
+      $('#emailRegis').val('')
+      $('#passwordRegis').val('')
+    })
+}
+
+
+function getLogin() {
+  let email = $('#emailLogin').val()
+  let password = $('#passwordLogin').val()
+
+  Swal.fire({
+    title: `Connecting to Server...`,
+    allowOutsideClick: () => !Swal.isLoading()
+  });
+  Swal.showLoading();
+
+  $.ajax({
+    url: `${baseURL}/users/login`,
+    method: `post`,
+    data: {
+        email, password
+    }
+  })
+    .done(({ token }) => {
+      localStorage.setItem('token', token)
+      $('.landingPage').hide()
+      $('.main').show()
+      Swal.close()
+      Swal.fire('Success!', "Your Account is Logged in!", 'success')
+    })
+    .fail(err => {
+      let msg = "Fail to Login";
+      Swal.fire("Error!", msg, "error");
+    })
+    .always(() => {
+      $('#emailLogin').val('')
+      $('#passwordLogin').val('')
+    })
 }
 
 function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance();
+  if (gapi.auth2) {
+    var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
+        localStorage.removeItem('token')
+      });
+  }
+  console.log('User signed out.');
+  localStorage.removeItem('token')
+  $('.landingPage').show()
+  $('.main').hide()
+  Swal.fire('Success!', "Your Account is Logged out!", 'success')
 }
