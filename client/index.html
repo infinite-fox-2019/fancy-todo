@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="google-signin-client_id" content="671526960269-argdiinu74ms524qj03nn4gu8n8hg4fo.apps.googleusercontent.com">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark p-4">
+            <h5 class="text-white h4">Collapsed content</h5>
+            <span class="text-muted">Toggleable via the navbar brand.</span>
+            </div>
+        </div>
+        <nav class="navbar navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="#" onclick="signOut();">Sign out</a>
+        </nav>
+    </div>
+
+    <div class="container bg-light" style='width:420px;'>
+        <div class="card text-white bg-secondary mb-3" style="height:350px;margin:100px auto;width: 25rem;">
+            <div class="card-header" style = 'text-align:center; font-size:25px;color:gold'>Login</div>
+            <div class="card-body" style = 'margin:25px 50px;color:gold;'>
+                <a class="card-title">username</a> <input type='text' name='username' class='text-username' style='height:20px;'><br>
+                <a class='card-title'>password</a>  <input type='password' name='password' class='text-password' style='height:20px;'>
+                <button type="button" class="btn btn-success" style='margin:10px 85px'>SignIn</button>
+                <p class="card-text">Don't have an account? 
+                <button type="button" class="btn btn-warning" style='margin:10px 85px'>Register</button>
+                <div class="g-signin2" data-onsuccess="onSignIn" style='height:30px;width:100px; margin:0 200px;'></div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src='./js/index.js'></script>
+  </body>
+</html>
