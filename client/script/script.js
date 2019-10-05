@@ -28,14 +28,14 @@ const todoPage = ()=>{
   show('#modalButton')
 }
 
-let token = localStorage.getItem('token')
-if(!token){
-  hide('#nav')
-  hide('#addTodo')
-  hide('#listTodo')
-  show('#loginPage')
-  hide('#registerform')
-}
+// let token = localStorage.getItem('token')
+// if(!token){
+//   hide('#nav')
+//   hide('#addTodo')
+//   hide('#listTodo')
+//   show('#loginPage')
+//   hide('#registerform')
+// }
 
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
@@ -52,6 +52,7 @@ function onSignIn(googleUser) {
   }
   })
   .done((token)=>{
+    console.log('asdadasdadwqed')
     localStorage.setItem('token',token)
     todoPage()
   })
@@ -97,7 +98,9 @@ $('#login').on('submit',(e)=>{
   })
   .done((token)=>{
     localStorage.setItem('token',token)
-    todoPage()
+    console.log(localStorage.getItem('token'));
+    getCards()
+    // todoPage()
   })
   .fail((msg)=>{
     console.log(msg);
@@ -133,7 +136,7 @@ $('#addTodo').on('submit',(e)=>{
   let title = $('#addTodoTitle').val()
   let descriptions = $('#addTodoDescriptions').val()
   let dueDate = $('#addTodoDueDate').val()
-  console.log(title,descriptions,dueDate);
+  $('#exampleModal').modal('toggle');
   $.ajax({
     method : 'post',
     url : 'http://localhost:3000/todos/add',
@@ -153,3 +156,40 @@ $('#addTodo').on('submit',(e)=>{
   })
   .always()
 })
+
+function getCards(){
+  let token = localStorage.getItem('token')
+  $.ajax({
+    method : 'get',
+    url : 'http://localhost:3000/users/find',
+    headers : {
+      token
+    }
+  })
+  .done((user)=>{
+    let todo = user.todoList
+    let todos = ''
+    todo.forEach(element => {
+      todos += `
+      <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">${element.title}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Created at : ${element.createdAt}</h6>
+        <h6>Descriptions: </h6>
+        <p class="card-text">${element.descriptions}</p>
+        <p class="card-text">Due date: ${element.dueDate}</p>
+        <p class="card-text">Status: ${element.status}</p>
+        <a href="#" class="btn btn-success">Update Status</a>
+        <a href="#" class="btn btn-danger">Delete todo</a>
+      </div>
+    </div>
+      `
+    });
+    $('#newTodo').replaceWith(todos)
+    todoPage()
+  })
+  .fail((error)=>{
+    console.log(error);
+  })
+  .always()
+}

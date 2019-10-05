@@ -6,7 +6,7 @@ const { authentications,authorizations } = require('../middleware/auth')
 
 user.post('/register',validator.createUserValidator,create)
 user.post('/login',error,login)
-user.get('/find',authentications,authorizations,find)
+user.get('/find',authentications,find)
 user.post('/loginOAuth',error,loginOAuth)
 
 module.exports = user;
