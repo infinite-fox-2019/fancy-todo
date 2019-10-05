@@ -18,7 +18,7 @@
         <div class="placement">
             <div class="row text-secondary">
                 <div class="col-4 d-flex align-items-center">
-                    <h1>Fancy Todo</h1>
+                    <h1>C-Todo</h1>
                 </div>
                 <div class="col-4 d-flex justify-content-center align-items-center">
                     <div class="btn-group" role="group" aria-label="Basic example">
@@ -28,12 +28,12 @@
                     </div>
                 </div>
                 <div class="col-4 d-flex justify-content-end align-items-center">
-                    <div class="dropdown">
+                    <div id="profile-control"></div>
+                    <div class="dropdown ml-2">
                         <a class="dropdown-toggle text-decoration-none h3 text-secondary" href="#" role="button"
                             id="user-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             User
                         </a>
-
                         <div class="dropdown-menu mr-5" aria-labelledby="user-control">
                             <a class="dropdown-item" href="#" onclick="logout()">Logout</a>
                         </div>
@@ -51,15 +51,10 @@
                         </li>
                     </ul>
                     <div class="dropdown  d-flex">
-                        <button class="btn btn-secondary group-project dropdown-toggle mr-4" type="button"
-                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" style="display: none"
-                            aria-expanded="false">
-                            Filter Projects
+
+                        <button class="btn btn-dark group-todo mr-3" onclick="refreshTodos()">
+                            <i id="refresh-todo" class="fas fa-sync"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">Joined Projects</a>
-                            <a class="dropdown-item" href="#">Projects by Other Members</a>
-                        </div>
                         <button id="new-project" class="btn btn-primary group-project" style="display: none">Create New
                             Project</button>
                         <button id="new-todo" class="btn btn-primary group-todo" onclick="showCreateTodo()">Create New
@@ -287,15 +282,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                    <div class="modal-footer d-flex justify-content-between align-items-center">
+                        <div>
+                            <button type="button" class="btn btn-danger" onclick="confirmDeleteTodo()">Delete</button>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -303,10 +302,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script src="js/md5.min.js"></script>
     <script src="js/axios.min.js"></script>
     <script src="js/sweetalert2.all.min.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="js/toastr.min.js"></script>
+    <script src="js/project-card.js"></script>
     <script src="js/user.js"></script>
     <script src="js/todo.js"></script>
     <script src="js/todo-constructor.js"></script>

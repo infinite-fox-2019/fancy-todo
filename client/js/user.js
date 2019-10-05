@@ -10,6 +10,7 @@ function showContent() {
     $('#content').show()
     $('#user-control').text(localStorage.getItem('username'))
     refreshTodos()
+    $('#profile-control').empty().append(gravatar(localStorage.getItem('gravatar'), 32))
 }
 
 function checkLogin() {
@@ -46,10 +47,11 @@ function login() {
         identity: $('#identity').val(),
         password: $('#login-password').val()
     })
-        .then(({ data }) => {
-            localStorage.setItem('token', data.token)
-            localStorage.setItem('email', data.email)
-            localStorage.setItem('username', data.username)
+        .then(({ data: { token, email, username, gravatar } }) => {
+            localStorage.setItem('token', token)
+            localStorage.setItem('email', email)
+            localStorage.setItem('username', username)
+            localStorage.setItem('gravatar', gravatar)
             Swal.close()
             checkLogin()
         }).catch(({ response: { data: error } }) => Swal.fire({
@@ -68,6 +70,7 @@ function destroyCredentials() {
     localStorage.removeItem('token')
     localStorage.removeItem('email')
     localStorage.removeItem('username')
+    localStorage.removeItem('gravatar')
     checkLogin()
 }
 
@@ -130,10 +133,11 @@ function register() {
         email: $('#register-email').val(),
         password: $('#register-password').val()
     })
-        .then(({ data: { email, username, token } }) => {
+        .then(({ data: { email, username, token, gravatar } }) => {
             localStorage.setItem('token', token)
             localStorage.setItem('email', email)
             localStorage.setItem('username', username)
+            localStorage.setItem('gravatar', gravatar)
             showContent()
             Swal.close()
         }).catch(({ response: { data: error } }) => {
@@ -144,6 +148,11 @@ function register() {
             })
         });
 }
+
+function gravatar(hashed, size = 100) {
+    return `<img src="https://gravatar.com/avatar/${hashed}?s=${size}" alt="profile image" />`
+}
+
 
 $('#register').on('submit', (e) => {
     e.preventDefault()
