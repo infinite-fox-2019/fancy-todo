@@ -11,7 +11,7 @@ class UserController {
         User.findOne({email})
         .then(user => {
             if(user) {
-                if(user.password) {
+                if(user.password != process.env.DUMMY_PASSWORD) {
                     throw {status: 409, title: 'Invalid Input', msg: 'Email already registered'}
                 }
                 return User.findByIdAndUpdate(user.id, {password: hashPassword(password)})
@@ -33,13 +33,17 @@ class UserController {
 
         User.findOne({email})
         .then(user => {
+            let valid = false
             if(user && user.password) {
-                console.log(password, user.password, '<<<<<<<<<<')
                 if(comparePassword(password, user.password)){
-                    res.status(200).json({token: generateToken({email})})
+                    valid = true
                 }
             }
-            throw {status: 401, title: 'Invalid Input', msg: 'Wrong email/password'}
+            if(valid) {
+                res.status(200).json({token: generateToken({email})})
+            } else {
+                throw {status: 401, title: 'Invalid Input', msg: 'Wrong email/password'}
+            }
         })
         .catch(next)
     }
@@ -61,9 +65,10 @@ class UserController {
         .then(user => {
             token = generateToken(payloadJWT)
             if(user) {
-                res.status(200).send({token})
+                return ''
+            } else {
+                return User.create({email: payloadJWT.email, password: process.env.DUMMY_PASSWORD})
             }
-            return User.create({email: payloadJWT.email})
         })
         .then(_ => {
             res.status(200).send({token})

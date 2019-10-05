@@ -7,7 +7,7 @@ const Task = mongoose.model('Task', new Schema({
     status: String,
     startDate: Date,
     dueDate: Date,
-    user: {type: Schema.Types.ObjectId, ref: 'User'}
+    userId: {type: Schema.Types.ObjectId, ref: 'User'}
 }))
 
 module.exports = Task
