@@ -6,13 +6,14 @@ const mongoose = require('mongoose')
 const express = require('express')
 const routes = require('./routes')
 const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
 const PORT = process.env.PORT || 3000
 const db = mongoose.connection;
 
 app.use(express.json())
 app.use(express.urlencoded({extended : false}))
-
+app.use(cors())
 app.use(morgan('dev'))
 
 mongoose.connect('mongodb://localhost/fancyTodo',{useNewUrlParser:true, useUnifiedTopology:true})

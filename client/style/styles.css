@@ -1,1 +1,46 @@
+.smallLogo{
+  width: 20px;
+  height: 20px;
+}
 
+#loginform,#registerform{
+  text-align: center;
+  padding: 20px;
+}
+
+#loginform p{
+  font-size: 14px;
+}
+
+#loginClick,#registerClick{
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.g-signin2{
+ display: inline-block;
+}
+
+#loginClick:hover,
+#registerClick:hover { 
+  background-color: rgb(104, 104, 104);
+}
+
+
+#loginButton,
+#registerButton{
+  width: 100%;
+  border-radius: 0px;
+}
+
+#loginPage{
+  width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}

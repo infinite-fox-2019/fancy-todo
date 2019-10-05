@@ -5,6 +5,8 @@ class Todo {
   static async add(req, res, next) {
     let { title, createdAt, updatedAt, descriptions, status,dueDate} = req.body;
     let { email, _id } = req.loggedUser;
+    console.log(req.body)
+    console.log(req.loggedUser)
     try {
       const newTodo = await todoModel.create({
         title,

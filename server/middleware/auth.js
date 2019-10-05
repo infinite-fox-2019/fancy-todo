@@ -1,6 +1,7 @@
 const {verifyToken} = require('../helpers/jwt')
 
 const authentications = (req,res,next) => {
+  console.log(req.body)
   try {
     let decodedToken = verifyToken(req.headers.token)
     req.loggedUser = decodedToken
