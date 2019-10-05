@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- login google -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="227948699050-ml75o10n5ftpfo4d5069bqvjtri10pr2.apps.googleusercontent.com">
+    <!-- ------- -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/bc382c3fce.js" crossorigin="anonymous"></script>
+    <title>Do SomeThing</title>
+  </head>
+  <body>
+    
+    <div ng-app="todo-app">
+        <div ng-controller="Tasks">
+          <div class="window-wrapper">
+            <div class="controls">
+              <div class="btns">
+                <div class="add-task btn active" ng-click="showFunction('add');">
+                  <i class="fas fa-circle my-2" style="color: #EA2027;"></i>
+                  <i class="fas fa-circle" style="color: #FFC312;"></i>
+                  <i class="fas fa-circle" style="color: #009432;"></i>
+                </div>
+                <div class="my-account">
+                  <div>
+                    <img src="https://api.adorable.io/avatars/32/dfasdsdfadsdfadfasdfasdfdfas.png">
+                  </div>
+                  <div>
+                    <a href="#" class="mx-2 my-1">Arnold</a>
+                    <span class="mx-2 my-1">Logged in </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="main-area">
+  
+              <!--DIV DI UBAH UNTUK YG LOGIN DAN SEBELUMMMM LOGIN-->
+
+              <div id="beforeLogin">
+                <div class="user-card round5">
+                  <div class="login-box">
+                    <form class="login-form" id="login">
+                      <input type="text" id="logname" placeholder="username" required/>
+                      <input type="password" id="logpass" placeholder="password" required/>
+                      <div class="errLogin"></div>
+                      <div class="successLogin"></div>
+                      <input type="submit" value="Login"/>
+                    </form>
+                
+                    <div class="or"></div>
+                   
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                  </div>
+                  <div class="signup-box">
+                    <form class="signup-form" id="register">
+                      <input type="username" name="username" id="regname" placeholder="username" required/>
+                      <input type="email" name="email" id="reqemail" placeholder="email" required/>
+                      <input type="password" name="password" id="regpass" placeholder="password" required/>
+                      <div class="errRegis"></div>
+                      <div class="successRegis"></div>
+                      <input type="submit" value="Signup"/>
+                    </form>
+                  </div>
+                
+                  <div class="footer">
+                    <span>or </span><a class="toggle-link" href="#">Sign Up</a>
+                  </div>
+                </div>
+              </div>
+
+              <!--DIV DI UBAH UNTUK  SESUDAH LOGIN-->
+                  
+            <!-- SECTION UNTUK PROFILE USER -->
+           <div id="afterLogin">
+               <!-- NAVBAR -->
+               <nav class="navbar navbar-light bg-light sticky-top">
+                  <a class="navbar-brand" href="#"><img src="./img/logo.png" alt="logo" style="width: 40px;"><img src="./img/logo3.png" alt="navbarLogo" style="width: 150px;"></a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                      <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                      </li>
+                      <li class="nav-item">
+                          <!-- <a onclick="signOut();"  class="nav-link" href="#">Pricing</a> -->
+                        <button onclick="signOut();" class="btn btn-warning btn-sm mx-2 mb-2" id="signoutbtn">Sign out</button>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+                <!-- ------------------------------------------------ -->
+            <div class="page">
+              <div class="profile-card">
+                <div class="profile-image">
+                <span class="image"></span>
+                </div>
+                <div class="profile-user-name">
+                <h3>Arnold Therigan</h3>
+                  <p>Point : 0</p>
+                  <div id="myDIV" class="header">
+                    <!-- FORM UNTUK TODO -->
+                    <h2 style="margin:5px">Do Something</h2>
+                    <form id="addTodo">
+                      <input type="text" id="description" placeholder="Title...">
+                      <input type="submit" value="add">
+                    </form>
+                  </div>
+                  
+                  <ul id="myUL">
+                    <li>Hit the gym</li>
+                    <li class="checked">Pay bills</li>
+                    <li>Meet George</li>
+                    <li>Buy eggs</li>
+                    <li>Read a book</li>
+                    <li>Organize office</li>
+                  </ul>
+                </div>
+            </div>
+         </div>
+           </div>
+            <!-- --------------- -->
+            </div>
+            <div class="footer">
+              <span>You have: {{tasks.length}} total items, {{undone}} undone items and {{done}} done items.</span>
+            </div>
+          </div>
+        </div>
+
+        </div>
+    <!-- Optional JavaScript -->
+    <script src="script.js"></script>
+    <script src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
