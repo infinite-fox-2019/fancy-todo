@@ -2,11 +2,23 @@ const mongoose = require('mongoose')
 const {Schema} = mongoose
 
 const Task = mongoose.model('Task', new Schema({
-    name: String,
+    name: {
+        type: String,
+        required: [true, 'Task name cannot be empty']
+    },
     description: String,
-    status: String,
-    startDate: Date,
-    dueDate: Date,
+    status: {
+        type: Boolean,
+        default: false
+    },
+    startDate: {
+        type: Date,
+        required: [true, 'Start date cannot be empty']
+    },
+    dueDate: {
+        type: Date,
+        required: [true, 'Due date cannot be empty']
+    },
     userId: {type: Schema.Types.ObjectId, ref: 'User'}
 }))
 

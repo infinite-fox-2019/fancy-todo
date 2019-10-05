@@ -2,12 +2,29 @@ const Task = require('../models/Task')
 
 class TaskController {
     static findAll(req, res, next) {
-        res.status(200).json({findAll: 'findAll'})
+        Task.find({userId: req.loggedUser.id})
+        .then(tasks => {
+            res.status(200).json(tasks)
+        })
+        .catch(next)
+    }
+
+    static findNow(req, res, next) {
+        console.log('masuk')
+        Task.find({
+            userId: req.loggedUser.id,
+            startDate: {$lte: new Date()},
+            status: false
+        })
+        .then(tasks => {
+            res.status(200).json(tasks)
+        })
+        .catch(next)
     }
 
     static create(req, res, next) {
-        const {name} = req.body
-        Task.create({name, userId: req.loggedUser.id})
+        const {name, startDate, dueDate} = req.body
+        Task.create({name, startDate, dueDate, userId: req.loggedUser.id})
         .then(created => {
             res.status(200).json(created)
         })
