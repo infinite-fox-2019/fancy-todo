@@ -2,6 +2,7 @@ const router = require('express').Router()
 const TodoController = require('../controllers/TodoController')
 
 router.get('/', TodoController.findAll)
+router.get('/', TodoController.create)
 
 module.exports = router
 

@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const usersRouter = require('./user')
 const todosRouter = require('./todos')
 
 router.get('/', (req, res, next) => {
@@ -6,4 +7,5 @@ router.get('/', (req, res, next) => {
 })
 
 router.use('/todos', todosRouter)
+router.use('/user', usersRouter)
 module.exports = router
