@@ -8,10 +8,14 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <title>Hello, world!</title>
+    <style>  
+    input{
+        border-radius: 10px;
+    }
+    </style>
   </head>
-  <body>
+  <body background='./picture//36081864414_d9514e3a53_b.jpg' style='background-repeat: no-repeat;background-size:100%'>
     <div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
             <div class="bg-dark p-4">
@@ -23,29 +27,141 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
-            <a href="#" onclick="signOut();">Sign out</a>
+            <a href="#" onclick="signOut();" id='signout'>Sign out</a>
         </nav>
     </div>
-
-    <div class="container bg-light" style='width:420px;'>
-        <div class="card text-white bg-secondary mb-3" style="height:350px;margin:100px auto;width: 25rem;">
-            <div class="card-header" style = 'text-align:center; font-size:25px;color:gold'>Login</div>
-            <div class="card-body" style = 'margin:25px 50px;color:gold;'>
-                <a class="card-title">username</a> <input type='text' name='username' class='text-username' style='height:20px;'><br>
-                <a class='card-title'>password</a>  <input type='password' name='password' class='text-password' style='height:20px;'>
-                <button type="button" class="btn btn-success" style='margin:10px 85px'>SignIn</button>
-                <p class="card-text">Don't have an account? 
-                <button type="button" class="btn btn-warning" style='margin:10px 85px'>Register</button>
-                <div class="g-signin2" data-onsuccess="onSignIn" style='height:30px;width:100px; margin:0 200px;'></div>
+    <section id='main-container'>
+        <div class="container" style='margin:10px auto;height:100px;width: 100%;'>
+            <div class="row" style='height:100%'>
+                <div class="col-3" id='row1'>
+                </div>
+                <div class="col-9" id='row2' style='justify-content:center;background-image:url(https://cdn-image.hipwee.com/wp-content/uploads/2014/09/DIY-To-Do-Weekly-Agenda-List-Notepad-Free-Printable-Download.jpg); background-position-x:50px; background-position-y: -30px'>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="container-fluid" style='margin-top : 160px;width:75%; height:100px'>
+            <div class="progress">
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style='margin:16px 550px' data-whatever="@mdo">Add New Todo</button>
+            <!-- <div class='card-body' style ='width:100%; margin: 100px 100px;'>  -->
+            <!-- Button trigger modal -->
+            <!-- Modal -->
+            <div id='addTodoList' style='padding:10px;'>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class='form-group'>
+                                        <label for='date'>Date</label>
+                                        <input type='date' id='date' name='date'
+                                    </div>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Title :</label>
+                                    <input type="text" class="form-control" id="recipient-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Description :</label>
+                                    <textarea class="form-control" id="description"></textarea>
+                                </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <a id='text-errorTodo' style = 'color:red'></a>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id='save' onclick='createTodo()'>Save</button>                 
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-11 mt-1 d-flex align-items-stretch justify-content-center"
+                    style="height: 70vh; width: 100%;">
+                    <div class="card ml-5 mr-n5" style="min-width: 80vw; height:20vw;">
+                        <div class="card-body overflow-auto" style='background-color: transparent' id='inputTodo'>
+                        </div>
+                    </div>
+                </div>
+            <!-- </div> -->
+        </div>
+    </section>
+
+    <section id='container'>
+        <div class="container" style='width:420px;'>
+            <div class="card text-white bg-secondary mb-3" style="height:300px;margin:100px -50px;width: 29rem;">
+                <div class="card-header" style = 'text-align:center; font-size:25px;color:gold'>Login</div>
+                    <div class="card-body" style = 'margin:10px 50px;color:gold;'>
+                        <table>
+                            <tr>
+                                <td><a class="card-title">username</a></td>
+                                <td><input type='text' name='username' id='text-usernamel' style='height:20px;'></td>
+                            </tr>
+                            <tr>
+                                <td><a class='card-title'>password</a></td>
+                                <td><input type='password' name='password' id='text-passwordl' style='height:20px;'></td> 
+                            </tr>
+                            <tr>
+                                <td><button type="button" class="btn btn-success" onclick='signIn()' style='margin:0px 40px;'>SignIn</button></td>
+                                <td>Don't have an account?<br><a href='#'' onclick='scriptRegister()' style='color:silver'>Click Here!</a></td>
+                            </tr>
+                        </table>
+                        
+                        <div class="g-signin2" data-onsuccess="onSignIn" style='height:30px;width:100px; margin:10px 100px;'></div>
+                        <a id='text-errorlogin' style='color:rgb(255, 169, 169)'>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id='register'>
+        <div class="container bg-light" style='width:420px;'>
+            <div class="card text-white bg-secondary mb-3" style="height:350px;margin:100px -50px;width: 29rem;">
+                <div class="card-header" style = 'text-align:center; font-size:25px;color:gold'>Register</div>
+                <div class="card-body" style = 'margin:10px 50px;color:gold;'>
+                    <table>
+                        <tr>
+                            <td><a class="card-title">username</a></td>
+                            <td><input type='text' name='username' id='text-username' style='height:20px;'></td>
+                        </tr>
+                        <tr>
+                            <td><a class='card-title'>password</a></td>
+                            <td><input type='password' name='password' id='text-password' style='height:20px;'></td>
+                        </tr>
+                        <tr>
+                            <td><a class='card-title'>confirm password</a></td>
+                            <td><input type='password' name='confirm' id='text-confirm' style='height:20px;'></td>
+                        </tr>
+                        <tr>
+                            <td><a class='card-title'>Email</a></td>
+                            <td><input type="email" name='email' id='text-email' style='height:20px'></td>
+                        </tr>
+                        <tr>
+                            <td><button type="button" class="btn btn-success" onclick="scriptSignin()" style='height:35px;margin:0px 40px;'>SignIn</button></</td>
+                            <td><button type="button" class="btn btn-success" onclick='createRegister()' style='margin:10px 0px;'>Register</button></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td id='text-errorregister' style='color:red'></td>
+                        </tr>
+                    </table>
+                    <div class="g-signin2" data-onsuccess="onSignIn" style='height:30px;width:100px; margin:10px 100px;'></div>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src='./js/index.js'></script>
+    <script src='./js/userScript.js'></script>
+    <script src='./js/todoScript.js'></script>
   </body>
 </html>
