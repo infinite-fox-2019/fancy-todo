@@ -35,6 +35,8 @@ $(document).ready(() => {
             localStorage.token = token
             $('#auth-page').hide()
             $('#main-page').show()
+            getNowTasks()
+            
         })
         .fail(showSwal)
     })
@@ -77,6 +79,8 @@ $(document).ready(() => {
             localStorage.token = token
             $("#auth-page").hide()
             $("#main-page").show()
+            getNowTasks()
+            $('#show-now-tasks').click()
         })
         .fail(showSwal)
     }
@@ -122,8 +126,12 @@ $(document).ready(() => {
             } else {
                 strTasks = `<ul class="list-group">`
                 tasks.forEach(task => {
+                    console.log(task)
+                    const {_id, name, description, startDate, dueDate} = task
+                    let strTask = `{id: '${_id}', name: '${name}', description: '${description ? description : ''}', startDate: '${startDate}', dueDate: '${dueDate}'}`
+                    console.log(`<li class="list-group-item list-group-item-action" onclick="renderRightCol(${strTask})">`)
                     strTasks += `
-                    <li class="list-group-item list-group-item-action">
+                    <li class="list-group-item list-group-item-action" onclick="renderRightCol(${strTask})">
                     ${task.name}
                     <span class="badge badge-primary badge-pill">14</span>
                     </li>
@@ -168,6 +176,21 @@ $(document).ready(() => {
         .fail(showSwal)
     }
 
+    renderRightCol = (task) => {
+        // console.log('rendered')
+        console.log(task.name)
+        $('#update-title').empty()
+        $('#update-title').append(task.name)
+        $('#name-update-task').val(task.name)
+        $('#start-date-update-task').val(task.startDate)
+        $('#due-date-update-task').val(task.dueDate)
+        $('#description-update-task').val(task.description)
+        $('#update-container').show()
+    }
+
+    showDescriptionForm = (action) => {
+        $(`#description-${action}-task`).show()
+    }
     showSwal = (err) => {
         if(!err.responseJSON) {
             err.responseJSON.title = 'Connection Failed'

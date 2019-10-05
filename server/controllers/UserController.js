@@ -1,5 +1,4 @@
 const User = require('../models/User')
-const {hashPassword} = require('../helpers/bcryptjs')
 const {generateToken} = require('../helpers/jwt')
 const {comparePassword} = require('../helpers/bcryptjs')
 const {OAuth2Client} = require('google-auth-library');
@@ -14,9 +13,9 @@ class UserController {
                 if(user.password != process.env.DUMMY_PASSWORD) {
                     throw {status: 409, title: 'Invalid Input', msg: 'Email already registered'}
                 }
-                return User.findByIdAndUpdate(user.id, {password: hashPassword(password)})
+                return User.findByIdAndUpdate(user.id, password)
             } else {
-                return User.create({email, password: hashPassword(password)})
+                return User.create({email, password: password})
             }
         })
         .then(_ => {

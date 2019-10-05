@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const {Schema} = mongoose
+const {hashPassword} = require('../helpers/bcryptjs')
 
-const User = mongoose.model('User', new Schema({
+const userSchema = new Schema({
     email: {
         type: String,
         required: [true, 'Email cannot be empty'],
@@ -24,6 +25,13 @@ const User = mongoose.model('User', new Schema({
             msg: 'Password must be more than 8 character and contains letter and number'
         }
     }
-}))
+})
+
+userSchema.pre('save', function(next) {
+    this.password = hashPassword(this.password)
+    next()
+})
+
+const User = mongoose.model('User', userSchema)
 
 module.exports = User

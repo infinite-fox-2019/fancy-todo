@@ -10,7 +10,6 @@ class TaskController {
     }
 
     static findNow(req, res, next) {
-        console.log('masuk')
         Task.find({
             userId: req.loggedUser.id,
             startDate: {$lte: new Date()},

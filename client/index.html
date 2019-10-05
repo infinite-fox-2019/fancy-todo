@@ -55,19 +55,31 @@
                     <a class="nav-link active" id="show-now-tasks-tab" data-toggle="pill" href="#show-now-tasks" role="tab" aria-controls="show-now-tasks" aria-selected="true" onclick="getNowTasks()">What to do now</a>
                     <a class="nav-link" id="show-all-tasks-tab" data-toggle="pill" href="#show-all-tasks" role="tab" aria-controls="show-all-tasks" aria-selected="false" onclick="getAllTasks()">All tasks</a>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        + New Task
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                            width="24" height="24"
+                            viewBox="0 0 172 172"
+                            style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ecf0f1"><path d="M86,14.33333c-39.5815,0 -71.66667,32.08517 -71.66667,71.66667c0,39.5815 32.08517,71.66667 71.66667,71.66667c39.5815,0 71.66667,-32.08517 71.66667,-71.66667c0,-39.5815 -32.08517,-71.66667 -71.66667,-71.66667zM114.66667,93.16667h-21.5v21.5h-14.33333v-21.5h-21.5v-14.33333h21.5v-21.5h14.33333v21.5h21.5z"></path></g></g></svg> New Task
                     </button>
                     </div>
                 </div>
                 <div class="col-5 pl-0 pr-0">
                 <div class="tab-pane fade show active" id="show-now-tasks" role="tabpanel" aria-labelledby="show-now-tasks-tab"></div>
                 <div class="tab-pane fade" id="show-all-tasks" role="tabpanel" aria-labelledby="show-all-tasks-tab"></div></div>
-                    <div class="card" style="width: 450px;" >
-                            <h5 class="card-header">Featured</h5>
+                    <div class="card" style="width: 450px; display: none;" id="update-container">
+                            <h5 class="card-header" id="update-title"></h5>
                             <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <form id="update-task">
+                                <div class="form-group">
+                                    <input type="text" class="form-control mb-1" id="name-update-task" placeholder="Name">
+                                    <input type="text" class="form-control mb-1" id="start-date-update-task" placeholder="Start Date">
+                                    <input type="text" class="form-control mb-1" id="due-date-update-task" placeholder="Due Date">
+                                    <a href="#" onclick="showDescriptionForm('update')">+ Add Description</a>
+                                    <textarea class="form-control mt-1" id="description-update-task" rows="3" style="display: none"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                    width="24" height="24"
+                                    viewBox="0 0 172 172"
+                                    style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ecf0f1"><path d="M121.38542,7.61458l-93.61458,93.61458l-20.07227,63.07226l63.07227,-20.07226l93.61458,-93.61458c0,0 -0.71667,-15.05717 -14.33333,-28.66667c-13.61667,-13.61667 -28.66667,-14.33333 -28.66667,-14.33333zM124.07292,19.26042c7.68267,1.462 13.7993,4.71645 18.51855,9.56022c4.71925,4.84377 8.04111,11.27686 10.14811,19.10645l-12.98958,12.98958l-28.66667,-28.66667l10.30208,-10.30208zM35.67936,108.40983c0.08473,0.02134 8.61749,2.17868 17.1748,10.736c9.31667,8.6 10.75,16.48893 10.75,16.48893l0.30794,0.36393l-25.43327,8.18848l-10.722,-10.72201z"></path></g></g></svg></button>
                             </div>
                             </div>
                         </div>
@@ -85,9 +97,11 @@
                     <div class="modal-body">
                         <form id="add-task">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="name-add-task" placeholder="Task name">
-                            <input type="text" class="form-control" id="start-date-add-task" placeholder="Start Date">
+                            <input type="text" class="form-control mb-1" id="name-add-task" placeholder="Task name">
+                            <input type="text" class="form-control mb-1" id="start-date-add-task" placeholder="Start Date">
                             <input type="text" class="form-control" id="due-date-add-task" placeholder="Due Date">
+                            <a href="#" onclick="showDescriptionForm('add')">+ Add Description</a>
+                            <textarea class="form-control mt-1" id="description-add-task" rows="3" style="display: none"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">+</button>
                         </form>
