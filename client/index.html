@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id"
+        content="583795514429-8p6sbj437qgi758gal9tdonj67n1rebm.apps.googleusercontent.com">
+    <title>Document</title>
+    <!-- My Own CSS File -->
+    <link href="https://fonts.googleapis.com/css?family=Kalam|Questrial|Shadows+Into+Light&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="from.css">
+    <link rel="stylesheet" href="showOneTodo.css">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://kit.fontawesome.com/6f6910560f.js" crossorigin="anonymous"></script>
+    <script src="./js/md5.min.js"></script>
+</head>
+
+<body>
+
+
+        <!-- =================== LOGIN PAGE START=======================-->
+        <div id="loginPage">
+            <div class="container">
+                <div class="window">
+                    <div class="box">
+                        <h1>Lets you work more collaboratively and get more done.</h1>
+                        <div class="imgContainer">
+                            <img id="loginPageImg" src="loginPage.jpg" alt="people work">
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="loginPageFrom">
+                            <!-- LOGIN FORM START HERE-->
+                            <form action="" class="loginFrom" id="getLoginFrom">
+
+                                <input type="text" name="email" placeholder="Enter email">
+                                <input type="password" name="password" placeholder="Enter password">
+                                <button type="submit" id="loginbtn">Login</button>
+
+                                <!-- LOGIN BUTTON DARI GOOGLE -->
+                                <div class="g-signin2" style="margin-top: 5px;" data-onsuccess="onSignIn"></div>
+
+                            </form>
+
+                            <!-- REGISTER FORM START HERE-->
+                            <form action="" class="registerFrom" id="getRegisterForm">
+                                <h1>: register</h1>
+                                <input type="text" name="username" placeholder="Enter username">
+                                <input type="text" name="email" placeholder="Enter email">
+                                <input type="password" name="password" placeholder="Enter password">
+                                <button type="submit" id="registerBtn">Sign Up</button>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- =================== LOGIN PAGE END=======================-->
+
+
+
+        <!-- =================== DASHBOARD PAGE START=======================-->
+        <div id="dashboard">
+            <div class="window">
+                <nav>
+                    <i class="fas fa-home" title="Home"></i>
+                    <i class="far fa-calendar-plus" title="Calendar"></i>
+                    <i class="fas fa-list-ul" title="List"></i>
+                </nav>
+
+
+                <div class="mainMenu">
+
+                    <!-- ================= MIDDLE DIV ====================-->
+                    <div class="middleDiv">
+
+                        <h2>Personal Todo List</h2>
+
+                        <div class="menu" id="personalTodolist">
+
+                            <div class="card createNewBoard" id="createPersonalTodo" onclick="createNewTodo()"
+                                data-toggle="modal" data-target="#personalTodo" data-whatever="Personal Todo">
+                                <i class="far fa-plus-square"></i>
+                                <p>Create New Todo</p>
+                            </div>
+                        </div>
+
+
+                        <h2>Project</h2>
+                        <div class="menu" id="projectTodoList">
+
+                            <div class="card" id="personal">
+                                <h3>personal board</h3>
+
+                            </div>
+                            <div class="card" id="project">
+                                <h3>Project</h3>
+
+
+                            </div>
+                            <div class="card" id="Ricent">
+                                <h3>Ricent</h3>
+
+                            </div>
+
+                            <div class="card createNewBoard" id="createPersonalTodo">
+                                <i class="far fa-plus-square"></i>
+                                <p>Create New Project</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- ================= MIDDLE DIV ====================-->
+
+
+
+                    <!-- ================= TODO FORM ====================-->
+
+                    <div id="createTodoFrom" class="createTodo" style="display: none">
+
+                    </div>
+                    <!-- ================= TODO FORM ====================-->
+
+
+
+
+                    <div id="showSingleTodo">
+
+                    </div>
+
+
+
+                    <!-- ================= UPDATE TODO FORM ====================-->
+
+                    <div id="updateTodoForm" class="createTodo" style="display: none">
+
+                    </div>
+
+                    <!-- ================= UPDATE TODO FORM ====================-->
+
+
+                </div>
+
+
+
+
+                <div class="profile">
+                    <button onclick="signOut()">Logout</button>
+                    <div class="presonalInfo">
+                        <p>Uzai Sindiko</p>
+                        <p>lokasi @ lokasi</p>
+                    </div>
+                    <img src="https://www.gravatar.com/avatar/${md5(el.email)}" alt="">
+
+                    <div class="footer">
+                        <p>Lokasi: Banda Aceh</p>
+                        <p>Nomor Hp: 085261400506</p>
+                        <p>email: uzai@sindiko</p>
+                    </div>
+                    <button onclick="profileData()">Edit Profil</button>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- =================== DASHBOARD PAGE END=======================-->
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <script src="./js/md5.min.js"></script>
+        <script src="./js/script.js"></script>
+        <script>
+            function onSignIn(googleUser) {
+                let id_token = googleUser.getAuthResponse().id_token
+
+                $.ajax({
+                    url: `${url}/user/googleLogin`,
+                    method: 'post',
+                    data: { id_token }
+                })
+                    .done(token => {
+                        localStorage.setItem('token', token.token)
+                        userLogged()
+                    })
+                    .fail((err) => {
+                        console.log(err);
+                    })
+            }
+
+            function signOut() {
+                let auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut()
+                    .then(function () {
+                        localStorage.removeItem('token');
+                        userNotLogged()
+                        console.log('User signed out');
+                    });
+            }
+
+        </script>
+</body>
+
+</html>

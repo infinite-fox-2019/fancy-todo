@@ -1,0 +1,48 @@
+.createTodo {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.createTodo  h1 {
+    margin-bottom: 15px;
+    color: aliceblue;
+}
+
+.formTodo{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 80%;
+}
+
+.formTodo input{
+    width: 90%;
+    text-align: left;
+    font-family: 'Questrial', sans-serif;
+    font-size: 1rem;
+    padding: 2vh 3vw;
+    margin: 5px;
+    margin-left: 0;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 15px;
+}
+
+.formTodo button {
+    margin: 10px 0 65px 0;
+    font-size: 1rem;
+    padding: 2vh 3vw;
+    background-color: #837ef3;
+    border: none;
+    border-radius: 30px;
+    color: white;
+}
+
+.formTodo button:hover{
+    background-color: #3a3775;
+    cursor: pointer;
+}
