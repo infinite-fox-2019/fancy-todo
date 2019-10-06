@@ -1,0 +1,68 @@
+.detail-manga {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.information {
+    width: 55vw;
+    background: rgb(243, 243, 243);
+    height: 100vh;
+}
+
+.showComments {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 45vw;
+    padding: 50px;
+    background: rgb(75, 73, 70);
+    height: 100vh;
+
+}
+
+.showComments h1 {
+    text-align: left;
+    align-self: flex-start;
+    margin-top: 20px;
+    color: rgb(149, 224, 35)
+}
+
+.scrolldown {
+    margin-top: 20px;
+    height: 260px;
+    width: 100%;
+    background: white;
+    overflow: scroll;
+}
+
+.create-opinion {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+}
+
+#createOp {
+    width: 83%;
+    height: 40px;
+    font-size: 12pt;
+}
+
+.diboxin {
+    width: 100%
+}
+
+.diboxin h2 {
+    margin-top: 20px;
+    color: rgb(236, 227, 227)
+}
+
+.oneline{
+    display: flex;
+    justify-content: space-between
+}
+
+.one-comment{
+    margin: 10px;
+}

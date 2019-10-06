@@ -1,0 +1,12 @@
+.spacingCard {
+    margin: 20px 0 20px 0;
+}
+
+.card-body {
+    height: 250px !important;
+}
+
+.show-more-btn {
+    margin-top: 10px;
+    margin-bottom: 10px
+}
