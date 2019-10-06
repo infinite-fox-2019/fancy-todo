@@ -32,7 +32,9 @@ const userSchema = new Schema({
 })
 
 userSchema.pre('save', function(next) {
-    this.password = hashPassword(this.password)
+    if(this.password !== process.env.DUMMY_PASSWORD) {
+        this.password = hashPassword(this.password)
+    }
     next()
 })
 

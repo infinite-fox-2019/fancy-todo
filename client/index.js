@@ -28,7 +28,7 @@ $(document).ready(() => {
     updateTask = () => {
         let set = {
             name: $('#name-update-task').val() !== '' ? $('#name-update-task').val() : undefined,
-            description: $('#description-update-task').val() !== '' ? $('#description-update-task').val() : undefined,
+            description: $('#description-update-task').val(),
             startDate: $('#start-date-update-task').val() !== '' ? $('#start-date-update-task').val() : undefined,
             dueDate: $('#due-date-update-task').val() !== '' ? $('#due-date-update-task').val() : undefined
         }
@@ -46,7 +46,6 @@ $(document).ready(() => {
             getAllTasks()
             set.id = $('#id-update-task').val()
             renderRightCol(set)
-            // $('#description-update-task').html('')
         })
         .fail(showSwal)
     }
@@ -252,7 +251,6 @@ $(document).ready(() => {
                     </div>
                     ${task.status ? `<div class="col-9"><strike>${task.name}</strike></div>` : `<div class="col-9">${task.name}
                     </div>`}
-                    <div class="badge badge-pill badge-light col-1">2d</div>
                     </div>
                     </li>
                     `
@@ -262,7 +260,6 @@ $(document).ready(() => {
     }
 
     renderRightCol = (task) => {
-        console.log(task.description)
         $('#update-title').empty()
         $('#update-title').append(task.name)
         $('#text-description').empty()
@@ -275,6 +272,10 @@ $(document).ready(() => {
         $('#form-group-update').append('<textarea class="form-control mt-1" id="description-update-task" rows="3" style="display: none"></textarea>')         
         $('#description-update-task').hide()
         $('#description-update-task').html(task.description)
+        $("#update-button").attr("disabled", false);
+        if(task.status) {
+            $("#update-button").attr("disabled", true);
+        }
         $('#update-container').show()
     }
 
@@ -297,11 +298,12 @@ $(document).ready(() => {
     }
 
     statusUpdate = (task) => {
-        if($('#id-update-task').val() === task.id){
+        if($('#id-update-task').val() === task.id && !task.status){
             let set = {
                 name: task.name,
                 startDate: task.startDate,
                 dueDate: task.dueDate,
+                description: task.description,
                 status: !task.status
             }
             $.ajax({
@@ -316,6 +318,7 @@ $(document).ready(() => {
             .done(() => {
                 var diffMs = (new Date(task.dueDate) - new Date()); // milliseconds between now & Christmas
                 timepointUpdate(diffMs)
+                renderRightCol(set)
                 getNowTasks()
                 getAllTasks()
             })
@@ -367,7 +370,6 @@ $(document).ready(() => {
             }
         })
         .done(({email, timepoint}) => {
-            console.log(email, timepoint)
             $('#profile-email').empty()
             $('#profile-email').append(`<small>${email.split('@')[0]}</small>
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -381,8 +383,8 @@ style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-w
          
         $('#timepoint').empty()
         $('#timepoint').append(`<small>time you saved</small><br>
-        <small style="color: rgb(241, 255, 161);">${diffDays} day ${diffHrs < 10 ? '0'+diffHrs : diffHrs}:${diffMins < 10 ? '0'+diffMins : diffMins} hours</small>`)
+        <small style="color: rgb(241, 255, 161);">${diffDays} ${diffDays < 2? 'day' : 'days'} ${diffHrs < 10 && diffHrs >= 0  ? '0'+diffHrs : diffHrs}:${diffMins < 10 && diffMins >= 0 ? '0'+diffMins : diffMins} ${diffHrs < 2 ? 'hour' : 'hours'}</small>`)
         })
-        .fail(console.log)
+        .fail(showSwal)
     }
 })

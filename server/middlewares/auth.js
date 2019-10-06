@@ -19,7 +19,6 @@ authentication = (req, res, next) => {
 }
 
 authorization = (req, res, next) => {
-    console.log('masuk')
     Task.findByPk(req.params.id)
     .then(task => {
         if(!task) {

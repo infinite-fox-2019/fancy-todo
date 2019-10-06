@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGOOSE_URI, {useNewUrlParser: true, useUnifiedTop
     console.log('connected to mongodb')
 })
 .catch(err => {
-    console.log('connection failed - mongoose')
+    console.log(err, 'connection failed - mongoose')
 })
 
 app.use(cors())

@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const {generateToken} = require('../helpers/jwt')
+const {hashPassword} = require('../helpers/bcryptjs')
 const {comparePassword} = require('../helpers/bcryptjs')
 const {OAuth2Client} = require('google-auth-library');
 
@@ -10,10 +11,14 @@ class UserController {
         User.findOne({email})
         .then(user => {
             if(user) {
-                if(user.password != process.env.DUMMY_PASSWORD) {
+                if(user.password !== process.env.DUMMY_PASSWORD) {
                     throw {status: 409, title: 'Invalid Input', msg: 'Email already registered'}
                 }
-                return User.findByIdAndUpdate(user.id, password)
+                if(!password) {
+                    throw {status: 400, title: 'Invalid Input', msg: 'password cannot be empty'}
+                }
+                user.password = password
+                user.save()
             } else {
                 return User.create({email, password: password})
             }
@@ -51,6 +56,7 @@ class UserController {
         const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
         let payloadJWT
         let token
+        let statusCode = 200
         client.verifyIdToken({
             idToken: req.body.token,
             audience: process.env.GOOGLE_CLIENT_ID
@@ -66,11 +72,12 @@ class UserController {
             if(user) {
                 return ''
             } else {
+                statusCode = 201
                 return User.create({email: payloadJWT.email, password: process.env.DUMMY_PASSWORD})
             }
         })
         .then(_ => {
-            res.status(200).send({token})
+            res.status(statusCode).send({token})
         })
         .catch(next)
     }
@@ -79,14 +86,12 @@ class UserController {
         let {timepoint} = req.body
         User.findById(req.loggedUser.id)
         .then(user => {
-            console.log(typeof timepoint, typeof user.timepoint)
             timepoint = Number(timepoint) + user.timepoint
             return User.findByIdAndUpdate(
                 req.loggedUser.id, {$set: {timepoint}}
             )
         })
-        .then(updated => {
-            console.log(updated)
+        .then(_ => {
             res.status(200).json({message: 'timepoint updated'})
         })
         .catch(next)
@@ -95,7 +100,6 @@ class UserController {
     static findOne(req, res, next) {
         User.findById(req.loggedUser.id)
         .then(({email, timepoint}) => {
-            console.log(req.loggedUser.id)
             res.status(200).json({email, timepoint})
         })
         .catch(next)
