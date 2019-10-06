@@ -86,6 +86,10 @@ function logout() {
         }
     })
     setTimeout(() => {
+        const auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
         destroyCredentials()
         Swal.close()
     }, 500);
@@ -100,10 +104,10 @@ function verifyUser() {
             }
         })
         ajax.get('/users/verify')
-            .then(() => {
+            .then(({ data: { message } }) => {
                 Swal.fire({
                     type: 'success',
-                    title: 'User Verified',
+                    title: message,
                     timer: 1000,
                     showConfirmButton: false
                 })
@@ -151,6 +155,22 @@ function register() {
                 html: error.join('<br/>')
             })
         });
+}
+
+function onSignIn(googleUser) {
+    const id_token = googleUser.getAuthResponse().id_token;
+    ajax.post('users/gsignin', { token: id_token })
+        .then(({ data: { token, email, username, gravatar, id } }) => {
+            localStorage.setItem('token', token)
+            localStorage.setItem('email', email)
+            localStorage.setItem('username', username)
+            localStorage.setItem('gravatar', gravatar)
+            localStorage.setItem('id', id)
+            showContent()
+        })
+        .catch(({ response: { data } }) => {
+            Swal.fire('Login Failed', data, 'error')
+        })
 }
 
 function gravatar(hashed, size = 100) {

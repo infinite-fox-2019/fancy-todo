@@ -12,6 +12,9 @@
     <script src="https://kit.fontawesome.com/396f3f0150.js"></script>
     <link rel="stylesheet" href="css/toastr.min.css">
     <link rel="stylesheet" href="css/quill.snow.css">
+    <meta name="google-signin-client_id"
+        content="25401005977-utb8td85urhm32om95ltb08r83p35ir9.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 <body>
@@ -118,7 +121,11 @@
                                         id="login-password" placeholder="Password">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary mt-5">Login</button>
+                            <div class="d-flex flex-column justify-content-center align-items-center mt-2">
+                                <button type="submit" class="btn btn-primary mt-2 btn-block">Login</button>
+                                <span class="mt-2">Or Login Via:</span>
+                                <div class="g-signin2 mt-2" data-onsuccess="onSignIn"></div>
+                            </div>
                         </div>
                     </form>
                 </div>
