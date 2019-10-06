@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="google-signin-client_id"
+    content="717041865559-dqsshm6frqa0l7o7ul14djcmnbjlep7f.apps.googleusercontent.com">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Gogo</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" id="linkLogout">
+          <a href="#" onclick="signOut();">Log out</a>
+        </li>
+        <li class="nav-item" id="linkLogin">
+          <a class="nav-link" href="" data-toggle="modal" data-target="#myModal">Log In</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+        <div class="card" style="padding: 2rem;">
+          <div class="card-body text-primary" id="loginCard">
+            <div id="googleLogin">
+              <div class="g-signin2" data-onsuccess="onSignIn" data-width="390"></div>
+              <br>
+              <p class="text-center">Or</p>
+            </div>
+            <form id="myLogin">
+              <div class="form-group">
+                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email"
+                  id="loginEmail">
+              </div>
+
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" id="loginPassword">
+              </div>
+              <button type="submit" class="btn btn-primary" onclick="loginUser(); return false" style="width: 100%;">Log In</button>
+              <div class="mt-2">
+
+                <small id="emailHelp" class="form-text text-muted">No account? <a href="#"
+                    onclick="showRegister()">Create an
+                    account</a></small>
+              </div>
+
+
+            </form>
+
+            <form id="myRegister" style="display: none;">
+              <div class="form-group">
+                <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Username"
+                  id="registerUsername">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" id="registerPassword">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email"
+                  id="registerEmail">
+              </div>
+
+              <button type="submit" class="btn btn-success" onclick="myRegister(); return false"
+                style="width: 100%;">Register</button>
+              <div class="mt-2">
+
+                <small id="emailHelp" class="form-text text-muted">Already have an account? <a href="#"
+                    onclick="showLogin()">Log in</a></small>
+              </div>
+
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main" style="display: none; width: 100%;" id="todos">
+    <div class="row">
+      <div class="col-sm-4 m-3">
+        <div class="card border-primary mb-3" style="max-width: 25rem;">
+          <form>
+            <div class="form-group">
+              <label>Todo</label>
+              <input type="text" class="form-control" placeholder="What do you wanna do?" id="todoForm">
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <input type="text" class="form-control" placeholder="Give description" id="descriptionForm">
+            </div>
+            <div class="form-group">
+              <label>Tag</label>
+              <input type="text" class="form-control" placeholder="Give description" id="tagForm">
+            </div>
+            <button type="submit" class="btn btn-primary" onclick="createTodo()" href="#">Add Todo</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-sm-8">
+        <div class="listTodo">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <script src="./js/login.js"></script>
+  <script src="./js/todo.js"></script>
+
+</body>
+
+</html>

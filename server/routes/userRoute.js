@@ -3,5 +3,6 @@ const UserController = require('../controllers/user')
 
 router.post('/register', UserController.register)
 router.post('/loginGoogle', UserController.loginGoogle)
+router.post('/login', UserController.login)
 
 module.exports = router
