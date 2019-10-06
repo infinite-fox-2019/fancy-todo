@@ -11,12 +11,7 @@ let todoSchema = new Schema ({
         type: String,
     },
 
-    createdAt: Date,
-
-    user: [{
-        type: Schema.Types.ObjectId,
-        ref:'User'
-    }]
+    createdAt: Date
 })
 
 let Todo = mongoose.model('Todo', todoSchema)
