@@ -49,3 +49,39 @@ function showProjects() {
     $('.group-todo').hide()
 }
 
+function fetchContent() {
+    Swal.fire({
+        title: "Fetching contents",
+        showConfirmButton: false,
+        onOpen() {
+            Swal.showLoading()
+        }
+    })
+
+    function getTodos() {
+        return ajax.get('/todos')
+    }
+
+    function getProjects() {
+        return ajax.get('/projects')
+    }
+    axios.all([getTodos(), getProjects()])
+        .then(axios.spread(function ({ data: todos }, { data: projects }) {
+            $('#fill-todos').empty()
+            if (!todos.length) { $('#fill-todos').append(emptyTodo()) }
+            else {
+                todos.forEach(el => $('#fill-todos').append(constructTodo(el)))
+            }
+            $('#fill-projects').empty()
+            if (!projects.length) { $('#fill-projects').append(emptyProject()) }
+            else {
+                projects.forEach(el => $('#fill-projects').append(constructProject(el)))
+            }
+            Swal.close()
+        }))
+        .catch(({ response: { data: error } }) => Swal.fire({
+            type: 'error',
+            Title: 'Failed to get content',
+            text: error
+        }))
+}

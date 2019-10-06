@@ -52,10 +52,11 @@
                     </ul>
                     <div class="dropdown  d-flex">
 
-                        <button class="btn btn-dark group-todo mr-3" onclick="refreshTodos()">
+                        <button id="refresh-todos" class="btn btn-dark group-todo mr-3">
                             <i id="refresh-todo" class="fas fa-sync"></i>
                         </button>
-                        <button id="new-project" class="btn btn-primary group-project" style="display: none">Create New
+                        <button id="new-project" class="btn btn-primary group-project" onclick="createProject()"
+                            style="display: none">Create New
                             Project</button>
                         <button id="new-todo" class="btn btn-primary group-todo" onclick="showCreateTodo()">Create New
                             Todo</button>
@@ -65,21 +66,7 @@
                     <div class="row group-todo overflow-auto" id="fill-todos">
                     </div>
                     <div class="row group-project overflow-auto" id="fill-projects" style="display: none">
-                        <div class="col-lg-4 col-md-6 col-sm-12">
-                            <div class="card d-flex flex-column align-items-stretch" style="min-height: 13rem">
-                                <div class="bg-yellow d-flex justify-content-center align-items-center flex-grow-1">
-                                    <h5>Injoker Fan Club</h5>
-                                </div>
-                                <div class="flex-grow-1 row align-items-center px-3">
-                                    <p class="col-6">Members:</p>
-                                    <p class="col-6">Todos:</p>
-                                    <p class="col-12">Started by:</p>
-                                </div>
-                                <div class="flex-grow-1 d-flex justify-content-center align-items-center px-3">
-                                    <button class="btn btn-secondary btn-block">Join</button>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>

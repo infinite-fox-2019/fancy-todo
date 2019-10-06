@@ -85,35 +85,28 @@ function updateStatus(id, cond) {
 
 
 function refreshTodos() {
-    Swal.fire({
-        title: "Fetching Todos",
-        showConfirmButton: false,
-        onOpen() {
-            Swal.showLoading()
-        }
-    })
-
     $('#refresh-todo').addClass('fa-spin')
     ajax.get('/todos')
         .then(({ data }) => {
             $('#fill-todos').empty()
-            if (!data.length) { $('#fill-todos').append(emptyTodo()) }
-            else {
-                data.forEach(el => $('#fill-todos').append(constructTodo(el)))
-            }
-            Swal.close()
-            $('#refresh-todo').removeClass('fa-spin')
+            setTimeout(() => {
+                if (!data.length) { $('#fill-todos').append(emptyTodo()) }
+                else {
+                    data.forEach(el => $('#fill-todos').append(constructTodo(el)))
+                }
+                $('#refresh-todo').removeClass('fa-spin')
+            }, 200)
 
         }).catch(({ response: { data: error } }) => {
-            Swal.fire({
-                type: 'error',
-                title: 'Fail Fetching Todos',
-                text: error,
-                showConfirmButton: true
-            })
+            toastr.error(error, title)
             $('#refresh-todo').removeClass('fa-spin')
         });
 }
+
+$('#refresh-todos').on('click', (e) => {
+    e.preventDefault()
+    refreshTodos()
+})
 
 function confirmDeleteTodo() {
     let id = $('#todo-id').text()

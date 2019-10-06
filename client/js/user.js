@@ -9,7 +9,7 @@ function showContent() {
     $('#login-page').hide()
     $('#content').show()
     $('#user-control').text(localStorage.getItem('username'))
-    refreshTodos()
+    fetchContent()
     $('#profile-control').empty().append(gravatar(localStorage.getItem('gravatar'), 32))
 }
 
@@ -95,27 +95,26 @@ function verifyUser() {
                 Swal.showLoading()
             }
         })
-        setTimeout(() => {
-            ajax.get('/users/verify')
-                .then(() => {
-                    Swal.fire({
-                        type: 'success',
-                        title: 'User Verified',
-                        timer: 1000,
-                        showConfirmButton: false
-                    })
-                    showContent()
-                }).catch(({ response: { data: error } }) => {
-                    Swal.fire({
-                        type: 'error',
-                        title: 'Failed Verifying User',
-                        text: error
-                    })
-                    showLogin()
-                    destroyCredentials()
-                });
+        ajax.get('/users/verify')
+            .then(() => {
+                Swal.fire({
+                    type: 'success',
+                    title: 'User Verified',
+                    timer: 1000,
+                    showConfirmButton: false
+                })
+                showContent()
+            }).catch(({ response }) => {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Failed Verifying User',
+                    text: responsetigor,
+                    showConfirmButton: true
+                })
+                showLogin()
+                destroyCredentials()
+            });
 
-        }, 500);
     } else {
         destroyCredentials()
     }
