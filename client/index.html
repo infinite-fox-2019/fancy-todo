@@ -141,6 +141,32 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="node_modules/jquery-datetimepicker/jquery.datetimepicker.js"></script>
     <script src="index.js"></script>
+    <script>
+    $(document).ready(function(){
+    $("#fdate" ).datetimepicker({
+        dateFormat: 'yy-mm-dd',
+        timeFormat: 'HH:mm:ss',
+        onShow: function () {
+            this.setOptions({
+                maxDate:$('#tdate').val()?$('#tdate').val():false,
+                maxTime:$('#tdate').val()?$('#tdate').val():false
+            });
+        }
+  }).attr('readonly', 'readonly');
+  $( "#tdate" ).datetimepicker({
+      dateFormat: 'yy-mm-dd',
+      timeFormat: 'HH:mm:ss',
+        onShow: function () {
+            this.setOptions({
+                minDate:$('#fdate').val()?$('#fdate').val():false,
+                minTime:$('#fdate').val()?$('#fdate').val():false
+            });
+        }                    
+  }).attr('readonly', 'readonly');     
+    
+   
+});
+    </script>
    
   </body>
 </html>
