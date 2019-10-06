@@ -1,6 +1,21 @@
 const Todo = require('../models/todo')
+const axiosEvent = require('../config/axios')
 
 class TodoController {
+
+  static findEvent( req, res, next ){
+    const address = req.body.address
+     console.log(req.body)
+    axiosEvent({
+      method: 'get',
+      url: `?location.address=${address}&start_date.keyword=this_week`
+    })
+      .then(response => {
+        console.log(response.data)
+        res.status(200).json(response.data)
+      })
+      .catch(next)
+  }
 
   static findAll( req, res, next ){
     Todo.find()
@@ -12,8 +27,9 @@ class TodoController {
 
   static create( req, res, next ){
     const userId = req.user.id
-    const { name, description, dueDate } = req.body
-    Todo.create({ userId , name, description, dueDate, status:false })
+    const { name, description, dueDate, event } = req.body
+    
+    Todo.create({ userId , name, description, dueDate, event, status: false })
       .then( todo => {
         res.status(201).json(todo)
       })
