@@ -75,7 +75,9 @@ $(document).ready(() => {
 
 
 function PersonBtn() {
-    $('#middleDiv').html('')
+    $('#personalTodolist').hide
+
+
 
 }
 
@@ -151,6 +153,36 @@ function createNewTodo() {
     $('#createTodoFrom').show()
 }
 
+function projectMenu() {
+    $.ajax({
+        url: `${url}/todo/show`,
+        method: 'get',
+        headers: {
+            'access_token': localStorage.getItem('token')
+        }
+    })
+        .done(todos => {
+            if (todos.length) {
+                todos.forEach(todo => {
+                    showTodoList(todo)
+                });
+            }
+        })
+        .fail(err => {
+            console.log(err);
+            let msg = err.responseJSON
+            let text = ''
+            msg.forEach(el => {
+                text += el + ', '
+            });
+
+            Swal.fire({
+                type: 'error',
+                title: 'Oops...',
+                text,
+            })
+        })
+}
 
 // fungsi untuk membuat create baru
 function createTodo() {
@@ -322,7 +354,8 @@ function editTodo(id) {
             $('#showSingleTodo').html('')
 
             let data =
-                `<form action="" id="updateTodo" class="formTodo" method="patch">
+                `
+                <form action="" id="updateTodo" class="formTodo" method="patch">
                 <h1>: Edit Todo</h1>
                 <input type="text" value="${todo.title}" name="title" placeholder="Enter Title">
                 <input type="text" value="${todo.description}" name="description" placeholder="Enter Description">

@@ -73,7 +73,7 @@
         <div class="window">
             <nav>
                 <i class="fas fa-user-shield" title="personal todo"></i>
-                <i class="fas fa-user-friends" title="Project"></i>
+                <i class="fas fa-user-friends" title="Project" onclick="projectMenu()"></i>
                 <i class="fas fa-list-ul" title="List"></i>
             </nav>
 
@@ -96,9 +96,16 @@
                     </div>
                 </div>
 
-
-
                 <!-- ++++++++++++++++++ PROJECT ++++++++++++++++++++-->
+
+                <div class="menu" id="ProjectTodolist">
+
+                    <div class="card createNewBoard" id="createPersonalTodo" onclick="createNewTodo()"
+                        style="display: none">
+                        <i class="far fa-plus-square"></i>
+                        <p>Create New Project</p>
+                    </div>
+                </div>
 
                 <!-- ================= MIDDLE DIV ====================-->
 
