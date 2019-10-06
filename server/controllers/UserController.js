@@ -9,10 +9,10 @@ class UserController {
     static register(req, res, next) {
         let { username, email, password } = req.body
         User.create({ username, email, password })
-            .then((newUser) => {
-                const payloadJwf = { id: newUser._id }
+            .then((user) => {
+                const payloadJwf = { id: user._id }
                 let token = generateToken(payloadJwf, process.env.SECRET_JWT)
-                res.status(201).json({ token })
+                res.status(201).json({ token, user })
             })
             .catch(next)
     }
@@ -29,7 +29,7 @@ class UserController {
                 } else {
                     const payloadJwf = { id: user._id }
                     let token = generateToken(payloadJwf, process.env.SECRET_JWT)
-                    res.status(200).json({ token })
+                    res.status(200).json({ token, user })
                 }
             })
             .catch(next)
@@ -59,7 +59,7 @@ class UserController {
             .then((user) => {
                 const payloadJwf = { id: user._id }
                 let token = generateToken(payloadJwf, process.env.SECRET_JWT)
-                res.status(200).json({ token })
+                res.status(200).json({ token, user })
             })
             .catch(next);
     }
