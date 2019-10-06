@@ -47,3 +47,13 @@ body {
 .text-yellow {
     color: #ffed4b
 }
+
+#project-detail {
+    width: 100vw;
+    height: 100vh
+}
+
+#project-page {
+    width: inherit;
+    height: inherit;
+}

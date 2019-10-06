@@ -1,8 +1,4 @@
-function showProject() {
-    $('#login-page').hide()
-    $('#content').hide()
-    $('#project-page').show()
-}
+
 
 function emptyProject() {
     return `
@@ -26,7 +22,7 @@ function refreshProjects() {
 }
 
 
-function constructProject({ name, members, todos, owner, inviteLink, updatedAt, createdAt }) {
+function constructProject({ _id, name, members, todos, owner, inviteLink, updatedAt, createdAt }) {
     return `   
     <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card d-flex flex-column align-items-stretch shadow" style="min-height: 13rem">
@@ -49,7 +45,7 @@ function constructProject({ name, members, todos, owner, inviteLink, updatedAt, 
                 </div>
             </div>
             <div class="flex-grow-1 d-flex justify-content-center align-items-center px-3 my-3">
-                <button class="btn btn-secondary  mx-2">Enter</button>
+                <button class="btn btn-secondary  mx-2" onclick="showProject('${_id}')">Enter</button>
                 <button class="btn btn-info mx-2" onclick="invite('${inviteLink}')">Invite</button>
             </div>
         </div>
@@ -123,4 +119,46 @@ function invite(code) {
         html: `<strong>Share this to invite others.</strong><br/><br/><span id="invite-secret" class="border rounded px-3 py-1 shadow">${code}</span> <button class="btn btn-info" onclick="copyToClipboard('#invite-secret', 'Invite Code copied to Cliipboard')">Copy</button>`,
         showConfirmButton: true
     })
+}
+
+// * Project Page
+
+function showProject(projectId) {
+    $('#login-page').hide()
+    $('#content').hide()
+    $('#project-page').show()
+    Swal.fire({
+        title: "Fetching Project Detail",
+        onOpen() {
+            Swal.showLoading()
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+    })
+    ajax.get(`/projects/project/${projectId}`)
+        .then(({ data }) => {
+            getMembers(data.members)
+            Swal.close()
+        }).catch(({ response: { data: err } }) => {
+            Swal.fire('Something Happened', err, 'error')
+        });
+}
+
+function getMembers(members) {
+    $('#members-list').empty()
+    members.forEach(el => $('#members-list').append(memberGenerate(el)))
+}
+
+function memberGenerate({ email, username }) {
+    return `
+    <div class="container-fluid hover-todo">
+        <div class="row align-items-center">
+            <div class="col-3">
+                ${gravatar(md5(email), 32)}
+            </div>
+            <div class="col-9">
+                <p class="text-truncate">${username}</p>
+            </div>
+        </div>
+    </div>
+                        `
 }

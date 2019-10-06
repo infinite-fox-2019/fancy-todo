@@ -163,7 +163,50 @@
     </section>
 
     <section id="project-page">
+        <div id="project-detail" class="row align-items-stretch no-gutters">
+            <div class="col-2 bg-light d-flex flex-column align-items-center justify-content-between">
+                <div class="d-flex flex-column align-items-center">
+                    <button class="btn btn-secondary btn-block py-2 mb-4 mt-2" onclick="showContent()"><i
+                            class="fas fa-arrow-left mr-3"></i>Home</button>
+                    <h4>Members</h4>
+                    <div id="members-list" class="overflow-auto">
 
+                    </div>
+
+                </div>
+                <div>
+                    <button class="btn btn-danger btn-block mb-2">Leave Project</button>
+                </div>
+            </div>
+            <div id="project-area" class="col-10 mt-3 px-4">
+                <div class="card text-center" style="height: 95vh;">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <h1>C-Todo</h1>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center">
+                            <div class="btn-group" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-secondary"><i class="fas fa-search"></i></button>
+                                <button type="button" class="btn btn-secondary"><i
+                                        class="fas fa-sort-amount-up"></i></button>
+                                <button type="button" class="btn btn-secondary"><i class="fas fa-filter"></i></button>
+                            </div>
+                        </div>
+                        <div class="dropdown  d-flex">
+                            <button id="refresh-todos" class="btn btn-dark group-todo mr-3">
+                                <i id="refresh-todo" class="fas fa-sync"></i>
+                            </button>
+                            <button id="new-todo" class="btn btn-primary group-todo"
+                                onclick="showCreateProjectTodo()">Create New Todo</button>
+                        </div>
+                    </div>
+                    <div class="card-body overflow-auto">
+                        <div class="row overflow-auto" id="fill-todos">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- MODAL Register -->
