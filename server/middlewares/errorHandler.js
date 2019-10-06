@@ -18,6 +18,5 @@ module.exports = (err, req, res, next) => {
       message = "You need to login first"
   }
 
-  console.log(err)
   res.status(status).json({ message })
 }

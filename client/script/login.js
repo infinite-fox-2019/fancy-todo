@@ -1,8 +1,5 @@
 function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  console.log('Name: ' + profile.getName());
-  console.log('Email: ' + profile.getEmail());
-  
+     
   var id_token = googleUser.getAuthResponse().id_token;
   Swal.fire({
     title: `Connecting to server...`,
