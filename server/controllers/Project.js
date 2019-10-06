@@ -50,10 +50,12 @@ class ProjectController {
     };
 
     static join(req, res, next) {
-        const projectId = req.params.projectId
+        const inviteLink = req.body.inviteLink
         const userId = req.decode.id
-        Project.findById(projectId)
+        let projectId
+        Project.findOne({ inviteLink })
             .then((project) => {
+                projectId = project._id
                 if (project) {
                     if (project.members.includes(userId)) {
                         let err = new Error('You have already joined this project')

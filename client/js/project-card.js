@@ -8,7 +8,7 @@ function emptyProject() {
 
 function refreshProjects() {
     $('#fill-projects').empty()
-    axios.get('/projects')
+    ajax.get('/projects')
         .then(({ data }) => {
             if (!data.length) { $('#fill-projects').append(emptyProject()) }
             else {
@@ -44,7 +44,7 @@ function constructProject({ name, members, todos, owner, inviteLink, updatedAt, 
             </div>
             <div class="flex-grow-1 d-flex justify-content-center align-items-center px-3 my-3">
                 <button class="btn btn-secondary  mx-2">Enter</button>
-                <button class="btn btn-info onclick="invite('${inviteLink}')"  mx-2">Invite</button>
+                <button class="btn btn-info mx-2" onclick="invite('${inviteLink}')">Invite</button>
             </div>
         </div>
     </div>
@@ -83,6 +83,36 @@ function createProject() {
     })
 }
 
-function invite() {
+function joinProject() {
+    Swal.fire({
+        title: 'Invitation Code',
+        html:
+            '<input id="swal-input1" class="swal2-input">',
+        preConfirm: function () {
+            return new Promise((resolve) => {
+                ajax.post('/projects/join', { inviteLink: $('#swal-input1').val() })
+                    .then(({ data }) => {
+                        resolve(data)
+                    }).catch(({ response: { data: err } }) => Swal.fire('Error', err, 'error'));
+            });
+        },
+        onOpen: function () {
+            $('#swal-input1').focus()
+        },
+        showCancelButton: true,
+        showLoaderOnConfirm: true,
+    }).then((data) => {
+        Swal.close()
+        refreshProjects()
+    }).catch((err) => {
+        Swal.fire('Something Happened', err, 'error')
+    });
+}
 
+function invite(code) {
+    Swal.fire({
+        title: 'Invite Code',
+        html: `<strong>Share this to invite others.</strong><br/><br/><span class="border rounded px-3 py-1 shadow">${code}</span>`,
+        showConfirmButton: true
+    })
 }

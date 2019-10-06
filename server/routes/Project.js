@@ -7,7 +7,7 @@ const Router = require('express').Router(),
 Router.use(authentication)
 Router.post('/', ProjectController.create)
 Router.get('/', ProjectController.read)
-Router.get('/join/:projectId', ProjectController.join)
+Router.post('/join', ProjectController.join)
 
 
 // ! Members Exclusive
