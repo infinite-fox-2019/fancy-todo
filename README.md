@@ -4,7 +4,7 @@
 - HOST :
 
 ```javascript
-Access the API via [https://tranquil-ridge-85922.herokuapp.com](https://tranquil-ridge-85922.herokuapp.com/api)
+http://localhost:3000/
 
 ```
 
