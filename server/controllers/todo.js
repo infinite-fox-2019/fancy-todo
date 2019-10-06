@@ -2,13 +2,14 @@ const Todo = require('../models/todo')
 
 class TodoController {
   static create(req, res, next) {
-    const { todo, description } = req.body
+    const { todo, description, tags} = req.body
     const userId = req.loggedUser.payload._id
 
     Todo
       .create({
         todo,
         description,
+        tags,
         userId
       })
       .then(todo => {
@@ -35,7 +36,6 @@ class TodoController {
     const { todo, description, tags, status } = req.body
     const { id } = req.params
 
-
     Todo
       .findOneAndUpdate({ _id: id }, {
         todo,
@@ -44,7 +44,7 @@ class TodoController {
         status
       })
       .then(todo => {
-        console.log(todo)
+        // console.log(todo)
         res.status(200).json(todo)
       })
       .catch(next)
