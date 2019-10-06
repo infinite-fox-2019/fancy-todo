@@ -1,18 +1,47 @@
+const baseUrl = `http://localhost:3000`
 $(document).ready(function () {
-    $('#logout').on('click', function (e) {
-        e.preventDefault()
+    showAllEvent()
+
+    if (localStorage.getItem('token')) {
+        $('.main').slideDown("slow")
+        $('.landingPage').hide()
+    } else {
+        showAllEvent()
         $('.main').hide()
         $('.landingPage').slideDown("slow")
+    }
+
+    $('#toLogin').on('click', function (e) {
+        e.preventDefault()
+        $('.register-box').hide()
+        $('.login-box').show()
+
+    })
+
+    $('#toRegister').on('click', function (e) {
+        e.preventDefault()
+        $('.register-box').show()
+        $('.login-box').hide()
+    })
+
+    $('#btn-register').on('click', function (e) {
+        e.preventDefault()
+        register()
     })
 
     $('#btn-login').on('click', function (e) {
         e.preventDefault()
-        $('.main').slideDown("slow")
-        $('.landingPage').hide()
+        login()
+    })
+
+    $('#createEvent').on('click', function (e) {
+        e.preventDefault()
+        createEvent()
     })
 
     $('#firstPage').on('click', function (e) {
         e.preventDefault()
+        showAllEvent()
         $('.firstPage').slideDown(5000)
         $('.secondPage').hide()
         $('.thirdPage').hide()
@@ -27,6 +56,7 @@ $(document).ready(function () {
 
     $('#thirdPage').on('click', function (e) {
         e.preventDefault()
+        showMyEvent()
         $('.firstPage').hide()
         $('.secondPage').hide()
         $('.thirdPage').slideDown("slow")

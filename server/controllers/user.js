@@ -1,6 +1,7 @@
 const User = require('../models/user')
 const { tokenGenerate } = require('../helpers/jwt')
 const { comparePassword } = require('../helpers/bcryptjs')
+const { OAuth2Client } = require('google-auth-library')
 
 class userController {
     static find(req, res, next) {
@@ -27,7 +28,12 @@ class userController {
         const { name, email, password } = req.body
         User.create({ name, email, password })
             .then(user => {
-                res.status(201).json(user)
+                let payload = {
+                    id: user._id
+                }
+
+                let token = tokenGenerate(payload)
+                res.status(201).json({ id: user._id, token })
             })
             .catch(next)
     }
@@ -42,7 +48,7 @@ class userController {
                     }
 
                     let token = tokenGenerate(payload)
-                    res.status(200).json({ token })
+                    res.status(200).json({ id: user._id, token })
                 } else {
                     next({
                         status: 400,
@@ -54,7 +60,39 @@ class userController {
     }
 
     static loginGoggle(req, res, next) {
-
+        const client = new OAuth2Client(process.env.CLIENT_ID_GOOGLE);
+        let payload = null;
+        client.verifyIdToken({
+            idToken: req.body.token,
+            audience: process.env.CLIENT_ID_GOOGLE
+        })
+            .then(ticket => {
+                payload = ticket.getPayload()
+                return User.findOne({
+                    email: payload.email
+                })
+            })
+            .then(user => {
+                if (user) {
+                    return user
+                } else {
+                    return User.create({
+                        name: payload.name,
+                        password: process.env.PASSWORD_USER,
+                        email: payload.email
+                    })
+                }
+            })
+            .then(user => {
+                const token = tokenGenerate({
+                    id: user._id
+                })
+                res.status(201).json({
+                    token,
+                    id: user._id
+                })
+            })
+            .catch(next)
     }
 }
 
