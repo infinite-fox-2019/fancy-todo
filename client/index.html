@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/5cd1e1d933.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Fredoka+One|Lexend+Deca|Roboto&display=swap"
+        rel="stylesheet">
+    <meta name="google-signin-client_id"
+        content="264807503866-rq99l1aitvc8dh8nqi8hsg1ccmlnploe.apps.googleusercontent.com">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Listonia</title>
+    <link rel="stylesheet" href="./css/custom-bootstrap.css">
+    <link rel="stylesheet" href="./css/landingpage.css">
+    <link rel="stylesheet" href="./css/afterSign.css">
+    <link rel="stylesheet" href="./css//project.css">
+    <link rel="stylesheet" href="./css/todo.css">
+
+</head>
+
+<body>
+    <nav class="navbari">
+        <div class="logo">
+            <h1>Listonia</h1>
+        </div>
+        <div class="toleft">
+            <div class="dropdown1">
+                <button class="dropbtn1 px-4">
+                    <h3>Sign In</h3>
+                </button>
+                <div class="dropdown1-content">
+                    <form>
+                        <div action class="form-group formSign">
+                            <h2 class="type">Sign In</h2>
+                            <label for>Email :</label>
+                            <input type="email" id="emailSign" autocomplete="current-email" />
+                            <label for>Password</label>
+                            <input type="password" id="passwordSign" autocomplete="current-password" />
+                            <button class="btn btn-dark landinpg mb-1 mt-4 " type="submit"
+                                onclick="signMe()">Submit</button>
+                        </div>
+                    </form>
+                    <div class="ml-4 pb-2">
+                        <p class="mb-01" style="color:rgb(36, 158, 196); text-decoration:underline"><small>Sign in with
+                                google</small></p>
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown1">
+                <button class="dropbtn1 px-4">
+                    <h3>Register</h3>
+                </button>
+                <div class="dropdown1-content">
+                    <form>
+                        <div action class="form-group formRegister">
+                            <h2 class="type">Register</h2>
+                            <label for>Name :</label>
+                            <input type="text" name="nameRegist" id="nameRegist" />
+                            <label for>Email :</label>
+                            <input type="email" name="emailRegist" id="emailRegist" autocomplete="current-email" />
+                            <label for>Password</label>
+                            <input type="password" name="passwordRegist" id="passwordRegist"
+                                autocomplete="current-password" />
+                            <button class="btn btn-dark landinpg mt-4 mb-1" type="submit"
+                                onclick="registerMe()">Submit</button>
+                        </div>
+                    </form>
+                    <div class="ml-4 pb-2">
+                        <p class="mb-01" style="color:rgb(36, 158, 196); text-decoration:underline"><small>Register with
+                                google</small></p>
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="landingpage">
+    </section>
+
+    <div class="aftersignIn pt-3" style="display: none">
+
+        <section class="todo default mt-3" style="display: none">
+        </section>
+
+
+        <section class="todo myprojects" style="display: none">
+        </section>
+
+        <section class="todo one-project" style="display: none">
+            <div class="d-flex justify-content-center">
+
+                <aside style="width: 21vw; background: #dddd94;" class="asido m-4 mb-5 p-3">
+
+                </aside>
+                <div>
+                    <div class="headerTodo mx-3 my-4" style="width: 70vw">
+                        <div style="width: 70vw" class="d-flex  justify-content-center align-items-center flex-column">
+                            <div class="group-detailss d-flex">
+
+                            </div>
+                            <button id="todoButtonCreate" data-toggle="modal" class="btn btn-dark mb-3"
+                                data-target="#ModalCreateInGroup">Create
+                                Todo</button>
+                        </div>
+                    </div>
+                    <div class="listtodo">
+                        <div class="undone c-black">
+                            <h1>Uncomplete</h1>
+                            <div class="undone-group roboto">
+
+                            </div>
+                        </div>
+                        <div class="done c-black">
+                            <h1>Completed</h1>
+                            <div class="done-group roboto">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="ModalCreateInGroup" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Create Todo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div id="createTodo" class="modal-body">
+                            <form id="createTodo">
+                                <label>Title</label>
+                                <input type="text" class="form-control" id="input-title-p" placeholder="Title"
+                                    required="true">
+                                <label>Description</label>
+                                <textarea class="form-control" id="input-description-p" rows="3" required="true"
+                                    placeholder="description"></textarea>
+                                <div class="form-group">
+                                    <label>Due Date</label>
+                                    <input type="date" class="form-control" id="input-dueDate-p"
+                                        required="true">
+                                </div>
+                                <button type="submit" class="btn btn-dark mt-4 mb-3 mx-1" data-dismiss="modal"
+                                    onclick="createTodoInGroup()">Submit</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </div>
+    </section>
+
+
+    <!-- Modal Form Create Todo -->
+    <div class="modal fade" id="ModalCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="createTodo" class="modal-body">
+                    <form id="createTodo-s">
+                        <label>Title</label>
+                        <input type="text" class="form-control" id="input-title" placeholder="Title" required="true">
+                        <label>Description</label>
+                        <textarea class="form-control" id="input-description" rows="3" required="true"
+                            placeholder="description"></textarea>
+                        <div class="form-group">
+                            <label>Due Date</label>
+                            <input type="date" class="form-control" id="input-dueDate" required="true">
+                        </div>
+                        <div class="form-group d-flex justify-content-end">
+                            <button type="submit" class="btn btn-dark mt-4 mb-3 mx-1" data-dismiss="modal"
+                                onclick="createTodo()">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Form Create Project -->
+    <div class="modal fade" id="ModalCreateProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Project</h5>
+                    <button type="button" class="close close-Me" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="createProjectGroup" class="modal-body">
+
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="input-projectname" placeholder="Project name.."
+                        required="true">
+                    <button type="submit" class="btn btn-grey mt-4 mb-3 mx-1 createMe"
+                        data-dismiss="modal">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Joke -->
+    <div class="modal fade" id="ModalJoke" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Does it funny?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="itsJoke" class="modal-body apis">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit -->
+    <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="editTodo" class="modal-body">
+                    <form id="editTodo">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add Member To Group -->
+    <div class="modal fade" id="ModalAddMember" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Member</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                        onclick="myProjectsbtn()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="addMember" class="modal-body">
+                    <form id="addMember">
+                        <input type="text" class="search my-2" id="input-serach-name" placeholder="Search by name/email"
+                            style="width: 280px">
+                    </form>
+                    <section class="res-search" style="overflow:scroll; height: 350px"></section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </div>
+    <style>
+
+
+    </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script src="./js/main.js"></script>
+    <script src="./js/project-todos.js"></script>
+    <script src="./js/project.js"></script>
+    <script src="./js/todo.js"></script>
+    <script src="./js/user.js"></script>
+    <script src="./js/googleSign.js"></script>
+    <script src="./js/nav.js"></script>
+    <script>
+
+    </script>
+</body>
+
+</html>

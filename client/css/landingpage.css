@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+
+}
+
+.navbari {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  background: linear-gradient(#BDB6AB, #D6CCBD);
+  overflow: hidden;
+  height: 50px;
+  width: 100%;
+  font-family: Arial;
+  box-shadow: 0 -15px 15px -15px rgb(153, 153, 153) inset;
+}
+
+.logo {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.logo h1 {
+  margin-left: 15px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 40px;
+  justify-self: flex-start;
+  color: rgb(109, 103, 105)
+}
+
+h2.type {
+  font-size: 28px;
+}
+
+div.logo img {
+  margin-left: 25px;
+  width: 42%;
+}
+
+.dropdown1 {
+  float: right;
+  overflow: hidden;
+}
+
+.dropdown1 .dropbtn1 {
+  height: 50px;
+  font-size: 28px;
+  border: none;
+  outline: none;
+  color: white;
+  background-color: inherit;
+  font-family: inherit;
+  padding: 10px
+}
+
+.dropdown1:hover .dropbtn1 {
+  background-color: #807b7b;
+  cursor: pointer;
+  color: white;
+}
+
+.dropdown1-content {
+  padding: 1.2%;
+  display: none;
+  position: absolute;
+  background-color: white;
+  border-radius: 15px;
+  width: 320px;
+  box-shadow: 0px 7px 8px 0px rgba(116, 116, 116, 0.2);
+  right: 0;
+  left: auto;
+  z-index: 1;
+}
+
+.dropdown1-content a {
+  float: none;
+  color: black;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown1-content {
+  background-color: rgb(255, 255, 255);
+}
+
+.dropdown1:hover .dropdown1-content {
+  display: block;
+}
+
+button.dropbtn1 {
+  padding-left: 5px;
+}
+
+button.landinpg {
+  border-radius: 10px;
+  color: white;
+  margin: 15% 10% 10% 10%;
+  width: 30%;
+  min-height: 4.8vh;
+  align-self: flex-start;
+  -webkit-appearance: none;
+}
+
+button:hover.landinpg {
+  color: black;
+  cursor: pointer;
+  border: #e6c7b4;
+  background: #e6c7b4;
+}
+
+.formRegister input {
+  font-size: 18px;
+  width: 83%;
+  height: 3.5vh;
+}
+
+.formSign input {
+  font-size: 18px;
+  width: 83%;
+  height: 3.5vh;
+}
+
+.formRegister label {
+  margin-top: 6%;
+  font-size: 22px;
+}
+
+.formSign label {
+  margin-top: 6%;
+  font-size: 22px;
+}
+
+.formSign {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.formRegister {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.nav-sign {
+  float: right;
+  overflow: hidden;
+
+}
+
+.landingpage {
+  background: url('../assets/landingpage.jpeg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: calc(100vh - 46px);
+  width: 100vw
+}
+
+.toleft{
+  font-family: 'Roboto', sans-serif;
+}

@@ -1,0 +1,28 @@
+.aftersignIn {
+    background: url('../assets/background.jpg');
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.navuser {
+    position: fixed;
+    height: 46px;
+    background: #EFDFD4;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: 46px;
+    width: 100%;
+    font-family: Arial;
+    z-index: 9999;
+    box-shadow: 0 -8px 8px -8px rgb(204, 202, 202) inset;
+}
+
+.nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style-type: none;
+}
