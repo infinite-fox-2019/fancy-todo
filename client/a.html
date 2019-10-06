@@ -1,129 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <meta name="google-signin-client_id" content="899845905532-jcsgv6kb2v5odj1jr101e60jaqm5m7mp.apps.googleusercontent.com">
-    
-    <title>Timehunt</title>
-    
-  </head>
-  <body>
-        <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand" href="#">
-                <img src="https://image.flaticon.com/icons/svg/60/60481.svg" width="30" height="30" alt="">
-                Timehunt
-                <a href="#" id="sign-out" onclick="signOut();">Sign out</a>
-            </a>
-        </nav>
-        <div id="auth-page">
-            <div>
-                <div class="jumbotron">
-                    <h1 class="display-4">Welcome to <strong>Timehunt</strong></h1>
-                    <p class="lead">hunt your deadline and save your time</p>
-                    <hr class="my-4">
-                    <form id="sign-in">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="email-sign-in" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="password-sign-in" placeholder="Password">
-                        </div>
-                        <button type="submit" class="btn btn-primary mr-2">Sign In</button> Don't have an account? <a href="#" onclick="toSignUp()">Sign Up</a>
-                    </form>
-                    <form id="sign-up">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="email-sign-up" placeholder="Email">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="password-sign-up" placeholder="Password">
-                        </div>
-                        <button type="submit" class="btn btn-primary mr-2">Sign Up</button> Already have an account? <a href="#" onclick="toSignIn()">Sign In</a>
-                    </form>
-                    <br>
-                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
-                </div>
-            </div>
-        </div>
-        <div id='main-page'>
-            <div class="row">
-                <div class="col-3">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">What to do now</a>
-                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">What to expect</a>
-                    <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">aaa</a>
-                    <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        + New Task
-                    </button>
-                    </div>
-                </div>
-                <div class="col-9">
-                        <div class = "form-group col col-md-4 col-sm-4 col-12">
-                                <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' class="form-control" id="servDate"/>
-                                    <span class="input-group-addon">
-                                        <span class="">aa</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">b</div>
-                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">c</div>
-                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">d</div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add New Task</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="add-task">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="name-add-task" placeholder="Task name">
-                            
-                        </div>
-                        <button type="submit" class="btn btn-primary">+</button>
-                        </form>
-                    </div>
-                    
-                    </div>
-                </div>
-            </div>
-        </div>
-    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="jquery.datetimepicker.css"/>
+    <title>Document</title>
+</head>
+<body>
+        <input type="text" id="demo"/>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-<!-- Moment JS -->
-<script type="text/javascript" src="//momentjs.com/downloads/moment.js"></script>
-<!--Bootstrap JS -->
-<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-<!-- dateTimePicker JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<!-- bootstrap  -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="jquery.datetimepicker.js"></script>
+        <script>$('#demo').datetimepicker({inline:true,});</script>
+        
 
-<!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" > -->
-
-<!-- dateTimePicker CSS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-
-    <script src="index.js"></script>
-   
-  </body>
+</body>
 </html>
