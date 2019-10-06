@@ -17,9 +17,7 @@ function createTodo(){
     })
         .done(function(success){
             $('#text-errorTodo').empty();
-            console.log(success.data)
             let todo = success.data
-            console.log('ini di dalam todoScript done')
             $('#inputTodo').append(`
             <div class="card border-success mb-5" style="max-width: 18rem;">
             <div class="card-header bg-transparent border-success">${todo.title}</div>

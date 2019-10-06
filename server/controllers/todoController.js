@@ -4,8 +4,6 @@ const jwt = require('jsonwebtoken');
 
 class TodoController {
     static create(req,res,next){
-        console.log(req.body)
-        console.log('error apa ini')
         let {token,date,title,description}= req.body;
         let decode = jwt.decode(token);
         let idUser = '';
@@ -13,8 +11,6 @@ class TodoController {
             email : decode.email
         })
             .then(function(user){
-                // console.log(user._id)
-                console.log('di dalam users todo')
                 idUser = user._id;
                 if(date.length==0) throw({status:403,msg:'Wajib di pilih tanggal!'});
                 else{
@@ -27,7 +23,6 @@ class TodoController {
                 }
             })
             .then(function(data){
-                console.log('kalau anda sampai sini harusnya sudah benar')
                 res.status(201).json({msg:'Data Berhasil Disimpan',data:{
                     date,title,description
                 }})
@@ -44,7 +39,6 @@ class TodoController {
                 return Todo.findByIdAndUpdate(getTodo._id,{status:true})
             })
             .then(function(ssc){
-                console.log(ssc)
                 res.status(201).json({msg : "Yeah kamu Melakukan dengan baik!!"})
             })
             .catch(next)
@@ -62,6 +56,9 @@ class TodoController {
                 res.status(201).json({msg:"Todo berhasil di hapus.. HaveFun!!"})
             })
             .catch(next)
+    }
+    static uploadPhoto(req,body,next){
+        console.log(req.body)
     }
 }
 

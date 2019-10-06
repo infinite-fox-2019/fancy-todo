@@ -48,7 +48,6 @@ function showTodo(data){
     let falsee = 0;
     let status ='';
     let classs = '';
-    console.log(data)
     for(let i=0;i<data.todoList.length;i++){
         if(data.todoList[i].status == false){
             classs='blue';
@@ -96,41 +95,63 @@ function showTodo(data){
 
 ///
 
-function login(data){
+function login(data) {
     $('#row1').empty();
     $('#row2').empty();
-    const {serverToken,photo,name} = data
-    localStorage.setItem('token',serverToken);
-    $('#row1').append(`
+    const {serverToken, photo, name} = data
+    localStorage.setItem('token', serverToken);
+    $('#row1').append(
+        `
     <img src="${photo}" style="height:240px; margin: 6px 25px;width:200px;">
-    `)
-    $('#row2').append(`
+    `
+    )
+    $('#row2').append(
+        `
     <marquee scrollamount="15" direction="left" style='font-size: 50px; font-family:'cursive'>Welcome ${name}</marquee>
-    `)
+    `
+    )
     $('#container').hide();
     $('#main-container').show();
     $('#signout').show();
 }
-
-function onSignIn(googleUser) {
-    const id_token = googleUser.getAuthResponse().id_token;
+function uploadPhoto(photo){
+    let getpicture = $('#customFile').val();
+    console.log(getpicture)
+    console.log(photo)
     $.ajax({
-        method : 'post',
-        url : `${baseUrl}/users/signinG`,
+        method : 'put',
+        url : 'http://localhost:3000/todos/upload',
         data : {
-            id_token : id_token
+            photo : photo,
+            newPhoto : getpicture
         }
     })
-        .done(function(data){
-            console.log('didalam'+data)
+        .done(function(){
+
+        })
+        .fail(console.log)
+}
+function onSignIn(googleUser) {
+    const id_token = googleUser
+        .getAuthResponse()
+        .id_token;
+    $
+        .ajax({
+            method: 'post',
+            url: `${baseUrl}/users/signinG`,
+            data: {
+                id_token: id_token
+            }
+        })
+        .done(function (data) {
             $('.progress').empty()
             persentase = 0
             login(data)
-            if(data.todoList!==undefined){
+            if (data.todoList !== undefined) {
                 showTodo(data)
-            }else{
+            } else {
+                $('#inputTodo').empty();
                 $('#inputTodo').append(`
-                
                 `)
             }
         })
@@ -146,7 +167,7 @@ function signOut() {
         persentase = 0;
         console.log(`user signout persentase nya => ${persentase}`)
         $('.progress-bar').empty();
-
+        $('##addFile h5').empty();
         console.log('User signed out.');
     });
 }
@@ -239,3 +260,27 @@ function signIn(){
             empty();
         })
 }
+
+
+
+//picture
+
+let temp = [
+    "https://cdn.pixabay.com/photo/2015/11/14/20/27/luxury-sports-car-1043627__480.jpg",
+    "https://cdn.pixabay.com/photo/2013/08/28/11/19/lamborghini-176700__480.jpg",
+    "https://cdn.pixabay.com/photo/2015/01/31/10/06/lamborghini-618337__480.jpg",
+    "https://cdn.pixabay.com/photo/2018/01/13/17/30/lamborghini-huracan-3080405__480.jpg",
+    "https://cdn.pixabay.com/photo/2014/09/07/22/33/lamborghini-438462__480.jpg",
+    "https://cdn.pixabay.com/photo/2017/12/04/00/17/lamborghini-huracan-2996107__480.jpg",
+    "https://images.unsplash.com/photo-1558979074-128fb894743a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+    "https://images.unsplash.com/photo-1507482757963-ef4548a0198d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+]
+
+
+temp.forEach(el=>{
+    $('.carousel-inner').append(`
+    <div class="carousel-item">
+    <img src="${el}" class="d-block w-100" alt="...">
+    </div>
+    `)
+})

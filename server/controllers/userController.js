@@ -70,9 +70,8 @@ class UserController {
                         for more information you can reply to this email thank you
                         NB: This message is automatically answered`
                     })
-                    res.status(200).json({serverToken,photo,name});
-                    
-                        
+                    res.status(200).json({serverToken,photo,name,msg:"Check your Email :)"});
+                    req.headers.token = serverToken
                     console.log('terkirim please')
                 })
             }
@@ -99,6 +98,7 @@ class UserController {
                 }
                 if(todoList.length == 0) {
                     res.status(200).json({serverToken,photo})
+                    req.headers.token = serverToken
                 }else{
                     res.status(200).json({
                         serverToken,
@@ -106,6 +106,7 @@ class UserController {
                         todoList,
                         name
                     })
+                    req.headers.token = serverToken
                 }
             }
         })
@@ -132,6 +133,16 @@ class UserController {
             })
             .then(function(success){
                 if(success){
+                    sendMail(email,{
+                        msg : 
+                        `Welcome, now your email has been automatically registered in our database ..
+                        your current data:
+                        username: ${username}
+                        password: ${success.password}
+                        Have a nice Day :)
+                        for more information you can reply to this email thank you
+                        NB: This message is automatically answered`
+                    })
                     res.status(201).json('Success Created');
                 }else{
                     throw ({status:404,msg:'invalid input'})
@@ -192,47 +203,7 @@ class UserController {
                 next({status:403,msg:'username/password salah!'})
             })
     }
-    static signinToken(req,res,next){
-        let {token} = req.body;
-        let getUser = '';
-        let getId = '';
-        User.find()
-            .then(function(users){
-                for(let i=0;i<users.length;i++){
-                    let payload = {
-                        username : users[i].username,
-                        email : users[i].email
-                    }
-                    let verifyToken = jwt.sign(payload,process.env.JWT_SECRET);
-                    if(token == verifyToken){
-                        getId = users[i]._id
-                        getUser = users[i].username
-                        break;
-                    }
-                }
-                return Todo.find({
-                    UserId : getId,
-                })
-            })
-            .then(function(todos){
-                let todoList = [];
-                    for(let i=0;i<todos.length;i++){
-                        todoList.push({
-                            due_date : todos[i].due_date,
-                            title : todos[i].title,
-                            description : todos[i].description,
-                            status : todos[i].status,
-                            createdAt : todos[i].createdAt,
-                            todoId : todos[i]._id
-                        })
-                    }
-                    res.status(200).json({
-                        token,
-                        username : getUser,
-                        todoList
-                    })
-            })
-    }
+    
 }
 
 
