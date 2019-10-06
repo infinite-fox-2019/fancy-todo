@@ -33,8 +33,8 @@ function constructProject({ name, members, todos, owner, inviteLink, updatedAt, 
                     <p class="col-6"><strong>Todos</strong>: ${todos.length}</p>
                 </div>
                 <div class="row justify-content-center align-items-center col-6">
-                    <p class="col-12 font-italic"><strong>Last Active</strong> <br/>${moment(updatedAt).fromNow()}</p>
-                    <p class="col-12 font-italic"><strong>Started Date</strong> <br/>${moment(createdAt).fromNow()}</p>
+                    <p class="col-12 font-italic" style="font-size: 0.9rem"><strong>Last Active</strong> <br/>${moment(updatedAt).fromNow()}</p>
+                    <p class="col-12 font-italic" style="font-size: 0.9rem"><strong>Started Date</strong> <br/>${moment(createdAt).fromNow()}</p>
                 </div>
                 <div class="col-6 justify-content-center align-items-center">
                     <p class="text-center"><strong>Project Starter</strong></p>
@@ -62,25 +62,25 @@ function createProject() {
         confirmButtonText: 'Create',
         showLoaderOnConfirm: true,
         preConfirm: (name) => {
-            return ajax.post(`/projects`, { name })
-                .then(({ data }) => {
-                    if (!data) {
-                        throw new Error('Fail confirming created project')
-                    }
-                    toastr.success(result.value.name, 'Success Create New Project')
-                    refreshProjects()
-                    return data.json()
-                })
-                .catch(error => {
-                    Swal.showValidationMessage(
-                        `Request failed: ${error}`
-                    )
-                })
+            return new Promise((resolve, reject) => {
+                ajax.post(`/projects`, { name })
+                    .then(({ data }) => {
+                        if (!data) {
+                            throw new Error('Fail confirming created project')
+                        }
+                        toastr.success(data.name, 'Success Create New Project')
+                        resolve(data)
+                    })
+                    .catch(({ response: { data: err } }) => Swal.fire('Error', err, 'error'))
+            });
         },
         allowOutsideClick: () => !Swal.isLoading()
-    }).then(({ value }) => {
-        Swal.fire(value)
-    })
+    }).then(() => {
+        Swal.close()
+        refreshProjects()
+    }).catch((err) => {
+        Swal.fire('Something Happened', err, 'error')
+    });
 }
 
 function joinProject() {
@@ -92,6 +92,7 @@ function joinProject() {
             return new Promise((resolve) => {
                 ajax.post('/projects/join', { inviteLink: $('#swal-input1').val() })
                     .then(({ data }) => {
+                        toastr.success(data.name, 'Success Join Project')
                         resolve(data)
                     }).catch(({ response: { data: err } }) => Swal.fire('Error', err, 'error'));
             });
@@ -100,6 +101,7 @@ function joinProject() {
             $('#swal-input1').focus()
         },
         showCancelButton: true,
+        confirmButtonText: 'Join',
         showLoaderOnConfirm: true,
     }).then((data) => {
         Swal.close()
@@ -112,7 +114,7 @@ function joinProject() {
 function invite(code) {
     Swal.fire({
         title: 'Invite Code',
-        html: `<strong>Share this to invite others.</strong><br/><br/><span class="border rounded px-3 py-1 shadow">${code}</span>`,
+        html: `<strong>Share this to invite others.</strong><br/><br/><span id="invite-secret" class="border rounded px-3 py-1 shadow">${code}</span> <button class="btn btn-info" onclick="copyToClipboard('#invite-secret')">Copy</button>`,
         showConfirmButton: true
     })
 }

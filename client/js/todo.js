@@ -55,6 +55,7 @@ function createTodo() {
         dueDate: $('#create-todo-dueDate').val()
     })
         .then(({ data: { title } }) => {
+            Swal.close()
             toastr.success(title, 'Success Create Todo')
             closeEmptyCreateTodo()
             refreshTodos()

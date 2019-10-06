@@ -85,3 +85,12 @@ function fetchContent() {
             text: error
         }))
 }
+
+function copyToClipboard(element) {
+    const $temp = $("<input>");
+    $("body").append($temp);
+    $temp.val($(element).text()).select();
+    document.execCommand("copy");
+    $temp.remove();
+    toastr.success('Invite Code copied to clipboard')
+}

@@ -16,6 +16,7 @@ class ProjectController {
     static read(req, res, next) {
         const id = req.decode.id
         Project.find({ members: mongoose.Types.ObjectId(id) })
+            .sort({ updatedAt: -1 })
             .populate('owner', '-ppassword')
             .then((projects) => {
                 res.status(200).json(projects)
