@@ -13,8 +13,8 @@ $(document).ready(() => {
         })
             .done(response => {
                 localStorage.setItem('token', response.token)
-                userLogged()
                 avatar(response.user)
+                userLogged()
             })
             .fail(err => {
                 console.log(err);
@@ -44,8 +44,8 @@ $(document).ready(() => {
         })
             .done(response => {
                 localStorage.setItem('token', response.token)
-                userLogged()
                 avatar(response.user)
+                userLogged()
             })
             .fail(err => {
                 console.log(err);
@@ -68,6 +68,7 @@ $(document).ready(() => {
         event.preventDefault()
         localStorage.removeItem('token');
         userNotLogged()
+
     })
 
 })
@@ -115,7 +116,7 @@ function profileData() {
 }
 
 function avatar(user) {
-    console.log(`masuk`);
+
     let data = `
     <button onclick="signOut()">Logout</button>
     <div class="presonalInfo">
@@ -196,10 +197,10 @@ function userLogged() {
 // kondisi ketika user BELUM login ATAU LOGOUT
 function userNotLogged() {
     $('#dashboard').hide()
+    $('.profile').html('')
     $('#personalTodolist').html('')
     $('#personalTodolist').html(
-        `<div class="card createNewBoard" id="createPersonalTodo" onclick="createNewTodo()"
-                        data-toggle="modal" data-target="#personalTodo" data-whatever="Personal Todo">
+        `<div class="card createNewBoard" id="createPersonalTodo" onclick="createNewTodo()">
                         <i class="far fa-plus-square"></i>
                         <p>Create New Todo</p>
                     </div>`
@@ -380,8 +381,7 @@ function updateTodo(id) {
             $('#updateTodoForm').html('')
             $('#personalTodolist').html('')
             $('#personalTodolist').html(
-                `<div class="card createNewBoard" id="createPersonalTodo" onclick="createNewTodo()"
-                        data-toggle="modal" data-target="#personalTodo" data-whatever="Personal Todo">
+                `<div class="card createNewBoard" id="createPersonalTodo" onclick="createNewTodo()">
                         <i class="far fa-plus-square"></i>
                         <p>Create New Todo</p>
                     </div>`
@@ -434,8 +434,7 @@ function deleteTodo(id) {
                     $('#showSingleTodo').hide()
                     $('#personalTodolist').html('')
                     $('#personalTodolist').html(
-                        `<div class="card createNewBoard" id="createPersonalTodo" onclick="createNewTodo()"
-                        data-toggle="modal" data-target="#personalTodo" data-whatever="Personal Todo">
+                        `<div class="card createNewBoard" id="createPersonalTodo" onclick="createNewTodo()">
                         <i class="far fa-plus-square"></i>
                         <p>Create New Todo</p>
                         </div>`
