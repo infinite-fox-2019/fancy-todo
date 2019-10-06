@@ -14,6 +14,7 @@ $(document).ready(() => {
             .done(response => {
                 localStorage.setItem('token', response.token)
                 userLogged()
+                avatar(response.user)
             })
             .fail(err => {
                 console.log(err);
@@ -44,6 +45,7 @@ $(document).ready(() => {
             .done(response => {
                 localStorage.setItem('token', response.token)
                 userLogged()
+                avatar(response.user)
             })
             .fail(err => {
                 console.log(err);
@@ -69,6 +71,12 @@ $(document).ready(() => {
     })
 
 })
+
+
+function PersonBtn() {
+    $('#middleDiv').html('')
+
+}
 
 
 function profileData() {
@@ -106,6 +114,25 @@ function profileData() {
     })
 }
 
+function avatar(user) {
+    console.log(`masuk`);
+    let data = `
+    <button onclick="signOut()">Logout</button>
+    <div class="presonalInfo">
+        <p>${user.username}</p>
+        <p>${user.motto}</p>
+    </div>
+    <img src="https://api.adorable.io/avatars/285/${user.email}.png" alt="">
+
+    <div class="footer">
+        <p>Lokasi: ${user.location}</p>
+        <p>Nomor Hp: ${user.phone}</p>
+        <p>email: ${user.email}</p>
+    </div>
+    <button onclick="profileData()">Edit Profil</button>`
+    $('.profile').html('')
+    $('.profile').html(data)
+}
 
 function createNewTodo() {
     $('.middleDiv').hide()
