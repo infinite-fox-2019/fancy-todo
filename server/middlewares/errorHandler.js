@@ -1,4 +1,6 @@
 module.exports = (err,req,res,next) => {
+    console.log('masuk error handler')
+    console.log(err)
 
     if(err.name === 'ValidationError'){
         res.status(422).json({err: err.message})    
@@ -16,4 +18,3 @@ module.exports = (err,req,res,next) => {
     }
 
 }
-

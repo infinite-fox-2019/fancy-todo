@@ -4,6 +4,7 @@ const {OAuth2Client} = require('google-auth-library')
 
 class Controller{
     static register(req,res,next){
+        console.log('create user')
         User.create({
             name: req.body.name,
             email: req.body.email,
@@ -16,6 +17,7 @@ class Controller{
     }
 
     static login(req,res,next){
+        console.log('login user')
         User.findOne({
             email: req.body.email
         })
@@ -38,6 +40,7 @@ class Controller{
     }
 
     static googleLogin(req,res,next){
+        console.log('google login')
         const client = new OAuth2Client(process.env.GOOGLE_OAUTH)
         client.verifyIdToken({
             idToken :req.headers.gtoken,
@@ -58,7 +61,7 @@ class Controller{
                 }
                 let token = generateToken(payload)
                 res.status(200).json({token, user: payload})
-                next()
+                return
             } else {
                 return User.create({
                     name: googlepayload.name,
@@ -81,16 +84,21 @@ class Controller{
 
 
     static findOne(req,res,next){
+        console.log('find one')
+        console.log(req.loggedUser)
         User.findOne({
             _id: req.loggedUser._id
         }).populate({path: 'todo', options: {sort: {'createdAt' : -1 } } })
         .then( data => {
+            console.log(data)
             res.status(200).json(data)
         })
         .catch(next)
     }
 
     static deleteTodo(req,res,next){
+        console.log('delete todo')
+        console.log(req.body.todoId)
         User.update( { _id : req.loggedUser._id }, { $pull:  { "todo" : req.body.todoId } } )
         .then( updatedData => {
             res.status(200).json({

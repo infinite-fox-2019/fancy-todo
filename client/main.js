@@ -15,11 +15,7 @@ const hideShowElement = (target, hide, show) => {
     })
 }
 
-$(document).ready(function () {
     //sign out user
-    
-
-
     $(`#signout-btn`).click(function (e) {
         e.preventDefault()
         localStorage.removeItem('token')
@@ -32,6 +28,8 @@ $(document).ready(function () {
         hideElement('#signup-form-container')
         hideElement('#login-form-container')
         getUser()
+        getTodo()
+        
     } else {
         
         hideElement(`#signup-form-container`)
@@ -88,13 +86,14 @@ $(document).ready(function () {
         //LOGIN 
         $(`#login-form`).on('submit', e => {
             e.preventDefault()
+            console.log('masuk login')
             $(`#login-form .auth-notifications`).empty()
             if ($(`#email-login`).val() === '' || $(`#password-login`).val() === '') {
                 return loginnotif('Ooops!! all fields are required!')
             }
-
+            console.log('masuk gaada yg kosong form login')
             $('#signup-btn').addClass('loading')
-
+            console.log('sblm ajax')
             $.ajax({
                 method: 'post',
                 url: `http://localhost:4000/user/login`,
@@ -105,15 +104,19 @@ $(document).ready(function () {
             })
                 .done(({ token, user }) => {
                     localStorage.setItem('token', token)
+                    console.log(token)
                     $(`#password-login`).val('')
                     $(`#email-login`).val('')
+                    console.log('hide element etc')
                     hideElement(`#signup-form-container`)
                     hideElement(`#login-form-container`)
                     showElement('#signout-btn')
+                    showElement(`#wrap-main`)
+                    getUser()
+                    console.log('google sblm get todo')
+                    getTodo()
                     showElement(`#todo`)
                     showElement(`#form-todo`)
-                    getUser()
-                    getTodo()
 
                 })
                 .fail(err => {
@@ -163,9 +166,6 @@ $(document).ready(function () {
 
 
 
-
-
-})
 
 
 function getMoment(date){
@@ -266,6 +266,7 @@ function deletefail(msg){
         </div>`)
 }
 function getUser() {
+    console.log('masuk get user')
     $.ajax({
         method: 'get',
         url: `http://localhost:4000/user`,
@@ -312,7 +313,7 @@ function deleteTodo(id){
 }
 //get todo => include = delete todo , update status todod
 function getTodo() {
-    
+    console.log('masuk get todo')
     $.ajax({
         method: 'get',
         url:  `http://localhost:4000/todo/find`,
@@ -321,6 +322,7 @@ function getTodo() {
         }
     })
     .done( todos => {
+        console.log(todos)
         $(`#todo`).empty() 
         todos.forEach(todo => {
             console.log(getMoment(todo.createdAt))
