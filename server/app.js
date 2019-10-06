@@ -6,6 +6,7 @@ const express = require('express')
 const routes = require('./routes')
 require('./config/mongooseConnect')
 const cors = require('cors')
+const errorHandler = require('./middlewares/errorHandler')
 
 const app = express()
 const PORT = process.env.PORT
@@ -17,6 +18,9 @@ app.use(cors())
 
 // main route
 app.use('/', routes)
+
+// middleware error handler
+app.use(errorHandler)
 
 // start server
 app.listen(PORT, () => console.log(`SERVER LISTENING ON PORT: ${PORT}`))
