@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="google-signin-client_id" content="227948699050-ml75o10n5ftpfo4d5069bqvjtri10pr2.apps.googleusercontent.com">
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <!-- Link Pendukung -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Script Pendukung -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <title>Fancy To Do</title>
+  </head>
+
+  <body>
+    
+    <!-- modal -->
+    <!--Modal: Login / Register Form-->
+    <div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog cascading-modal" role="document">
+          <!--Content-->
+          <div class="modal-content">
+      
+            <!--Modal cascading tabs-->
+            <div class="modal-c-tabs">
+      
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab" href="#panel7" role="tab"><i class="fas fa-user mr-1"></i>
+                    Login</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" href="#panel8" role="tab"><i class="fas fa-user-plus mr-1"></i>
+                    Register</a>
+                </li>
+              </ul>
+      
+              <!-- Tab panels -->
+              <div class="tab-content">
+                <!--Panel 7-->
+                <div class="tab-pane fade in show active" id="panel7" role="tabpanel">
+      
+                  <!--Body-->
+                  <div class="modal-body mb-1">
+                    <form id="login">
+                      <input type="email" id="logemail" placeholder="Email">
+                      <input type="password" id="logpass" placeholder="Password">
+                      <div class="errLogin">
+      
+                      </div>
+                      <div class="successLogin">
+      
+                      </div>
+                      <input type="submit" value="Login">
+                    </form>
+                  </div>
+                  <!--Footer-->
+                  <div class="modal-footer">
+                    <!-- <div class="options text-center text-md-right mt-1"> -->
+                      <p class="my-2">Login with Google</p>
+                      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                    <!-- </div> -->
+                    <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+                  </div>
+      
+                </div>
+                <!--/.Panel 7-->
+      
+                <!--Panel 8-->
+                <div class="tab-pane fade" id="panel8" role="tabpanel">
+      
+                  <!--Body-->
+                  <div class="modal-body">
+                    <form id="register">
+                      <input type="text" id="regname" placeholder="Username">
+                      <input type="email" id="regemail" placeholder="Email">
+                      <input type="password" id="regpass" placeholder="Password">
+                      <div class="errRegis">
+      
+                      </div>
+                      <div class="successRegis">
+      
+                      </div>
+                      <input type="submit" value="Register">
+                    </form>
+      
+                  </div>
+                  <!--Footer-->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-info waves-effect ml-auto" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+                <!--/.Panel 8-->
+              </div>
+            </div>
+          </div>
+          <!--/.Content-->
+        </div>
+      </div>
+      <!--Modal: Login / Register Form-->
+      <!-- ------------------ -->
+
+      <!-- Trigger the modal add to do text -->
+        <!-- Modal -->
+        <div id="textModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add To Do Text</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addtodotext" style="text-align: center">
+                            <input type="text" id="title" placeholder="Title">
+                            <textarea form="addtodotext" id="description" placeholder="Description"></textarea> 
+                            <input type="date" id="duedate">
+                            <div class="errAddText"></div>
+                            <input type="submit" value="Add">
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    <!-- Trigger the modal add to do text -->
+    <!-- -------------------------------- -->
+
+    <!-- Trigger the modal add to do text -->
+        <!-- Modal -->
+        <div class="modals"></div>
+  <!-- Trigger the modal add to do text -->
+  <!-- -------------------------------- -->
+
+        <div class="fullpage">
+            <div class="profil"></div>
+            <div class="todolist"></div>
+        </div>
+        
+        <!-- <button onclick="coba()">COBA</button> -->
+      
+    <!-- Script Tambahan -->
+    <script src="/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,222 @@
+/* vvvvvvv INI BUAT FORM LOGIN vvvvvvvv*/
+form {
+    padding: 30px;
+    /* background: white; */
+    background-color: rgba(236, 240, 241,0.8);
+    border-radius: 10px;
+}
+form input {
+    margin: 15px 0;
+    padding: 15px 10px;
+    width: 100%;
+    height: 90%;
+    outline: none;
+    border: 1px solid #bbb;
+    border-radius: 20px;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+form input[type="password"]:focus,
+form input[type=text]:focus {
+    border-color: cornflowerblue;
+}
+
+input[type=submit] {
+    float: none !important;
+    padding: 15px 50px;
+    width: auto;
+    background: #1abc9c;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+}
+
+input[type=button] {
+    float: none !important;
+    padding: 15px 50px;
+    width: auto;
+    background: #bc1a1a;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+}
+
+/* ^^^^^^^^^ BUAT FORM LOGIN ^^^^^^^^^^^^*/
+
+
+/* vvvvvvvvvv Format utama & pembagian 2 vvvvvvvvvv*/
+html, body
+{
+    height: 100%;
+    width: 100%;
+}
+
+.fullpage {
+    display: flex;
+    height: 100%;
+    background-position: top;
+    background-size: cover;
+    background-image: url('./img/coklat.jpg');
+}
+
+.profil {
+    width: 30%;
+    margin: 2% 1% 2% 2%;
+    border: 5px solid black;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #f29122a2;
+    /* opacity: 0.5; */
+}
+
+.todolist {
+    width: 70%;
+    margin: 2% 2% 2% 1%;
+    border: 5px solid black;
+    overflow: hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('./img/hacktiv.jpg');
+    border-radius: 20px;
+}
+
+/* ^^^^^^^^^ Format utama & pembagian 2 ^^^^^^^^^^^^*/
+
+
+/* vvvvvvvvvv bagian kiri uda login vvvvvvvvvv*/
+.fotoprofil {
+    width: 40%;
+    margin: 15% 30% 10% 30%;
+    border: 5px solid black;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.namauser {
+    width: 80%;
+    height: 10%;
+    margin: 5% 10%;
+    border: 5px solid #3d2314;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 20px;
+    font-size: 200%;
+    color: #3d2314;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.534);
+}
+
+.option {
+    width: 60%;
+    height: 8%;
+    margin: 8% 20%;
+    border: 5px solid #3d2314;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 20px;
+    font-size: 120%;
+    color: white;
+    font-weight: bold;
+    background: #29a9dfe1;
+}
+
+.option:hover {
+    background-color: lightblue;
+}
+
+.signout {
+    text-align: center;
+    width: 40%;
+    height: 8%;
+    margin: 5% 30%;
+    border-radius: 20px;
+}
+/* ^^^^^^^^^ bagian kiri uda login ^^^^^^^^^^^^*/
+
+/* vvvvvvvvvv TO DO LIST vvvvvvvvvv*/
+
+.search {
+    height: 15%;
+    width: 100%;
+    /* border-style: solid; */
+    /* border-width: 0px 0px 5px 0px; */
+    overflow: hidden;
+}
+
+#searchnavbar {
+    height: 100%;
+    width: 100%;
+    padding: 3%;
+}
+
+#myInput {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    height: 85%;
+    width: 100%;
+    overflow: scroll;
+}
+
+.activity {
+    flex-direction: row;
+    width: 31%;
+    margin: 1% 1%;
+    height: 200px;
+    border: 5px solid #3d2314   ;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.activity:hover {
+    background-color: lightblue !important;
+}
+
+.title {
+    margin: 5% 5%;
+    width: 90%;
+    height: 30%;
+    border-style: solid;
+    border-width: 0px 0px 5px 0px;
+    text-align: center;
+    overflow: hidden;
+    font-size: 150%;
+    font-weight: bold;
+}
+
+.description {
+    margin: 10% 10%;
+    height: 90%;
+    word-wrap: break-word;
+    overflow: hidden;
+    font-size: 110%;
+}
+/* ^^^^^^^^^ TO DO LIST ^^^^^^^^^^^^*/
+
+/* vvvvvvvvvv ADD TO DO TEXT vvvvvvvvvv*/
+
+#description {
+    width: 100%;
+    padding: 2%;
+    resize: none;
+    border-radius: 15px;
+}
+
+/* ^^^^^^^^^ ADD TO DO TEXT ^^^^^^^^^^^^*/
+
+.signin {
+    text-align: center;
+    width: 40%;
+    height: 8%;
+    margin: 5% 30%;
+    border-radius: 20px;
+}
