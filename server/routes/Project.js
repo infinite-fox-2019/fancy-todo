@@ -13,7 +13,7 @@ Router.post('/join', ProjectController.join)
 // ! Members Exclusive
 // * Project Owner Only
 
-Router.patch('/update/:projectId/', authorizationMember, authorizationProject, ProjectController.patch)
+Router.put('/update/:projectId/', authorizationMember, authorizationProject, ProjectController.patch)
 Router.delete('/delete/:projectId/', authorizationMember, authorizationProject, ProjectController.delete)
 Router.delete('/project/:projectId/:todoId', authorizationMember, authorizationProject, ProjectController.removeTodo)
 

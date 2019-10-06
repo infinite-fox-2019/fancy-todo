@@ -49,11 +49,12 @@ function login() {
         identity: $('#identity').val(),
         password: $('#login-password').val()
     })
-        .then(({ data: { token, email, username, gravatar } }) => {
+        .then(({ data: { token, email, username, gravatar, id } }) => {
             localStorage.setItem('token', token)
             localStorage.setItem('email', email)
             localStorage.setItem('username', username)
             localStorage.setItem('gravatar', gravatar)
+            localStorage.setItem('id', id)
             Swal.close()
             checkLogin()
         }).catch(({ response: { data: error } }) => Swal.fire({
@@ -73,6 +74,7 @@ function destroyCredentials() {
     localStorage.removeItem('email')
     localStorage.removeItem('username')
     localStorage.removeItem('gravatar')
+    localStorage.removeItem('id')
     checkLogin()
 }
 
@@ -134,11 +136,12 @@ function register() {
         email: $('#register-email').val(),
         password: $('#register-password').val()
     })
-        .then(({ data: { email, username, token, gravatar } }) => {
+        .then(({ data: { email, username, token, gravatar, id } }) => {
             localStorage.setItem('token', token)
             localStorage.setItem('email', email)
             localStorage.setItem('username', username)
             localStorage.setItem('gravatar', gravatar)
+            localStorage.setItem('id', id)
             showContent()
             Swal.close()
         }).catch(({ response: { data: error } }) => {

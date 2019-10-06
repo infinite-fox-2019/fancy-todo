@@ -16,6 +16,7 @@ class UserController {
                     username: User.username,
                     email: User.email,
                     gravatar: md5(User.email),
+                    id: User._id,
                     token
                 })
             })
@@ -32,6 +33,7 @@ class UserController {
                         username: User.username,
                         email: User.email,
                         gravatar: md5(User.email),
+                        id: User._id,
                         token
                     })
                 } else {

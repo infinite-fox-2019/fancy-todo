@@ -180,28 +180,24 @@
             </div>
             <div id="project-area" class="col-10 mt-3 px-4">
                 <div class="card text-center" style="height: 95vh;">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <h1>C-Todo</h1>
+                    <div class="card-header row justify-content-between align-items-center">
+                        <div class="col-6 d-flex align-items-center">
+                            <h3 id="project-name" class="text-truncate text-align-center">C-Todo</h3>
                         </div>
-                        <div class="d-flex justify-content-end align-items-center">
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn-secondary"><i class="fas fa-search"></i></button>
-                                <button type="button" class="btn btn-secondary"><i
-                                        class="fas fa-sort-amount-up"></i></button>
-                                <button type="button" class="btn btn-secondary"><i class="fas fa-filter"></i></button>
-                            </div>
-                        </div>
-                        <div class="dropdown  d-flex">
-                            <button id="refresh-todos" class="btn btn-dark group-todo mr-3">
-                                <i id="refresh-todo" class="fas fa-sync"></i>
-                            </button>
-                            <button id="new-todo" class="btn btn-primary group-todo"
-                                onclick="showCreateProjectTodo()">Create New Todo</button>
+
+                        <div class="col-6 d-flex justify-content-end align-items-center">
+                            <button id="new-todo" class="btn btn-danger mr-2 project-owner"
+                                onclick="showCreateProjectTodo()" style="display: none">Destroy
+                                Project</button>
+                            <button id="new-todo" class="btn btn-info mr-2 project-owner" onclick="renameProject()"
+                                style="display: none">Rename
+                                Project</button>
+                            <button id="new-todo" class="btn btn-primary" onclick="showCreateProjectTodo()">Create New
+                                Todo</button>
                         </div>
                     </div>
                     <div class="card-body overflow-auto">
-                        <div class="row overflow-auto" id="fill-todos">
+                        <div class="row overflow-auto" id="fill-project-todos">
                         </div>
                     </div>
                 </div>
@@ -209,7 +205,7 @@
         </div>
     </section>
 
-    <!-- MODAL Register -->
+    <!-- MODAL Create Todo -->
 
     <div class="modal fade" id="create-todo" tabindex="-1" role="dialog" aria-labelledby="create-todo"
         aria-hidden="true">
@@ -266,7 +262,7 @@
         </div>
     </div>
 
-    <!-- Modal Login -->
+    <!-- Modal Edit Todo -->
 
     <div class="modal fade" id="edit-todo" tabindex="-1" role="dialog" aria-labelledby="edit-todo" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -330,6 +326,67 @@
         </div>
     </div>
 
+    <!-- Modal Create Project Todo -->
+
+    <div class="modal fade" id="create-project-todo-modal" tabindex="-1" role="dialog" aria-labelledby="create-todo"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="create-project-todo-form">
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12" style="display: none">
+                                    <span class="mr-2 text-muted font-italic">id:</span>
+                                    <span class="text-muted font-italic" id="project-id"></span>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="create-todo-title">Title
+                                        </label>
+                                        <input class="form-control" type="text" name="create-project-todo-title"
+                                            id="create-project-todo-title" placeholder="Enter title" />
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="description">Description
+                                        </label>
+                                        <textarea class="form-control" style="height:30vh" name="description"
+                                            id="create-project-todo-description" placeholder="Enter description">
+                                            </textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="dueDate">
+                                            Due Date
+                                        </label>
+                                        <input class="form-control" type="date" name="dueDate"
+                                            id="create-project-todo-dueDate">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <h6 class="text-justify text-muted px-5 font-italic quotes">
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"

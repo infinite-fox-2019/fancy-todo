@@ -163,11 +163,11 @@ $('#edit-todo-form').on('submit', (e) => {
             toastr.success(title, 'Success Edit Todo')
             closeEmptyEditTodo()
             refreshTodos()
-        }).catch(({ response: { date: error } }) => {
+        }).catch(({ response: { data: error } }) => {
             Swal.fire({
                 type: 'error',
                 title: 'Fail update todo',
-                html: error.join('<br/>')
+                html: `<pre>${error}</pre>`
             })
         });
 })

@@ -6,6 +6,8 @@ module.exports = (req, res, next) => {
     Project.findById(ProjectId)
         .then((Project) => {
             if (Project) {
+                console.log('============ Masuk ============');
+                console.log(Project.ower, userId)
                 if (Project.owner == userId) {
                     next()
                 } else {
