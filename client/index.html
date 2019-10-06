@@ -1,0 +1,137 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-signin-client_id"
+        content="886591746355-ig8veddnh6hctvdb13ls5tskff1veo6e.apps.googleusercontent.com">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>  -->
+    
+    
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <div id="login-form-container" class="auth-container">
+            <form action="" id="login-form" class="auth-form">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/b4bc1173165525.5c002d6c6012c.jpg"
+                    alt="landingpage-avatar" style="height: 30vh;">
+                <h3>Welcome to Sansnotes!</h3>
+                <div class="auth-notifications"></div>
+                <div class="ui small input">
+                    <input type="text" id="email-login" placeholder="email..." autocomplete="off">
+                </div>
+                <br>
+                <div class="ui small input">
+                    <input type="password" id="password-login" placeholder="password...">
+                </div>
+                <br>
+                <div class="buttongroup-horizontal">
+                    <button class="ui primary button" id="signin-btn" type="submit">
+                        sign in
+                    </button>
+                    <div class="g-signin2" data-onsuccess="onSignIn">sign in with google</div>
+                    
+                </div>
+
+                <h4>new to Sansnotes? Register now!</h4>
+                <button class="ui orange basic button" id="signup-form-btn">
+                    sign up
+                </button>
+            </form>
+        </div>
+
+        <div id="signup-form-container" class="auth-container">
+            <form action="" id="signup-form" class="auth-form">
+                <img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/b4bc1173165525.5c002d6c6012c.jpg"
+                    alt="landingpage-avatar" style="height: 30vh">
+                <h3>Welcome to Sansnotes!</h3>
+                <div class="auth-notifications"></div>
+                <div class="ui small input">
+                    <input type="text" id="name-signup" placeholder="name..." autocomplete="off">
+                </div>
+                <br>
+                <div class="ui small input">
+                    <input type="text" id="email-signup" placeholder="email..." autocomplete="off">
+                </div>
+                <br>
+                <div class="ui small input">
+                    <input type="password" id="password-signup" placeholder="password...">
+                </div>
+                <br>
+                <button class="ui primary button" id="signup-btn" type="submit">
+                    sign up
+                </button>
+
+                <h4>already have an Sansnotes account?</h4>
+                <button class="ui orange basic button" id="signin-form-btn">
+                    sign in
+                </button>
+                
+            </form>
+        </div>
+
+    </div>
+
+    
+    <div class="ui internally celled grid">
+        <div class="row">
+            
+            <div class="four wide column">
+                <img>
+            </div>
+            
+            <div class="eight wide column" id="wrap-main">
+                
+                <div id="user-profile"></div>
+                
+                <div id="todo" class="ui relaxed divided list">
+                    <br>
+                    <div style="width: 42.5vw"class="ui active centered inline loader"></div>
+                    <div id="deletesuccessnotif"></div>
+                </div>
+
+                <div id="form-todo">
+                    <br>
+                    <div id="form-notifications"></div>
+                    <br>
+                    <form action="" class="ui form" id="todo-form">
+                        <div class="field">
+                            <input type="text" id="activity" autocomplete="off" placeholder="Activity">
+                        </div>
+                        <div class="field">
+                            <textarea rows="2" style="margin-top: 0px; margin-bottom: 0px; height: 30px;"
+                            placeholder="description here.." id="description"></textarea>
+                        </div>
+                        <div class="inline field">
+                            <label for="date">due date</label>
+                            <input type="date" id="due-date" placeholder="due date" style="width: 89%">
+                        </div>
+                        <button type="submit" class="fluid ui primary button">add to list</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="three wide column">
+            
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="./main.js"></script>
+    <script src="./googleAuth.js"></script>
+
+</body>
+
+</html>
