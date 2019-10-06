@@ -146,7 +146,7 @@
           />
           ToDo Fancy
         </a>
-        <button type="button" class="btn btn-warning btn-sm">Logout</button>
+        <button type="button" onclick="logout();" class="btn btn-warning btn-sm">Logout</button>
       </nav>
 
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -190,24 +190,9 @@
       <div class="row">
         <div class="col-12">
           <div class="px-4 pb-5 bg-light">
-            <div class="row" id="TODOCATEGORY">
+            <div class="row" id="todoContentBody">
               <!--  -->
-              <div class="col-12 col-md-4 mt-4">
-                <div class="card" style="height:13rem">
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">
-                      Card subtitle
-                    </h6>
-                    <p class="card-text">
-                      Bayar kost ssdoa ibu jugaadadadadadasddddddddddddd
-                      aadadadadadadadad
-                    </p>
-                    <a href="#" class="card-link">Card link</a>
-                    <a href="#" class="card-link">Another link</a>
-                  </div>
-                </div>
-              </div>
+              
               <!--  -->
             </div>
           </div>
@@ -221,6 +206,7 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="./index.js"></script>
   </body>
 </html>
