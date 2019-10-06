@@ -24,6 +24,10 @@ const userSchema = new Schema({
             },
             msg: 'Password must be more than 8 character and contains letter and number'
         }
+    },
+    timepoint: {
+        type: Number,
+        default: 0
     }
 })
 

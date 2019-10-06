@@ -4,7 +4,8 @@ const {Schema} = mongoose
 const Task = mongoose.model('Task', new Schema({
     name: {
         type: String,
-        required: [true, 'Task name cannot be empty']
+        required: [true, 'Task name cannot be empty'],
+        maxlength: [24, 'Task name cannot be longer than 24 characters']
     },
     description: String,
     status: {

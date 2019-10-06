@@ -19,7 +19,7 @@ class UserController {
             }
         })
         .then(_ => {
-            res.status(200).json({message: 'Email registered successfully'})
+            res.status(201).json({message: 'Email registered successfully'})
         })
         .catch(next)
     }
@@ -71,6 +71,32 @@ class UserController {
         })
         .then(_ => {
             res.status(200).send({token})
+        })
+        .catch(next)
+    }
+
+    static update(req, res, next) {
+        let {timepoint} = req.body
+        User.findById(req.loggedUser.id)
+        .then(user => {
+            console.log(typeof timepoint, typeof user.timepoint)
+            timepoint = Number(timepoint) + user.timepoint
+            return User.findByIdAndUpdate(
+                req.loggedUser.id, {$set: {timepoint}}
+            )
+        })
+        .then(updated => {
+            console.log(updated)
+            res.status(200).json({message: 'timepoint updated'})
+        })
+        .catch(next)
+    }
+
+    static findOne(req, res, next) {
+        User.findById(req.loggedUser.id)
+        .then(({email, timepoint}) => {
+            console.log(req.loggedUser.id)
+            res.status(200).json({email, timepoint})
         })
         .catch(next)
     }
