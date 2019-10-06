@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const projectSchema = new Schema({
   projectTitle: String,
-  owner: { type: Schema.Types.ObjectId, ref: "User" },
-  member: [{ type: Schema.Types.ObjectId, ref: "User" }],
-  todo : [{ type: Schema.Types.ObjectId, ref: "Todo" }]
+  owner: Schema.Types.ObjectId,
+  member: [Schema.Types.ObjectId],
+  todo: [Schema.Types.ObjectId]
 });
 
 const Project = mongoose.model("Project", projectSchema);

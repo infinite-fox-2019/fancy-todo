@@ -16,8 +16,8 @@ class UserController {
     User.findOne({ email })
       .then(data => {
         if (data && data.password === password) {
-          res.status(200).json({ message: "Berhasil Login" });
           // lempar jwt
+          res.status(200).json(token);
         } else {
           // username/email salah
         }
@@ -34,7 +34,7 @@ class UserController {
         res.status(201).json(data);
       })
       .catch(err => {
-        console.log(err);
+        res.json(err)
       });
   }
 
