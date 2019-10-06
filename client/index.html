@@ -28,12 +28,11 @@
                   <i class="fas fa-circle" style="color: #009432;"></i>
                 </div>
                 <div class="my-account">
-                  <div>
-                    <img src="https://api.adorable.io/avatars/32/dfasdsdfadsdfadfasdfasdfdfas.png">
+                  <div class="loginStatusimg">
+                    
                   </div>
-                  <div>
-                    <a href="#" class="mx-2 my-1">Arnold</a>
-                    <span class="mx-2 my-1">Logged in </span>
+                  <div class="loginStatusket">
+                    
                   </div>
                 </div>
               </div>
@@ -91,12 +90,14 @@
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                       </li>
                       <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#formTodoModal">Add To Do</a>
+                      </li>
+                      <li class="nav-item" onclick="signOut();">
                           <!-- <a onclick="signOut();"  class="nav-link" href="#">Pricing</a> -->
-                        <button onclick="signOut();" class="btn btn-warning btn-sm mx-2 mb-2" id="signoutbtn">Sign out</button>
+                          <a href="#" id="signoutbtn" style="color: #857777; text-decoration: none;">Sign Out</a>
+                        <!-- <button onclick="signOut();" id="signoutbtn">Sign out</button> -->
                       </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                      </li>
+                     
                       <li class="nav-item">
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                       </li>
@@ -107,33 +108,75 @@
             <div class="page">
               <div class="profile-card">
                 <div class="profile-image">
-                <span class="image"></span>
+                
                 </div>
                 <div class="profile-user-name">
-                <h3>Arnold Therigan</h3>
-                  <p>Point : 0</p>
+                  <div class="nama">
+
+                  </div>
+                  <hr style="border: 2px dashed white;">
                   <div id="myDIV" class="header">
                     <!-- FORM UNTUK TODO -->
-                    <h2 style="margin:5px">Do Something</h2>
-                    <form id="addTodo">
-                      <input type="text" id="description" placeholder="Title...">
-                      <input type="submit" value="add">
-                    </form>
+                    <h2 style="margin:5px; color: white;">To Do List</h2>
                   </div>
-                  
-                  <ul id="myUL">
-                    <li>Hit the gym</li>
-                    <li class="checked">Pay bills</li>
-                    <li>Meet George</li>
-                    <li>Buy eggs</li>
-                    <li>Read a book</li>
-                    <li>Organize office</li>
-                  </ul>
+                  <div class="todo-list wrap-text text-align:justify;">
+
+                  </div>
+
+                 
+                
                 </div>
             </div>
          </div>
            </div>
             <!-- --------------- -->
+            <!-- untuk modal todo -->
+
+            <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="formTodoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Your Todos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addTodoForm">
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" class="form-control" id="titleTodo" placeholder="todos title" required>
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" id="descriptionTodo" placeholder="description">
+          </div>
+          <div class="form-group">
+            <label>Due Date</label>
+            <input type="date" class="form-control" id="dateTodo">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- UPDATE MODAL -->
+
+<div class="modalUpdate">
+
+</div>
+
+
+   
+  
+            <!-- ---------------------------- -->
             </div>
             <div class="footer">
               <span>You have: {{tasks.length}} total items, {{undone}} undone items and {{done}} done items.</span>

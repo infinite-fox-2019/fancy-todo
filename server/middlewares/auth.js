@@ -1,13 +1,15 @@
-const {VerifyToken} = require('../helpers/jwt')
+const {verifyToken} = require('../helpers/jwt')
 const User = require('../models/user')
 
 function authentication(req, res, next){
+    
     try {
-        let decodedToken = VerifyToken(req.headers.token)
+        let decodedToken = verifyToken(req.headers.token)
         req.loggedUser = decodedToken
         next()
     }
     catch {
+        console.log("testtt aut");
         throw {
             status: 403,
             msg: "login first"
