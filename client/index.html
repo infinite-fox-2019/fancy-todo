@@ -18,72 +18,90 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" id="register">
-        <div class="form-group">
-            <label for="email">E-mail</label>
-            <br>
-            <input type="text" name="email" id="registerEmail" placeholder="Insert your email !">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <br>
-            <input type="password" name="password" id="registerPassword" placeholder="Insert your password !">
-        </div>
-        <div class="col">
-            <button id="btn-register" type="submit" class="btn btn-primary" onclick="register()">Register</button>
-            <div class="g-signin2 col" data-onsuccess="onSignIn" data-theme="dark" id="loginGoogle"></div>
-        </div>
-    </form>
-    <div class="col" id="showLogin">
-        <h4>Sudah punya Akun ? Silahkan klik <a type="submit" class="clickable" onclick="showLogin()">disini</a></h4>
-    </div>
-    
-    <form action="" id="login">
-        <div class="form-group">
-            <label for="email">E-mail</label>
-            <br>
-            <input type="text" name="email" id="loginEmail" placeholder="Insert your email !">
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <br>
-            <input type="password" name="password" id="loginPassword" placeholder="Insert your password !">
-        </div>
-        <button id="btn-login" type="submit" class="btn btn-primary" onclick="login()">login</button>
-    </form>
-    <a href="#" onclick="signOut()" id="logoutGoogle">Sign out</a>
-    <br>
-    <section class="container" id="navbar-todo" style="width: 100%">
-        <nav class="nav-wrapper bg-dark">
-            <div>
-                <button id="logoutButton" onclick="signOut()" class="btn btn-primary" style="margin-left: 5rem">Logout</button>
-                <ul class="right">
-                    <li class="nav-js">
-                        <a href="#" onclick="">List To Do</a>
-                    </li>
-                    <li class="nav-js">
-                        <a href="#" onclick="">Create To Do</a>
-                    </li>
-                </ul>
+    <section id="log-container" class="container" style="margin: 12rem">
+        <form action="" id="register" class="card">
+            <div class="form-group">
+                <h4>Selamat Datang !</h4>
+                <label for="email" class="card-text">E-mail</label>
+                <br>
+                <input type="text" name="email" id="registerEmail" placeholder="Insert your email !" required>
             </div>
-        </nav>
-    </section>
-    <section class="container" id="containerToDo">
-        <div id="listToDo">
-
-        </div>
-    </section>
-    <br>
-    <section class="container">
-        <form id="createToDo" action="">
-            <!-- <div class="row"> -->
-                <label for="date" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 20px">Hari</label>
-                <input type="date" name="date" class="" id="date">
-                <label for="activity" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 20px">Kegiatan</label>
-                <input type="text" name="activity" class="" placeholder="Masukkan kegiatanmu !" id="activity">
-                <button class="btn btn-primary" onclick="createToDo()" type="submit">Simpan</button>
-            <!-- </div> -->
+            <div class="form-group">
+                <label for="password" class="card-text">Password</label>
+                <br>
+                <input type="password" name="password" id="registerPassword" placeholder="Insert your password !" required>
+            </div>
+            <div class="col">
+                <button id="btn-register" type="submit" class="btn btn-primary" onclick="register()">Register</button>
+                <div class="g-signin2 col" data-onsuccess="onSignIn" data-theme="dark" id="loginGoogle"></div>
+            </div>
         </form>
+        <div class="col" id="showLogin">
+            <h4>Sudah punya Akun ? Silahkan klik <a type="submit" class="clickable" onclick="showLogin()">disini</a></h4>
+        </div>
+        
+        <form action="" id="login" class="card">
+            <div class="form-group">
+                <h4>Silahkan login untuk mengakses aplikasi</h4>
+                <label for="email" class="card-text">E-mail</label>
+                <br>
+                <input type="text" name="email" id="loginEmail" placeholder="Insert your email !" required>
+            </div>
+            <div class="form-group">
+                <label for="password" class="card-text">Password</label>
+                <br>
+                <input type="password" name="password" id="loginPassword" placeholder="Insert your password !" required>
+            </div>
+            <button id="btn-login" type="submit" class="btn btn-primary" onclick="login()">login</button>
+        </form>
+        <a href="#" onclick="signOut()" id="logoutGoogle">Sign out</a>
     </section>
+    
+    <br>
+    <section id="main-container" class="container" >
+        <section class="container" id="navbar-todo" style="width: 100%; margin-top: 20px">
+            <nav class="nav-wrapper bg-dark">
+                <div>
+                    <button id="logoutButton" onclick="signOut()" class="btn btn-primary" style="margin-left: 5rem">Logout</button>
+                    <ul class="right">
+                        <li class="nav-js">
+                            <a href="#" onclick="findList()">List To Do</a>
+                        </li>
+                        <li class="nav-js">
+                            <a href="#" onclick="showCreate()">Create To Do</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </section>
+        <section class="container" id="containerToDo" style="width: 100%">
+            <div id="listToDo">
+
+            </div>
+        </section>
+        <br>
+        <section class="container">
+            <form id="createToDo" action="">
+                <!-- <div class="row"> -->
+                    <label for="date" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 20px">Hari</label>
+                    <input type="date" name="date" class="" id="date" required>
+                    <label for="activity" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 20px">Kegiatan</label>
+                    <input type="text" name="activity" class="" placeholder="Masukkan kegiatanmu !" required id="activity">
+                    <button class="btn btn-primary" onclick="createToDo()" type="submit">Simpan</button>
+                <!-- </div> -->
+            </form>
+        </section>
+        <section class="container">
+            <form id="updateToDo" action="">
+                <label for="date" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, 
+                sans-serif; font-size: 20px" >Hari</label>
+                <input type="date" name="dateUpdate" class="" id="dateUpdate" required>
+                <label for="activity" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 20px" >Kegiatan</label>
+                <input type="text" name="activityUpdate" class="" placeholder="Masukkan kegiatanmu !" id="activityUpdate" required>
+                <button class="btn btn-primary" onclick="updateToDo()" type="submit">Update</button>
+            </form>
+        </section>
+    </section>
+    
 </body>
 </html>

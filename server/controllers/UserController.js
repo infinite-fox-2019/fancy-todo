@@ -75,8 +75,8 @@ class UserController {
             }
         )
         .then ( ticket => {
-            console.log("masuk ticket");
-            console.log(ticket)
+            // console.log("masuk ticket");
+            // console.log(ticket)
             
             payload = 
             ticket.getPayload()
@@ -89,7 +89,7 @@ class UserController {
         })
         .then ( result => {
             if (!result) {
-                console.log("masuk create");
+                // console.log("masuk create");
                 
                 let { email, name } = payload
                 User.create(
@@ -99,7 +99,7 @@ class UserController {
                     }
                 )
                 .then ( result => {
-                    console.log("sukses buat");
+                    // console.log("sukses buat");
                     
                     let token = jwt.generateToken(
                         {
@@ -114,7 +114,7 @@ class UserController {
                     res.status(500).json(err)
                 })
             } else {
-                console.log("gak masuk create");
+                // console.log("gak masuk create");
                 
                 let token = jwt.generateToken(
                     {

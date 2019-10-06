@@ -19,7 +19,7 @@ app.use(express.urlencoded({extended:false}))
 
 app.use("/", routes)
 
-mongoose.connect('mongodb://localhost/FancyToDo',{useNewUrlParser:true,useUnifiedTopology:true})
+mongoose.connect('mongodb://localhost/FancyToDo',{useNewUrlParser:true,useUnifiedTopology:true, useFindAndModify:false})
 
 app.listen(PORT, () => {
     console.log(`listening to port ${PORT}`)
