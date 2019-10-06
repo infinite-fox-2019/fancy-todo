@@ -13,10 +13,12 @@ class UserController {
 
         User.create(createdData)
             .then(created_data => {
-                res.status(201).json(created_data)
+                res.status(201).json({
+                    message: 'Account successfully registered'
+                })
             })
             .catch(err => {
-                res.status(500).json(`${err} (User registration is failed)`)
+                res.status(500).json(err)
             }) 
     }
 
@@ -38,7 +40,9 @@ class UserController {
                 const token = jwt.sign(data, process.env.SECRET)
                 res.status(200).json({token, data})
             } else {
-                
+                res.status(400).json({
+                    message: 'Wrong username or password'
+                })
             }
         })
         .catch(err => {
@@ -60,7 +64,7 @@ class UserController {
             res.status(200).json(generateToken)
         })
         .catch(err => {
-            res.status(500).json(`${err} (Google Sign-In Verification is failed)`)
+            res.status(500).json(err)
         })
 
     }

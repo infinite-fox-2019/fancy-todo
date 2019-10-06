@@ -71,6 +71,8 @@ function homeButton() {
     $('.sign-in').hide()
     $('#home-picture').show()
     $('#login-button').show()
+    $('#home').hide()
+    $('#register').show()
 }
 
 function displayLogin() {
@@ -83,6 +85,8 @@ function displayRegister() {
     $('#login-button').hide()
     $('.signup').show()
     $('.sign-in').hide()
+    $('#home').show()
+    $('#register').hide()
 }
 
 function register(e) {
@@ -132,6 +136,13 @@ function standardSignIn (e) {
 
 function onSignIn(googleUser) {
     var googleToken = googleUser.getAuthResponse().id_token;
+
+    var profile = googleUser.getBasicProfile();
+    // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    // console.log('Name: ' + profile.getName());
+    // console.log('Image URL: ' + profile.getImageUrl());
+    // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
     $.ajax ({
         method: 'POST',
         url: `${config.host}/gsignin`,
@@ -140,15 +151,11 @@ function onSignIn(googleUser) {
         }
     })
     .done(token => {
-        $('#signout').show()
-        $('#gsignin').hide()
-        $('.sign-in').hide()
-        $('.signup').hide()
-        $('.form-group-task').show()
-        $('#todos_list').show()
-        $('#todos_details').show()
-        displayTask()
         localStorage.setItem('token', token)
+        localStorage.setItem('name', profile.getName())
+        checkToken()
+        displayTask()
+        
     })
     .fail(err => {
         console.log(err)

@@ -8,17 +8,21 @@ function authorized(req, res, next) {
                     if(req.LoggedUser.name == task.author) {
                         next()
                     } else {
-                        res.status(401).json('Youre not authorized')
+                        res.status(401).json({
+                            message: 'Validation Error: Users exclusive feature'
+                        })
                     }
                 })
                 .catch(err => {
-                    console.log(err)
+                    res.status(500).json(err)
                 })
         } catch (err) {
             res.status(500).json(err)
         }
     } else {
-        res.status(400).json('Token not found')
+        res.status(400).json({
+            message: 'Token not found'
+        })
     }
 }
 

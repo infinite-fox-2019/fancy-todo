@@ -246,6 +246,11 @@ input {
 
 form {
     display: inline-block;
+    
+}
+
+.form-group-task {
+  margin-bottom: 50px;
 }
 
 #todo {
@@ -268,6 +273,7 @@ a.close {
 
 #edit_form {
   width: 300px;
+  padding-bottom: 120px;
 }
   
 

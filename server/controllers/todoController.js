@@ -24,7 +24,6 @@ class TodoController {
             .catch(err => {
                 res.status(500).json(err)
             })
-
     }
 
     static create(req, res) {
@@ -36,7 +35,9 @@ class TodoController {
 
         Todo.create(createdData)
             .then(created_data => {
-                res.status(201).json(created_data)
+                res.status(201).json({
+                    message: 'Successfully created task'
+                })
             })
             .catch(err => {
                 res.status(500).json(err)
@@ -55,7 +56,9 @@ class TodoController {
 
         Todo.findByIdAndUpdate(id, updatedData)
             .then(updated_data => {
-                res.status(200).json(updated_data)
+                res.status(200).json({
+                    message: 'Successfully updated task'
+                })
             })
             .catch(err => {
                 res.status(500).json(err)
@@ -70,7 +73,9 @@ class TodoController {
 
         Todo.findByIdAndDelete(id)
             .then(deleted_data => {
-                res.status(200).json(deleted_data)
+                res.status(200).json({
+                    message: 'Successfully deleted task'
+                })
             })
             .catch(err => {
                 res.status(500).json(err)
