@@ -7,6 +7,36 @@ $(document).ready(function() {
     displayTask()
 });
 
+function displayTask() {
+    const token = localStorage.getItem('token')
+    $.ajax({
+        method: 'GET',
+        url: `${config.host}/todos`,
+        headers: { token }
+    })
+    .done(todos_data => {
+        console.log(todos_data)
+        $('#todos_list').empty()
+        for(let i = 0; i < todos_data.length; i++) {
+            $('#todos_list').append(`  
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    <center>
+                        <p id="task_name" class="card-text">${todos_data[i].name}</p><br>
+                        <a href="#" onclick="displayUpdate('${todos_data[i]._id}', '${todos_data[i].name}')" class="btn btn-primary">Edit</a>
+                        <a href="#" onclick="deleteTask('${todos_data[i]._id}')" class="btn btn-danger">Delete</a>
+                    </center>
+                    </div>
+                </div> <br>
+            `)
+        }
+    })
+    .fail(err => {
+        console.log(err)
+    })
+}
+
 function checkToken() {
     const token = localStorage.getItem('token')
     if(token) {
@@ -20,6 +50,8 @@ function checkToken() {
         $('.form-group-task').show()
         $('#todos_list').show()
         $('#todos_details').show()
+        $('#home').hide()
+        $('#register').hide()
     } else {
         $('#signout').hide()
         $('.signup').hide()
@@ -28,12 +60,17 @@ function checkToken() {
         $('#todos_list').hide()
         $('#todos_details').hide()
         $('#edit_form').hide()
+        $('#home').hide()
+        $('#register').show()
     }
 }
 
-
 function homeButton() {
-    checkToken()
+    $('#signout').hide()
+    $('.signup').hide()
+    $('.sign-in').hide()
+    $('#home-picture').show()
+    $('#login-button').show()
 }
 
 function displayLogin() {
@@ -63,6 +100,8 @@ function register(e) {
         $('#signout').hide()
         $('.signup').hide()
         $('.sign-in').hide()
+        $('#home-picture').show()
+        $('#login-button').show()
     })
     .fail(err => {
         console.log(err)
@@ -80,16 +119,11 @@ function standardSignIn (e) {
         }
     })
     .done(data => {
-        $('#signout').show()
-        $('#gsignin').hide()
-        $('.sign-in').hide()
-        $('.signup').hide()
-        $('.form-group-task').show()
-        $('#todos_list').show()
-        $('#todos_details').show()
-        displayTask()
         localStorage.setItem('token', data.token)
         localStorage.setItem('name', data.data.name)
+        checkToken()
+        displayTask()
+        
     })
     .fail(err => {
         console.log(err)
@@ -130,6 +164,7 @@ function signOut() {
         $('.form-group-task').hide()
         $('#todos_list').hide()
         $('#todos_details').hide()
+        $('#register').show()
         localStorage.removeItem('token')
         localStorage.removeItem('name')
       console.log('User signed out.');
@@ -198,6 +233,7 @@ function deleteTask(id) {
         headers: { token }
     })
     .done(deleted_data => {
+        $('#edit_form').hide()
         displayTask()
     })
     .fail(err => {
@@ -205,32 +241,4 @@ function deleteTask(id) {
     })
 }
 
-function displayTask() {
-    const token = localStorage.getItem('token')
-    $.ajax({
-        method: 'GET',
-        url: `${config.host}/todos`,
-        headers: { token }
-    })
-    .done(todos_data => {
-        console.log(todos_data)
-        $('#todos_list').empty()
-        for(let i = 0; i < todos_data.length; i++) {
-            $('#todos_list').append(`  
-                <div class="card">
-                    <div class="card-body">
-                    <h5 class="card-title"></h5>
-                    <center>
-                        <p id="task_name" class="card-text">${todos_data[i].name}</p><br>
-                        <a href="#" onclick="displayUpdate('${todos_data[i]._id}', '${todos_data[i].name}')" class="btn btn-primary">Edit</a>
-                        <a href="#" onclick="deleteTask('${todos_data[i]._id}')" class="btn btn-danger">Delete</a>
-                    </center>
-                    </div>
-                </div> <br>
-            `)
-        }
-    })
-    .fail(err => {
-        console.log(err)
-    })
-}
+

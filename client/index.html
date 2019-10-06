@@ -10,6 +10,7 @@
         
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <meta name="google-signin-client_id" content="892845584166-gl7d7hdkqkrr49o5cnfnd7s35dsgjti5.apps.googleusercontent.com">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet"> 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
         <!-- Main css -->
@@ -24,10 +25,13 @@
                 <a class="navbar-brand" href="#">Todo-Fancy</a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="homeButton()">Home</a>
+                        <a class="nav-link" id="home" onclick="homeButton()">Home</a>
                     </li>
                     <li class="nav-item">
                         <a id="signout" class="nav-link" href="#" onclick="signOut();">Sign out</a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link" id="register" onclick="displayRegister()">Register</a>
                     </li>
                 </ul>
             </div>
@@ -48,15 +52,12 @@
                             <h2 class="form-title">Sign up</h2>
                             <form class="register-form" id="register-form">
                                 <div class="form-group">
-                                    <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                     <input type="text" name="name" id="name" placeholder="Your Name"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email"><i class="zmdi zmdi-email"></i></label>
                                     <input type="email" name="email" id="email" placeholder="Your Email"/>
                                 </div>
                                 <div class="form-group">
-                                    <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                                     <input type="password" name="pass" id="pass" placeholder="Password"/>
                                 </div>
                              
@@ -109,41 +110,37 @@
         </div>
         
             <!-- TodoList:Main -->
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group-task"><br>
-                            <h1>To-Do <small>List</small></h1>
-                            <form role="form">
-                                <input type="text" class="form-control" placeholder="Your Task" id="task">
-                            </form> <br>
-                            <input type="submit" onclick="addTask()" id="addTask" class="form-submit btn-outline-success btn-lg" value="Add"/>
-                        </div> 
-                    </div>
-                    
-                    <div class="col">
-                        <div id="todos_list"><br>
-                            <br><h3>List</h3>
+            <center>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group-task"><br>
+                                <h1>To-Do <small>List</small></h1>
+                                <form role="form">
+                                    <input type="text" class="form-control" placeholder="Your Task" id="task">
+                                </form> <br>
+                                <input type="submit" onclick="addTask()" id="addTask" class="form-submit btn-outline-success btn-lg" value="Add"/><br>
+                            </div> 
                         </div>
-                    </div>
+                        
+                        <div class="col">
+                            <div id="todos_list"><br>
+                            </div>
+                        </div>
 
-                    <div class="col">
-                        <div id="todos_details">
-                            <br><h3>Details</h3>
+                        <div class="col">
+                            <div id="edit_form"><br>
+                                <p id="taskId"> </p><br><br>
+                                <h5>Name</h5><br>
+                                <input type="text" id="new_name" class="form-control" placeholder="Enter Todo's new name"> 
+                                <input type="submit" id="editTask" onclick="updateTask()" class="form-submit btn-outline-success btn-lg" value="Submit"/>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- TodoList:EditForm -->
-            <center>
-                <div id="edit_form" class="form-group">
-                    <p id="taskId"> </p><br><br>
-                    <h5>Name</h5><br>
-                    <input type="text" id="new_name" class="form-control" placeholder="Enter Todo's new name"> 
-                    <input type="submit" id="editTask" onclick="updateTask()" class="form-submit btn-outline-success btn-lg" value="Submit"/>
-                </div>      
             </center>
+
+
       
         <!-- JS -->
         <script

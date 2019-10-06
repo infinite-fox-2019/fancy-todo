@@ -27,7 +27,6 @@ class UserController {
 
         User.findOne(name)
         .then(loggedIn_userData => {
-            console.log(loggedIn_userData)
             const passwordIsTrue = bcrypt.compareSync(req.body.password, loggedIn_userData.password)
             if(passwordIsTrue) {
                 const data = {
