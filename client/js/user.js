@@ -108,11 +108,11 @@ function verifyUser() {
                     showConfirmButton: false
                 })
                 showContent()
-            }).catch(({ response }) => {
+            }).catch(({ response: { data: error } }) => {
                 Swal.fire({
                     type: 'error',
                     title: 'Failed Verifying User',
-                    text: responsetigor,
+                    text: error,
                     showConfirmButton: true
                 })
                 showLogin()
