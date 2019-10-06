@@ -134,3 +134,16 @@ Request End Point **Method POST**
     msg : String,
 }
 ```
+# Dog API Documentation => https://dog.ceo/dog-api/documentation/
+
+## Request **Method GET**
+```
+/animals
+```
+## Response
+```javascript
+{
+    message : String,
+    status : String
+}
+```

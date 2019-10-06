@@ -102,7 +102,8 @@ function login(data) {
     localStorage.setItem('token', serverToken);
     $('#row1').append(
         `
-    <img src="${photo}" style="height:240px; margin: 6px 25px;width:200px;">
+    <img src="${photo}" class='img-profile' style="height:240px; margin: 6px 25px;width:200px;">
+    <button><a class='bg-secondary' id='dontClick' onclick='whyClick()'>Dont Click</a></button>
     `
     )
     $('#row2').append(
@@ -114,23 +115,36 @@ function login(data) {
     $('#main-container').show();
     $('#signout').show();
 }
-function uploadPhoto(photo){
-    let getpicture = $('#customFile').val();
-    console.log(getpicture)
-    console.log(photo)
+function whyClick(){
+    $('#row1').empty();
     $.ajax({
-        method : 'put',
-        url : 'http://localhost:3000/todos/upload',
-        data : {
-            photo : photo,
-            newPhoto : getpicture
-        }
+        method : 'get',
+        url : 'http://localhost:3000/animals'
     })
-        .done(function(){
-
+        .done(function(animal){
+            $('#row1').empty;
+            $('#row1').append(`
+                <img src="${animal.message}" style="height:240px; margin: 6px 25px;width:200px;">
+                <a class='bg-secondary' >eh masih di click</a>
+            `)
         })
-        .fail(console.log)
 }
+//masih ngerror
+// function uploadPhoto(photo){
+//     let getpicture = $('#customFile').val();
+//     $.ajax({
+//         method : 'put',
+//         url : 'http://localhost:3000/todos/upload',
+//         data : {
+//             photo : photo,
+//             newPhoto : getpicture
+//         }
+//     })
+//         .done(function(){
+
+//         })
+//         .fail(console.log)
+// }
 function onSignIn(googleUser) {
     const id_token = googleUser
         .getAuthResponse()
