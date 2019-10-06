@@ -29,9 +29,11 @@ toastr.options = {
 
 // * Running Startups
 $(document).ready(function () {
-    verifyUser()
-})
+    // verifyUser()
+    showProject()
+    // * Quill
 
+})
 
 
 // * Home Tabs
@@ -86,11 +88,11 @@ function fetchContent() {
         }))
 }
 
-function copyToClipboard(element) {
+function copyToClipboard(element, message = 'Text copied to clipboard') {
     const $temp = $("<input>");
     $("body").append($temp);
     $temp.val($(element).text()).select();
     document.execCommand("copy");
     $temp.remove();
-    toastr.success('Invite Code copied to clipboard')
+    toastr.success(message)
 }

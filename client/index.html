@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://kit.fontawesome.com/396f3f0150.js"></script>
     <link rel="stylesheet" href="css/toastr.min.css">
+    <link rel="stylesheet" href="css/quill.snow.css">
 </head>
 
 <body>
@@ -161,7 +162,9 @@
         </div>
     </section>
 
+    <section id="project-page">
 
+    </section>
 
     <!-- MODAL Register -->
 
@@ -191,9 +194,9 @@
                                     <div class="form-group">
                                         <label for="description">Description
                                         </label>
-                                        <textarea class="form-control" name="description" id="create-todo-description"
-                                            cols="30" rows="5" placeholder="Enter description">
-                                    </textarea>
+                                        <textarea class="form-control" style="height:30vh" name="description"
+                                            id="create-todo-description" placeholder="Enter description">
+                                        </textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -251,8 +254,7 @@
                                     <div class="form-group">
                                         <label for="description">Description
                                         </label>
-                                        <textarea class="form-control" name="description" id="edit-todo-description"
-                                            cols="30" rows="5" placeholder="Enter description">
+                                        <textarea class="form-control" name="description" id="edit-todo-description">
                                         </textarea>
                                     </div>
                                 </div>
@@ -284,6 +286,8 @@
             </div>
         </div>
     </div>
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -291,16 +295,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+    <script src="js/quill.min.js"></script>
     <script src="js/md5.min.js"></script>
     <script src="js/axios.min.js"></script>
     <script src="js/sweetalert2.all.min.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="js/toastr.min.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/project.js"></script>
     <script src="js/user.js"></script>
     <script src="js/todo.js"></script>
     <script src="js/todo-constructor.js"></script>
-    <script src="js/main.js"></script>
     <script>
     </script>
 </body>

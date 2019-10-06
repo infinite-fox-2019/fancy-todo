@@ -1,3 +1,9 @@
+function showProject() {
+    $('#login-page').hide()
+    $('#content').hide()
+    $('#project-page').show()
+}
+
 function emptyProject() {
     return `
     <div class="d-flex justify-content-center align-items-center" style="height: 100%; width: 100%;">
@@ -114,7 +120,7 @@ function joinProject() {
 function invite(code) {
     Swal.fire({
         title: 'Invite Code',
-        html: `<strong>Share this to invite others.</strong><br/><br/><span id="invite-secret" class="border rounded px-3 py-1 shadow">${code}</span> <button class="btn btn-info" onclick="copyToClipboard('#invite-secret')">Copy</button>`,
+        html: `<strong>Share this to invite others.</strong><br/><br/><span id="invite-secret" class="border rounded px-3 py-1 shadow">${code}</span> <button class="btn btn-info" onclick="copyToClipboard('#invite-secret', 'Invite Code copied to Cliipboard')">Copy</button>`,
         showConfirmButton: true
     })
 }

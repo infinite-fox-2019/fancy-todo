@@ -1,5 +1,6 @@
 function showLogin() {
     $('#login-page').show()
+    $('#project-page').hide()
     $('#content').hide()
     $('#fill-todos').empty()
     $('#fill-projects').empty()
@@ -7,6 +8,7 @@ function showLogin() {
 
 function showContent() {
     $('#login-page').hide()
+    $('#project-page').hide()
     $('#content').show()
     $('#user-control').text(localStorage.getItem('username'))
     fetchContent()

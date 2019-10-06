@@ -48,7 +48,6 @@ function createTodo() {
         showConfirmButton: false,
         onOpen: () => Swal.showLoading()
     })
-
     ajax.post('/todos/', {
         title: $('#create-todo-title').val(),
         description: $('#create-todo-description').val(),
