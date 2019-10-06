@@ -82,8 +82,10 @@ function getLogin() {
   })
     .done(({ token }) => {
       localStorage.setItem('token', token)
+      $('.list-group').empty()
       $('.landingPage').hide()
       $('.main').show()
+      toDoList() 
       Swal.close()
       Swal.fire('Success!', "Your Account is Logged in!", 'success')
     })
@@ -104,6 +106,7 @@ function signOut() {
         localStorage.removeItem('token')
       });
   }
+  
   console.log('User signed out.');
   localStorage.removeItem('token')
   $('.landingPage').show()

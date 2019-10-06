@@ -5,49 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="google-signin-client_id" content="163019021233-i4ddev11u6284in4j8tgepkbar2ghsr7.apps.googleusercontent.com">
-  
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet" href="style/style.css">
+
   <title>FancyToDo</title>
 </head>
 <body>
 
   <!-- landing page -->
     <div class="landingPage" style="display: none">
+      
       <div class="logo">
           <h1>Fancy To DO</h1>
       </div>
+      
       <div class="account">
         <div class="register-box" style="display: none">
-          <h1>Sign Up</h1>
-          <form>
+            <form class="text-center border border-light p-5">
+              <p class="h4 mb-4">Sign Up</p>
+
             <div class="input">
-                <input type="text" placeholder="Name" id="nameRegis">
+                <!-- <input type="text" placeholder="Name" id="nameRegis"> -->
+              <input type="text" class="form-control mb-4" placeholder="Name" id="nameRegis">
             </div>
 
             <div class="input">
-                <input type="password" placeholder="Password" id="passwordRegis">
+              <!-- <input type="password" placeholder="Password" id="passwordRegis"> -->
+              <input type="password" class="form-control mb-4" placeholder="Password" id="passwordRegis">  
             </div>
 
             <div class="input">
-                <input type="email" placeholder="Email" id="emailRegis">
+              <!-- <input type="email" placeholder="Email" id="emailRegis"> -->
+              <input type="email"  class="form-control mb-4" placeholder="E-mail" id="emailRegis">
             </div>
-            <input type="submit" value="Register" id="btn-register">
+            <button class="btn btn-info btn-block my-4" type="submit" id="btn-register">Register</button>
+            <!-- <input type="submit" value="Register" id="btn-register"> -->
+            <p>Already have an Account? Sign In <a href="#" id="toLogin">here</a></p>
           </form>
-          <p>Already have an Account? Sign In <a href="#" id="toLogin">here</a></p>
         </div>
 
           <div class="login-box">
-            <h1>Sign In</h1>
-            <form>
-              <div class="input">
-                  <input type="email" placeholder="Email" id="emailLogin">
-              </div>
-              <div class="input">
-                  <input type="password" placeholder="Password" id="passwordLogin">
-              </div>
-              <input type="submit" value="Sign In" id="btn-login">
-              <p>Don't have an Account? Create <a href="#" id="toRegister">here</a></p>
-              <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <form class="text-center border border-light p-5">
+                <p class="h4 mb-4">Sign in</p>
+                <!-- Email -->
+                <div class="input">
+                  <input type="email"  class="form-control mb-4" placeholder="E-mail" id="emailLogin">
+                </div>
+                <!-- Password -->
+                <div class="input">
+                  <input type="password" class="form-control mb-4" placeholder="Password" id="passwordLogin">
+                </div>
+                <!-- Sign in button -->
+                <button class="btn btn-info btn-block my-4" type="submit" id="btn-login">Sign in</button>
+                <!-- Register -->
+                <p>Not a member?
+                    <a href="#" id="toRegister">Register</a>
+                </p>
+                <!-- Social login -->
+                <p>or sign in with:</p>
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
             </form>
+            <!-- Default form login -->
         </div>
       </div>
     </div>
@@ -56,20 +74,66 @@
     <!-- body Todo -->
 
     <div class="main">
-      <a href="#" onclick="signOut();">Sign out</a>
-          
+
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-info mb-5" >
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item active">
+           <img src="https://icon-library.net/images/camping-icon-png/camping-icon-png-14.jpg" height="25"> Fancy To Do<span class="sr-only">(current)</span>
+          </li>
+        </ul>
+        <a class="btn btn-outline-secondary" href="#" onclick="signOut();" role="button">Sign Out</a>
+      </nav>
+
+      <!-- main to do list -->
+      <div class="todolist">
+          <div class="container">
+              <div class="row">
+                <div class="col">
+                  </div>
+                  <div class="col-lg-5">
+                    <div class="card text-center">
+                      <div class="card-header">
+                        To Do List
+                      </div>
+                      <div class="card-body">
+                        <div class="list-group">
+                                                   
+                        </div>
+                      </div>
+                          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" id="formtodo">Create To Do List</a>
+                    </div>
+                  </div>
+                  <div class="col">
+                </div>
+              </div>
+            </div>
+
+
+           <div id="formModal">
+             
+           </div>
+            <!-- modal -->
+
+      </div>
+      <!-- main to do list -->
+
     </div>
+
 
 
 
   <script src="https://code.jquery.com/jquery-3.4.1.js"
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://kit.fontawesome.com/5cd1e1d933.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-  <script src="/script/script.js"></script>
-  <script src="/script/landingPage.js"></script>
-  <script src="/script/login.js"></script>
+  <script src="./script/script.js"></script>
+  <script src="./script/todo.js"></script>
+  <script src="./script/landingPage.js"></script>
+  <script src="./script/login.js"></script>
 </body>
 </html>

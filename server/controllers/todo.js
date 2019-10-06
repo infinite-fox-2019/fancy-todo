@@ -18,7 +18,7 @@ class TodoController {
   }
 
   static findAll( req, res, next ){
-    Todo.find()
+    Todo.find({userId:req.user.id})
       .then(data => {
         res.status(200).json({ data })
       })

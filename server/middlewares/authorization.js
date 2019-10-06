@@ -4,7 +4,9 @@ const authorization = (req, res, next) => {
   const _id = req.params.id
   Todo.findOne ({ _id })
   .then(data => {
-    if (data.userId === req.user.id ) {
+    console.log(req.user.id)
+    console.log(data.userId)
+    if (data.userId == req.user.id ) {
       next ()
     } else {
       next({
