@@ -39,7 +39,9 @@ $ live-server --host=localhost
   
 * **Data Params**
  **headers:**
+
 `'Content-Type' (string) | specify the media type of request being sent from the client to the server.`
+
 `'token' (string) | a token that is sent from the server in authentication process.`
 
 * **Success Response:**
@@ -84,6 +86,7 @@ $ live-server --host=localhost
 
 * **Data Params**
  **headers:**
+
 `'Content-Type' (string) | specify the media type of request being sent from the client to the server.`
 
 `'token' (string) | a token that is sent from the server in authentication process.`
@@ -129,6 +132,7 @@ $ live-server --host=localhost
 
 * **Data Params**
  **headers:**
+
 `'Content-Type' (string) | specify the media type of request being sent from the client to the server.`
 
 `'token' (string) | a token that is sent from the server in authentication process.`
@@ -168,6 +172,7 @@ $ live-server --host=localhost
 
 * **Data Params**
  **headers:**
+
 `'Content-Type' (string) | specify the media type of request being sent from the client to the server.`
 
 `'token' (string) | a token that is sent from the server in authentication process.`
