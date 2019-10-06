@@ -36,8 +36,8 @@ class TodoController {
 
         Todo.create(createdData)
             .then(created_data => {
-                console.log(req.LoggedUser)
-                console.log(created_data)
+                // console.log(req.LoggedUser)
+                // console.log(created_data)
                 User.findByIdAndUpdate(req.LoggedUser.id, {
                     $push: {
                         todoList: created_data._id
