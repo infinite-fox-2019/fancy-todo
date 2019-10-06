@@ -3,23 +3,6 @@
 ###### aldinofrizal - FANCY TODO
 
 
-
-GOOGLE
-
-client_ID: 886591746355-ig8veddnh6hctvdb13ls5tskff1veo6e.apps.googleusercontent.com,
-
-client_Secert:5ZR9FDvP5zxHV4IUcCJhx2Vz
-
-
-
-WEATHERBIT
-
-API KEY b8083e7c11894146b71be354946eddd8
-
-
-
-
-
 ### Register a new user, using app auth
 
 > #### POST /user/register
