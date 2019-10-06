@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/jquery-datetimepicker.css">
     <link rel="stylesheet" href="node_modules/jquery-datetimepicker/jquery.datetimepicker.css">
     <meta name="google-signin-client_id" content="899845905532-jcsgv6kb2v5odj1jr101e60jaqm5m7mp.apps.googleusercontent.com">
     
@@ -37,7 +38,7 @@
                     </form>
                     <form id="sign-up" style="display:none;">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="email-sign-up" placeholder="Email" style="width: 320px">
+                            <input type="text" class="form-control" id="email-sign-up" placeholder="Email" style="width: 320px;">
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" id="password-sign-up" placeholder="Password" style="width: 320px">
@@ -55,14 +56,24 @@
             <div class="row">
                 <div class="col-2 pr-0" style="margin-left: 60px;">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="show-now-tasks-tab" data-toggle="pill" href="#show-now-tasks" role="tab" aria-controls="show-now-tasks" aria-selected="true" onclick="getNowTasks()">What to do now</a>
-                    <a class="nav-link" id="show-all-tasks-tab" data-toggle="pill" href="#show-all-tasks" role="tab" aria-controls="show-all-tasks" aria-selected="false" onclick="getAllTasks()">All tasks</a>
+                    <a class="nav-link active" id="show-now-tasks-tab" data-toggle="pill" href="#show-now-tasks" role="tab" aria-controls="show-now-tasks" aria-selected="true" onclick="showNowTasks()">What to do now</a>
+                    <a class="nav-link" id="show-all-tasks-tab" data-toggle="pill" href="#show-all-tasks" role="tab" aria-controls="show-all-tasks" aria-selected="false" onclick="showAllTasks()">All tasks</a>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                             width="24" height="24"
                             viewBox="0 0 172 172"
                             style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ecf0f1"><path d="M86,14.33333c-39.5815,0 -71.66667,32.08517 -71.66667,71.66667c0,39.5815 32.08517,71.66667 71.66667,71.66667c39.5815,0 71.66667,-32.08517 71.66667,-71.66667c0,-39.5815 -32.08517,-71.66667 -71.66667,-71.66667zM114.66667,93.16667h-21.5v21.5h-14.33333v-21.5h-21.5v-14.33333h21.5v-21.5h14.33333v21.5h21.5z"></path></g></g></svg> New Task
                     </button>
+                    
+                    </div>
+                    <div id="profile-info" style="text-align: center">
+                            <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                                    <div class="card-header" id="profile-email">Header</div>
+                                    <div class="card-body">
+                                      <h5 class="card-title">Timepoint</h5>
+                                      <p id="timepoint"></p>
+                                    </div>
+                                  </div>
                     </div>
                 </div>
                 <div class="col-4 pl-0 pr-0">
@@ -92,6 +103,7 @@
                             </div>
                         </div>
                     </div>
+                    
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
@@ -107,21 +119,24 @@
                         <form id="sign-up">
                             <form id="add-task">
                                 <div class="form-group">
-                                    <input type="text" class="form-control mb-1" id="name-add-task" placeholder="Name">
-                                    <input type="text" class="form-control mb-1" id="start-date-add-task" placeholder="Start Date">
-                                    <input type="text" class="form-control mb-1" id="due-date-add-task" placeholder="Due Date">
+                                    Name
+                                    <input type="text" class="form-control mb-1" id="name-add-task">
+                                    Start Date
+                                    <input type="text" class="form-control mb-1" id="start-date-add-task">
+                                    Due Date
+                                    <input type="text" class="form-control mb-1" id="due-date-add-task">
                                     <a href="#" onclick="showDescriptionForm('add')">Description</a>
                                     <textarea class="form-control mt-1" id="description-add-task" rows="3" style="display: none"></textarea>
                                 </div>
-                                <button onclick="addTask()" type="submit" class="btn btn-primary">
+                                <div style="text-align: right;"><button onclick="addTask()" type="submit" class="btn btn-primary" style="width: 100px;">
                                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                     width="24" height="24"
                                     viewBox="0 0 172 172"
                                     style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ecf0f1"><path d="M86,14.33333c-39.5815,0 -71.66667,32.08517 -71.66667,71.66667c0,39.5815 32.08517,71.66667 71.66667,71.66667c39.5815,0 71.66667,-32.08517 71.66667,-71.66667c0,-39.5815 -32.08517,-71.66667 -71.66667,-71.66667zM114.66667,93.16667h-21.5v21.5h-14.33333v-21.5h-21.5v-14.33333h21.5v-21.5h14.33333v21.5h21.5z"></path></g></g></svg>
-                                </button>
+                                </button></div>
+                                
                             </form>
-                            <input placeholder="From Date & Time" id="fdate" type="text"/>
-                            <input placeholder="To Date & Time" id="tdate" type="text"/>
+                            
                     </div>
                     
                     </div>
@@ -140,31 +155,51 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="node_modules/jquery-datetimepicker/jquery.datetimepicker.js"></script>
+    <script src="scripts/jquery-datetimepicker.js"></script>
     <script src="index.js"></script>
     <script>
     $(document).ready(function(){
-    $("#fdate" ).datetimepicker({
+    $("#start-date-add-task" ).datetimepicker({
         dateFormat: 'yy-mm-dd',
         timeFormat: 'HH:mm:ss',
         onShow: function () {
             this.setOptions({
-                maxDate:$('#tdate').val()?$('#tdate').val():false,
-                maxTime:$('#tdate').val()?$('#tdate').val():false
+                maxDate:$('#due-date-add-task').val()?$('#due-date-add-task').val():false,
+                maxTime:$('#due-date-add-task').val()?$('#due-date-add-task').val():false
             });
         }
   }).attr('readonly', 'readonly');
-  $( "#tdate" ).datetimepicker({
+  $( "#due-date-add-task" ).datetimepicker({
       dateFormat: 'yy-mm-dd',
       timeFormat: 'HH:mm:ss',
         onShow: function () {
             this.setOptions({
-                minDate:$('#fdate').val()?$('#fdate').val():false,
-                minTime:$('#fdate').val()?$('#fdate').val():false
+                minDate:$('#start-date-add-task').val()?$('#start-date-add-task').val():false,
+                // minTime:$('#start-date-add-task').val()?$('#start-date-add-task').val():false
             });
         }                    
   }).attr('readonly', 'readonly');     
     
-   
+  $("#start-date-update-task" ).datetimepicker({
+        dateFormat: 'yy-mm-dd',
+        timeFormat: 'HH:mm:ss',
+        onShow: function () {
+            this.setOptions({
+                maxDate:$('#due-date-update-task').val()?$('#due-date-update-task').val():false,
+                maxTime:$('#due-date-update-task').val()?$('#due-date-update-task').val():false
+            });
+        }
+  }).attr('readonly', 'readonly');
+  $( "#due-date-update-task" ).datetimepicker({
+      dateFormat: 'yy-mm-dd',
+      timeFormat: 'HH:mm:ss',
+        onShow: function () {
+            this.setOptions({
+                minDate:$('#start-date-update-task').val()?$('#start-date-update-task').val():false,
+                // minTime:$('#start-date-update-task').val()?$('#start-date-update-task').val():false
+            });
+        }                    
+  }).attr('readonly', 'readonly');    
 });
     </script>
    

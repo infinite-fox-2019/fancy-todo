@@ -1,114 +1,3 @@
-body {
-    background: rgb(17, 17, 17);
-}
-
-.yellowish-bg {
-    background: rgb(205, 221, 111);
-}
-
-.yellowish-font {
-    color: rgb(205, 221, 111);
-}
-
-.reddish-bg {
-    background: rgb(221, 111, 111);
-}
-
-.btn-primary {
-    background: rgb(221, 111, 111);
-    border: none;
-}
-
-a {
-    color: rgb(221, 111, 111);
-    text-decoration: none;
-}
-
-hr {
-    background: rgb(221, 111, 111);
-}
-
-.jumbotron {
-    width: 1000px;
-    height: 500px;
-    margin: auto;
-}
-
-#page-container {
-    width: 1000px;
-    height: 500px;
-    margin: auto;
-    background: rgb(31, 31, 31);
-    display: none;
-}
-
-.nav-link {
-    height: 50px;
-    text-align: center;
-    padding-top: 12px;
-    color: rgb(205, 221, 111);
-}
-
-#v-pills-tab .active {  
-    color: rgb(88, 94, 59);
-    background-color: rgb(205, 221, 111);
-}
-
-.nav-link:hover {
-    color: rgb(241, 255, 161);
-}
-
-a:hover {
-    color: rgb(241, 255, 161);
-    text-decoration: none;
-}
-
-a:active {
-    color: rgb(241, 255, 161);
-    text-decoration: none;
-} 
-
-button {
-    height: 50px;
-    border-radius: 50%;
-}
-
-.list-group-item {
-    background: rgb(70, 70, 70);
-    color: rgb(241, 255, 161);
-}
-
-.list-group-item:hover {
-    background: rgb(114, 114, 114);
-    color: rgb(237, 255, 136);
-}
-
-.btn-info {
-    height: 23px;
-    width: 20px;
-    border-radius: 50%;
-}
-
-.list-group-item .active {
-    background: rgb(107, 107, 107);
-    color: rgb(202, 216, 124);
-}
-
-.modal-content {
-    background: rgb(70, 70, 70);
-    color: rgb(241, 255, 161);
-}
-
-#update-container {
-    background: rgb(70, 70, 70);
-    color: rgb(241, 255, 161);
-}
-
-input[type=text] {
-    background: rgb(126, 126, 126);
-    border-color: rgb(92, 97, 66);
-    color: rgb(255, 244, 244);
-}
 
 .xdsoft_datetimepicker {
 	box-shadow: 0 5px 15px -5px rgba(0, 0, 0, 0.506);
@@ -247,7 +136,7 @@ input[type=text] {
 	display: block;
 	height: 30px;
 	opacity: 0.5;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	/* -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; */
 	outline: medium none;
 	overflow: hidden;
 	padding: 0;
@@ -302,7 +191,7 @@ input[type=text] {
 .xdsoft_datetimepicker .xdsoft_next:hover,
 .xdsoft_datetimepicker .xdsoft_prev:hover {
 	opacity: 1;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	/* -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; */
 }
 
 .xdsoft_datetimepicker .xdsoft_label {
@@ -315,8 +204,8 @@ input[type=text] {
 	line-height: 20px;
 	font-weight: bold;
 	background-color: #fff;
-	float: left;
-	width: 182px;
+	/* float: left; */
+	/* width: 182px; */
 	text-align: center;
 	cursor: pointer;
 }
@@ -437,13 +326,13 @@ input[type=text] {
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_disabled,
 .xdsoft_datetimepicker .xdsoft_time_box >div >div.xdsoft_disabled {
 	opacity: 0.5;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	/* -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; */
 	cursor: default;
 }
 
 .xdsoft_datetimepicker .xdsoft_calendar td.xdsoft_other_month.xdsoft_disabled {
 	opacity: 0.2;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+	/* -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)"; */
 }
 
 .xdsoft_datetimepicker .xdsoft_calendar td:hover,
