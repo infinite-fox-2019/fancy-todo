@@ -85,6 +85,7 @@ $ live-server --host=localhost
 * **Data Params**
  **headers:**
 `'Content-Type' (string) | specify the media type of request being sent from the client to the server.`
+
 `'token' (string) | a token that is sent from the server in authentication process.`
 
 * **Success Response:**
@@ -129,11 +130,15 @@ $ live-server --host=localhost
 * **Data Params**
  **headers:**
 `'Content-Type' (string) | specify the media type of request being sent from the client to the server.`
+
 `'token' (string) | a token that is sent from the server in authentication process.`
 **body:**
 `'name' (string) | the name of the task.`
+
 `'description' (string) | the description of the task.`
+
 `'startDate' (date) | the start date of the task.`
+
 `'dueDate' (date) | the due date of the task.`
 
 
@@ -164,14 +169,23 @@ $ live-server --host=localhost
 * **Data Params**
  **headers:**
 `'Content-Type' (string) | specify the media type of request being sent from the client to the server.`
+
 `'token' (string) | a token that is sent from the server in authentication process.`
+
 **params:**
+
 `'id' (string) | the id of the task.`
+
 **body:**
+
 `'name' (string) | the name of the task.`
+
 `'description' (string) | the description of the task.`
+
 `'startDate' (date) | the start date of the task.`
+
 `'dueDate' (date) | the due date of the task.`
+
 `'status' (boolean) | the status of the task.`
 
 
@@ -208,11 +222,14 @@ $ live-server --host=localhost
 
 * **Data Params**
  **headers:**
+
 `'Content-Type' (string) | specify the media type of request being sent from the client to the server.`
+
 `'token' (string) | a token that is sent from the server in authentication process.`
+
 **params:**
+
 `'id' (string) | the id of the task.`
-**body:**
 
 
 * **Success Response:**
