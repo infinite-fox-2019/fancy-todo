@@ -1,3 +1,17 @@
+$(document).ready(() => {
+  $('#search').on('keyup',  () => {
+    const value = $('#search').val().toLowerCase()
+    console.log(value)
+
+    $('.listTodo .card').filter(function () {
+      const regex = new RegExp(`^${value}`)
+      const solution = regex.test($(this).find('.titleTodo').text().toLowerCase())
+
+      $(this).toggle(solution)
+    })
+  })
+})
+
 function generateTodo() {
   $.ajax({
     method: 'GET',
@@ -11,15 +25,32 @@ function generateTodo() {
       $.each(todos, function (index, todo) {
         console.log(todo)
         $('.listTodo').append(`
-          <div class="card" id="todo${index}">
+          <div id='todo${index}' class="card bg-light mb-3" style="width:100%; height: 30%;">
+            <div class="card-header d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
+              <h5 class="my-0 mr-md-auto titleTodo">${todo.todo}</h5>
+              <div class="my-2 my-md-0 mr-md-3">
+                <i class="fas fa-circle" style="color: ${todo.status ? '#86ff57' : '#ff1957'}; font-size:2rem;"></i>
+              </div>              
+              </div>
+            
+            
             <div class="card-body">
-              <h5 class="card-title">${todo.todo}</h5>
-              <p class="card-text">${todo.description}</p>
-              <label for="tag${index}">done? check this box</label>
-              <input class="btn btn-md btn-info" type="button" id="edit${index}" value="edit" data-toggle="modal" data-target="#editModal">
-              <input class="btn btn-md btn-danger" type="button" id="delete${index}" value="delete">
+              <p>Description:</p>
+              <blockquote class="blockquote mb-0">  
+                <footer class="blockquote-footer">${todo.description ? todo.description : 'No Description'}</footer>
+              </blockquote>
+              <p>Tag:</p>
+              <blockquote class="blockquote mb-0">  
+                <footer class="blockquote-footer">${todo.tags ? todo.tags : 'No Tag'}</footer>
+              </blockquote>
+              <div class="float-right">
+                <input class="btn btn-md btn-outline-info" type="button" id="edit${index}" value="edit" data-toggle="modal" data-target="#editModal">
+                <input class="btn btn-md btn-outline-danger" type="button" id="delete${index}" value="delete">
+              </div>
             </div>
-          </div>
+                          
+            </div>
+                   
         `)
 
         $(`#delete${index}`).click(() => {
@@ -39,7 +70,7 @@ function generateTodo() {
                 type: 'success',
                 title: 'Deleted!',
                 showConfirmButton: false,
-                timer: 1500
+                timer: 1000
               })
             }
           })
@@ -66,7 +97,7 @@ function generateTodo() {
                 <label>Tag</label>
                 <input type="text" class="form-control" placeholder="Add tag" id="tagEdit" value="${todo.tags === undefined ? '' : todo.tags}">
               </div>
-              <div class="custom-control custom-checkbox">
+              <div class="custom-control custom-checkbox mb-2">
                 <input type="checkbox" class="custom-control-input" id="statusEdit" name="checkTodo">
                 <label class="custom-control-label" for="statusEdit">Finish?</label>
               </div>
@@ -96,14 +127,24 @@ function createTodo() {
       token: localStorage.getItem('token')
     }
   })
-    .done(todo => {
+    .done(_ => {
+      $('#alertValidate').remove()
       $('#todoForm').val('')
       $('#descriptionForm').val('')
       $('#tagForm').val('')
       $('.listTodo').empty()
       generateTodo()
     })
-    .catch(console.log)
+    .catch(err => {
+      if(err.status === 400) {
+        $('#alertValidate').remove()
+        $('#cardAdd').prepend(`
+        <div class="alert alert-danger" role="alert" id="alertValidate">
+          Todo can't be empty!
+        </div>
+        `)
+      }
+    })
 }
 
 function deleteTodo(id) {

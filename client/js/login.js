@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  // $('#linkLogin').hide()
+  $('#nav').hide()
   $('#linkLogout').hide()
 })
 
@@ -33,7 +33,7 @@ function myRegister() {
         showConfirmButton: false,
         timer: 1500
       })
-     
+
       showLogin()
 
     })
@@ -60,15 +60,7 @@ function onSignIn(googleUser) {
     .done(data => {
       Swal.close()
       localStorage.setItem('token', data.token)
-      console.log(data.token)
-      $('#loginEmail').val('')
-      $('#loginPassword').val('')
-      $('#myModal').hide()
-      $('.modal-backdrop').remove()
-      $('#linkLogin').hide()
-      $('#linkLogout').show()
-      $('.main').show()
-      $('.listTodo').empty()
+      doneLogin(data.username)
       generateTodo()
     })
     .fail(err => {
@@ -89,34 +81,61 @@ function loginUser() {
     }
   })
     .done(data => {
-      console.log(data)
-      console.log(data)
       Swal.close()
       localStorage.setItem('token', data.token)
-      $('#loginEmail').val('')
-      $('#loginPassword').val('')
-      $('#myModal').hide()
-      $('.modal-backdrop').remove()
-      $('#linkLogin').hide()
-      $('#linkLogout').show()
-      $('.main').show()
-      $('.listTodo').empty()
+      doneLogin(data.username)
       generateTodo()
     })
     .fail(err => alert(err))
 }
 
 function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance()
-  localStorage.removeItem('token')
-  auth2.signOut().then(function () {
-      console.log('User signed out.');
-  });
-    
-  localStorage.removeItem('token')
-  $('#linkLogin').show()
-  $('#linkLogout').hide()
-  $('.main').hide()
+  Swal.fire({
+    title: `Are you sure?`,
+    type: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Log out'
+  }).then((result) => {
+    if (result.value) {
+      var auth2 = gapi.auth2.getAuthInstance()
+      localStorage.removeItem('token')
+      auth2.signOut().then(function () {
+        console.log('User signed out.');
+      });
+
+      localStorage.removeItem('token')
+      $('#nav').remove()
+      $('.main').hide()
+      $('.landing').show()
+    }
+  })
 }
 
 
+
+function doneLogin(username) {
+  $('.navbar').show()
+  $('#loginEmail').val('')
+  $('#loginPassword').val('')
+  $('#myModal').hide()
+  $('.modal-backdrop').remove()
+  $('.landing').hide()
+  $('#navbar').show()
+  $('#linkLogout').show()
+  $('.main').show()
+  $('.listTodo').empty()
+  $('#navbar').append(`
+  
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm" id="nav">
+  <h5 class="my-0 mr-md-auto text-dark" id="user"></h5>
+  <div class="my-2 my-md-0 mr-md-3">
+    <a href="#" id="linkLogout" onclick="signOut();" class="btn btn-outline-danger">Log out</a>
+  </div>
+</div>
+  `)
+  $('#user').append(`
+      <h3 style="color: black"><i class="far fa-user" style="color: black"></i> : ${username}</h3>
+  `)
+}

@@ -9,28 +9,54 @@
     content="717041865559-dqsshm6frqa0l7o7ul14djcmnbjlep7f.apps.googleusercontent.com">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <title>Gogo</title>
+  <script src="https://kit.fontawesome.com/9f3db96af3.js" crossorigin="anonymous"></script>
+
+  <title>Dodo | Todo List App</title>
+  <style>
+    #linkLogin:hover {
+      cursor: pointer;
+    }
+  </style>
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+<body style="background: #595959;">
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item" id="linkLogout">
-          <a href="#" onclick="signOut();">Log out</a>
-        </li>
-        <li class="nav-item" id="linkLogin">
-          <a class="nav-link" href="" data-toggle="modal" data-target="#myModal">Log In</a>
-        </li>
-      </ul>
-    </div>
+  <nav id="navbar">
+
   </nav>
+
+  <div class="landing" style="width: 100vw; height: 100vh; overflow: hidden;">
+
+    <!-- background asal made with love by tours truly hadeh ngantuk pakde -->
+    <div class="strip" style="position: absolute;  top: 5rem; left:8%;">
+        <i class="fas fa-circle" style="color: beige; font-size: 2rem;"></i><i class="fas fa-circle" style="color: beige; font-size: 2rem;"></i><i class="fas fa-circle" style="color: beige; font-size: 2rem;"></i>
+    </div>
+
+    <div class="strip" style="position: absolute;  top: 15rem; right:8%;">
+      <i class="fas fa-braille" style="color: beige; font-size: 12rem;"></i>
+    </div>
+
+    <div class="strip" style="position: absolute;  top: 60vh; left:15%;">
+      <i class="fas fa-bacon" style="color: beige; font-size: 9rem;"></i>
+    </div>
+
+    <div class="card border-light text-center text-white"
+      style="top:15rem; width: 50rem; height: 25rem;background: #595959; margin: 0 auto; float: none;">
+      <div class="card-body">
+        <p><i class="far fa-check-circle" style="font-size: 4rem;"></i></p>
+        <h5 class="card-title" style="font-size: 4rem;">Do Do</h5>
+        <p class="card-text" style="font-size: 1.5rem;">Keep Track on Your List!</p>
+        <p class="card-text" style="font-size: 1.2rem;">It turn green when it's done</p>
+        <a class="btn btn-lg btn-light text-dark" id="linkLogin" data-toggle="modal" data-target="#myModal">Get Started
+          >></a>
+      </div>
+    </div>
+
+
+    <!--Grid column-->
+
+
+  </div>
 
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -53,7 +79,8 @@
               <div class="form-group">
                 <input type="password" class="form-control" placeholder="Password" id="loginPassword">
               </div>
-              <button type="submit" class="btn btn-primary" onclick="loginUser(); return false" style="width: 100%;">Log In</button>
+              <button type="submit" class="btn btn-primary" onclick="loginUser(); return false" style="width: 100%;">Log
+                In</button>
               <div class="mt-2">
 
                 <small id="emailHelp" class="form-text text-muted">No account? <a href="#"
@@ -65,7 +92,7 @@
             </form>
 
             <form id="myRegister" style="display: none;">
-              <div class="form-group">
+              <div class="form-group addTodo">
                 <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Username"
                   id="registerUsername">
               </div>
@@ -94,10 +121,14 @@
     </div>
   </div>
 
-  <div class="main" style="display: none; width: 100%;" id="todos">
+
+  <div class="main" style="display: none; width: 100%; padding: 3rem;" id="todos">
     <div class="row">
-      <div class="col-sm-4 m-3">
-        <div class="card border-primary mb-3" style="max-width: 25rem;">
+      <div class="col-md-4 m-3">
+
+        <!-- ADD TODO CARD -->
+        <div id="cardAdd" class="card border-dark text-white bg-secondary mb-3"
+          style="max-width: 30rem; padding: 20px;">
           <form>
             <div class="form-group">
               <label>Todo</label>
@@ -109,22 +140,32 @@
             </div>
             <div class="form-group">
               <label>Tag</label>
-              <input type="text" class="form-control" placeholder="Give description" id="tagForm">
+              <input type="text" class="form-control" placeholder="Give Tag" id="tagForm">
             </div>
-            <button type="submit" class="btn btn-primary" onclick="createTodo()" href="#">Add Todo</button>
+            <button type="submit" class="btn btn-outline-light" onclick="createTodo(); return false" href="#">Add
+              Todo ></button>
           </form>
         </div>
       </div>
-      <div class="col-sm-8">
-        <div class="listTodo">
 
+      <!-- TODO CARD -->
+      <div class="col-md-7 m-3">
+        <div class="card bg-secondary border-dark">
+          <div class="card-header">
+            <form class="form-inline my-2 pl-2">
+              <input id="search" class="form-control" type="text" placeholder="Search Todo" aria-label="Search"
+                style="width: 30%">
+            </form>
+          </div>
+          <div class="card-body">
+            <div class="listTodo p-2" style="max-height: 60vh; overflow: auto;">
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-
-
 
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
