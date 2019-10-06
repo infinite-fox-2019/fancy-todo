@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const { generateToken } = require("../helpers/jwt");
+const { hashPassword, decodePassword } = require("../helpers/bcrypt");
 
 class UserController {
   static list(req, res, next) {
@@ -7,7 +9,7 @@ class UserController {
         res.status(200).json(userData);
       })
       .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 
@@ -15,26 +17,27 @@ class UserController {
     const { email, password } = req.body;
     User.findOne({ email })
       .then(data => {
-        if (data && data.password === password) {
-          // lempar jwt
-          res.status(200).json(token);
+        if (data && decodePassword(password, data.password)) {
+          let token = generateToken(data);
+          res.status(200).send(token);
         } else {
-          // username/email salah
+          res.status(400).json({ message: "Password/EmailSalah" });
         }
       })
       .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 
   static register(req, res, next) {
     const { name, email, password } = req.body;
-    User.create({ name, email, password })
+    let hash = hashPassword(password);
+    User.create({ name, email, password: hash })
       .then(data => {
         res.status(201).json(data);
       })
       .catch(err => {
-        res.json(err)
+        next(err);
       });
   }
 
@@ -45,7 +48,7 @@ class UserController {
         res.status(204).json({ message: "Data deleted" });
       })
       .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 
@@ -56,7 +59,7 @@ class UserController {
         res.status(200).json(data);
       })
       .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 
@@ -67,7 +70,7 @@ class UserController {
         res.status(200).json(data);
       })
       .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 
@@ -79,7 +82,7 @@ class UserController {
         res.status(200).json(data);
       })
       .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 }

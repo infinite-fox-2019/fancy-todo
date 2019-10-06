@@ -11,7 +11,7 @@ class ProjectController {
         res.status(201).json(data);
       })
       .catch(err => {
-        console.log(err);
+        next(err)
       });
   }
 
@@ -26,7 +26,7 @@ class ProjectController {
         }
       })
       .catch(err => {
-        console.log(err);
+        next(err)
       });
   }
 
@@ -43,7 +43,7 @@ class ProjectController {
         }
       })
       .err(err => {
-        console.log(err);
+        next(err)
       });
   }
 
@@ -72,7 +72,7 @@ class ProjectController {
         res.status(201).json(data);
       })
       .catch(err => {
-        console.log(err);
+        next(err)
       });
   }
 
@@ -110,7 +110,7 @@ class ProjectController {
         res.status(200).json({ message: "updated" });
       })
       .catch(err => {
-        res.json(err);
+        next(err)
       });
   }
 
@@ -126,7 +126,7 @@ class ProjectController {
         res.status(204).json(data);
       })
       .catch(err => {
-        console.log(err);
+        next(err)
       });
   }
 }

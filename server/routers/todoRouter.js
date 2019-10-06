@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const TodoController = require("../controllers/todoController");
+const middlewareLogin = require("../middleware/authentication");
+
+router.use(middlewareLogin)
 
 router.get("/", TodoController.list);
 router.get("/done", TodoController.listDone);

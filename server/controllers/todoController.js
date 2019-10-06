@@ -2,53 +2,56 @@ const Todo = require("../models/todo");
 
 class TodoController {
   static list(req, res, next) {
-    Todo.find()
+    Todo.find({ user: req.loggedUser._id })
       .then(data => {
-        res.status(200).json(data);
+        if (data.length !== 0) {
+          res.status(200).json(data);
+        } else {
+          res.status(200).json({ message: "No Todo list" });
+        }
       })
       .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 
   static listDone(req, res, next) {
-    Todo.find({ status: true })
+    Todo.find({ user: req.loggedUser._id, status: true })
       .then(data => {
-        res.status(200).json(data);
+        if (data.length !== 0) {
+          res.status(200).json(data);
+        } else {
+          res.status(200).json({ message: "No Todo list" });
+        }
       })
       .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 
   static listUndone(req, res, next) {
-    Todo.find({ status: false })
+    Todo.find({ user: req.loggedUser._id, status: false })
       .then(data => {
-        res.status(200).json(data);
+        if (data.length !== 0) {
+          res.status(200).json(data);
+        } else {
+          res.status(200).json({ message: "No Todo list" });
+        }
       })
       .catch(err => {
-        console.log(err);
-      });
-  }
-
-  static list(req, res, next) {
-    Todo.find()
-      .then(data => {
-        res.status(200).json(data);
-      })
-      .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 
   static add(req, res, next) {
-    const { title, description, status, dueDate, user } = req.body;
+    const user = req.loggedUser._id;
+    const { title, description, status, dueDate } = req.body;
     Todo.create({ title, description, status, dueDate, user })
       .then(data => {
         res.status(201).json(data);
       })
       .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 
@@ -59,7 +62,7 @@ class TodoController {
         res.status(204).json(data);
       })
       .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 
@@ -71,7 +74,7 @@ class TodoController {
         res.status(200).json(data);
       })
       .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 
@@ -82,7 +85,7 @@ class TodoController {
         res.status(200).json(data);
       })
       .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 
@@ -93,7 +96,7 @@ class TodoController {
         res.status(200).json(data);
       })
       .catch(err => {
-        console.log(err);
+        next(err);
       });
   }
 }
