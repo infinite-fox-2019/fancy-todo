@@ -28,21 +28,12 @@ const todoPage = ()=>{
   show('#modalButton')
 }
 
-// let token = localStorage.getItem('token')
-// if(!token){
-//   hide('#nav')
-//   hide('#addTodo')
-//   hide('#listTodo')
-//   show('#loginPage')
-//   hide('#registerform')
-// }
-
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+  // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  // console.log('Name: ' + profile.getName());
+  // console.log('Image URL: ' + profile.getImageUrl());
+  // console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
   var id_token = googleUser.getAuthResponse().id_token;
   $.ajax({
   method : 'post',
@@ -52,12 +43,15 @@ function onSignIn(googleUser) {
   }
   })
   .done((token)=>{
-    console.log('asdadasdadwqed')
+    let name = profile.getName()
+    $('#navname').append(`${name}`)
     localStorage.setItem('token',token)
-    todoPage()
+  
+    getCards()
   })
   .fail((msg)=>{
     console.log(msg);
+   
   })
   .always()
 }
@@ -67,6 +61,10 @@ function signOut() {
   auth2.signOut().then(function () {
     console.log('User signed out.');
     localStorage.removeItem('token')
+    $('#newTodo').empty()
+    $('#onProgTodo').empty()
+    $('#doneTodo').empty()
+    $('#navname').empty()
     loginPage()
   });
 }
@@ -96,11 +94,11 @@ $('#login').on('submit',(e)=>{
       email,password
     }
   })
-  .done((token)=>{
-    localStorage.setItem('token',token)
-    console.log(localStorage.getItem('token'));
+  .done((data)=>{
+    localStorage.setItem('token',data.token)
+    $('#navname').append(`${data.name}`)
     getCards()
-    // todoPage()
+  
   })
   .fail((msg)=>{
     console.log(msg);
@@ -125,7 +123,18 @@ $('#register').on('submit',(e)=>{
     todoPage()
   })
   .fail((msg)=>{
-    console.log(msg);
+    let error = msg.responseJSON
+    if(typeof error == 'string'){
+      $('#err').append(`
+        <p style="color: red">${error}</p>
+        `)
+    } else {
+      error.errors.forEach(element => {
+        $('#err').append(`
+        <p style="color: red">${element.msg}</p>
+        `)
+      });
+    }
   })
   .always()
 })
@@ -148,8 +157,8 @@ $('#addTodo').on('submit',(e)=>{
     }
   })
   .done((updateUser)=>{
-    console.log(updateUser);
-    todoPage()
+    getCards()
+  
   })
   .fail((msg)=>{
     console.log(msg);
@@ -158,6 +167,9 @@ $('#addTodo').on('submit',(e)=>{
 })
 
 function getCards(){
+  $('#newTodo').empty()
+  $('#onProgTodo').empty()
+  $('#doneTodo').empty()
   let token = localStorage.getItem('token')
   $.ajax({
     method : 'get',
@@ -168,24 +180,15 @@ function getCards(){
   })
   .done((user)=>{
     let todo = user.todoList
-    let todos = ''
     todo.forEach(element => {
-      todos += `
-      <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">${element.title}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Created at : ${element.createdAt}</h6>
-        <h6>Descriptions: </h6>
-        <p class="card-text">${element.descriptions}</p>
-        <p class="card-text">Due date: ${element.dueDate}</p>
-        <p class="card-text">Status: ${element.status}</p>
-        <a href="#" class="btn btn-success">Update Status</a>
-        <a href="#" class="btn btn-danger">Delete todo</a>
-      </div>
-    </div>
-      `
+      if(element.status === 'New') {
+        addTodoCards('#newTodo',element,token)
+      } else if (element.status === 'On-Progress') {
+        addTodoCards('#onProgTodo',element,token)
+      } else if (element.status === 'Done'){
+        addTodoCards('#doneTodo',element,token)
+      }
     });
-    $('#newTodo').replaceWith(todos)
     todoPage()
   })
   .fail((error)=>{
@@ -193,3 +196,115 @@ function getCards(){
   })
   .always()
 }
+
+
+function addTodoCards(id,element,token){
+  $(`${id}`).append(`
+  <div class="card" style="width: 18rem;" id="${element._id}">
+    <div class="card-body">
+      <h6 class="card-title" style="text-align : center">${element.title}</h6>
+      <hr>
+      <p class="card-subtitle mb-2 text-muted">Created at : ${element.createdAt.slice(0,10)}</p>
+      <p class="card-text">Descriptions : ${element.descriptions}</p>
+      <p class="card-text">Due date: ${element.dueDate}</p>
+      <p class="card-text">Status: ${element.status}</p>
+      <div class="row" id="updel">
+        <div class="col-sm">
+        <a class="btn btn-secondary btn-sm" id="updateStatus" onclick="updateCard('${element._id}','${element.userId}')">Update Status</a>
+        </div>
+        <div class="col-sm">
+        <a href="#" class="btn btn-danger btn-sm" id="delete${element._id}">Delete todo</a>
+        </div>
+      </div>
+      <div id="updatePage${element._id}"></div>
+      </div>
+    </div>
+  </div>
+  `)
+  $(`#delete${element._id}`).click(function(){
+    $.ajax({
+      method : 'delete',
+      url : 'http://localhost:3000/todos/delete',
+      data : {
+        _id : element._id,
+        userId : element.userId
+      },
+      headers : {
+        token
+      }
+    })
+    .done( ()=>{
+      $(`#${element._id}`).empty()
+      todoPage()
+    })
+    .fail((err)=>{
+      console.log(err);
+    })
+    .always(  )
+  })
+}
+
+
+function updateCard(id,userId){
+  $(`#updatePage${id}`).empty()
+  $(`#updatePage${id}`).append(`
+  <div id="updateform">
+    <form action="" method="post" id="updateTodo${id}">
+      <div class="form-group">
+        <h6>choose your updated status</h6>
+        <select class="form-control-sm" id="updateTodoStatus">
+          <option>New</option>
+          <option>On-Progress</option>
+          <option>Done</option>
+        </select>
+    </div>
+    <hr>
+    <button type="button" class="btn btn-primary btn-sm" onclick="updateHandler('${userId}', '${id}')">Update</button>
+    </form>
+  </div>
+  `)
+  localStorage.setItem('userId',userId)
+  localStorage.setItem('_id',id)
+}
+
+const updateHandler = (userId, id)=>{
+  let token = localStorage.getItem('token')
+  let status = $('#updateTodoStatus').val()
+  $.ajax({
+    method : 'patch',
+    url : 'http://localhost:3000/todos/update',
+    data : {
+      status,userId,_id: id
+    },
+    headers : {
+      token
+    }
+  })
+  .done((updateUser)=>{
+    localStorage.removeItem('userId')
+    localStorage.removeItem('_id')
+    getCards()
+    todoPage()
+  })
+  .fail((msg)=>{
+    console.log(msg);
+  })
+  .always()
+}
+
+$.ajax({
+  method : 'get',
+  url : 'https://api.weatherbit.io/v2.0/current?city=Jakarta,ID&key=639fd0648ccc40c2966a0f4a31bc341f'
+})
+.done((weather)=>{
+  $('#api').append(`
+  <p>${weather.data[0].city_name}</p>
+  <p>temp : ${weather.data[0].temp}°c</p>
+  <img src="https://www.weatherbit.io/static/img/icons/${weather.data[0].weather.icon}.png" style="width : 20px ; height : 20px">
+  <p>${weather.data[0].weather.description}</p>
+  <p>obs time : ${weather.data[0].ob_time}</p>
+  `)
+})
+.fail((err)=>{
+  console.log(err);
+})

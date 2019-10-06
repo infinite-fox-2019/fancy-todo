@@ -5,7 +5,8 @@ function generateToken(payload){
 }
 
 function verifyToken(token){
-  return jwt.verify(token,process.env.SECRET_KEY)
+  let test = jwt.verify(token,process.env.SECRET_KEY)
+  return test
 }
 
 module.exports = {generateToken,verifyToken}

@@ -7,6 +7,7 @@ const express = require('express')
 const routes = require('./routes')
 const morgan = require('morgan')
 const cors = require('cors')
+const errorHandler = require('./middleware/errorhandler')
 const app = express()
 const PORT = process.env.PORT || 3000
 const db = mongoose.connection;
@@ -22,6 +23,7 @@ mongoose.connect('mongodb://localhost/fancyTodo',{useNewUrlParser:true, useUnifi
 db.on('error', console.error.bind(console, 'connection error:'));
 
 app.use('/',routes)
+app.use(errorHandler)
 
 
 app.listen(PORT,()=>console.log(`listening on ${PORT}`))

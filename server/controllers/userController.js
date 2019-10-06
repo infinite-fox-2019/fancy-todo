@@ -1,5 +1,4 @@
 const userModel = require("../models/user");
-const todosModel = require("../models/todo")
 const generateHash = require("../helpers/bcrypt").generateHash;
 const compareHash = require("../helpers/bcrypt").compareHash;
 const generateToken = require("../helpers/jwt").generateToken;
@@ -28,8 +27,8 @@ class User {
         let token = generateToken(payload)
         return res.status(200).json(token);
       }
-    } catch (error) {
-      return res.status(500).json(error);
+    } catch (err){
+      next(err)
     }
   }
 
@@ -42,7 +41,8 @@ class User {
         if (compareHash(password, hash)) {
           let payload = { name, email,_id };
           let token = generateToken(payload);
-          return res.status(200).json(token);
+          let data = {token,name}
+          return res.status(200).json(data);
         } else {
           let msg = "wrong email/password";
           return res.status(401).json(msg);
@@ -59,7 +59,7 @@ class User {
   static async find(req,res,next){
     try {
       let id = req.loggedUser._id
-      const todos = await userModel.findById(id).populate('todoList')
+      const todos = await userModel.findById(id).populate('todoList').sort({createdAt:'desc'})
       return res.status(200).json(todos)
     } catch (error) {
       return res.status(500).json(error)
@@ -76,13 +76,20 @@ class User {
       })
       const payload = tiket.getPayload()
       const { email, name } = payload
-      payloadJWT = { email,name }
       const emailFind = await userModel.findOne({email})
       if(emailFind){
+        let id = emailFind._id
+        payloadJWT = {email,name,_id:id}
         let token = generateToken(payloadJWT)
         res.status(200).json(token)
       } else {
-        next({status : 500, msg : 'email not found'})
+        let password = 'rahasia'
+        const user = await userModel.create({name,email,password})
+        let id = user._id
+        payloadJWT = { email,name,_id:id }
+        let token = generateToken(payloadJWT)
+        res.status(200).json(token)
+        // next({status : 500, msg : 'email not found'})
       }
     } catch (error) {
       res.status(500).json(error)

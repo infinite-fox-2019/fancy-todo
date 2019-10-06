@@ -16,35 +16,30 @@
 <body>
 
 <header id="nav">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Fancy-Todo</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" id='navname'> <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            <a class="nav-link" href="#" onclick="signOut();" >Sign out</a>
           </li>
         </ul>
       </div>
+      <div id="api"></div>
     </nav>
-</header>
+  </header>
 
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" id="modalButton"data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-secondary btn-block btn-sm" id="modalButton"data-toggle="modal" data-target="#exampleModal">
     Add new Todo
   </button>
-  
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -77,26 +72,35 @@
       </div>
     </div>
   </div>
-<section id="listTodo">
-  <div class="container">
-      <div class="row">
-        <div class="col-sm" style="border: solid 1px black">
-          ini untuk TODO
+<section>
+  <div class="container-fluid">
+      <div class="row" id="listTodo">
+        <div class="col-sm" style="border: solid 1px black" id="todocol">
+          <h4>
+            To Do
+          </h4>
           <hr>
           <div id="newTodo"></div>
         </div>
-        <div class="col-sm" style="border: solid 1px black">
-          ini untuk in progress
+        <div class="col-sm" style="border: solid 1px black" id="progcol">
+          <h4>
+            On Progress
+          </h4>
           <hr>
+          <div id="onProgTodo"></div>
         </div>
-        <div class="col-sm" style="border: solid 1px black">
-          ini untuk done
+        <div class="col-sm" style="border: solid 1px black" id="donecol">
+          <h4>
+            Done
+          </h4>
           <hr>
+          <div id="doneTodo"></div>
         </div>
       </div>
   </div>
 </section>
-<a href="#" onclick="signOut();" id="signoutClick">Sign out</a>
+<!-- <a href="#" onclick="signOut();" id="signoutClick">Sign out</a> -->
+
 <section id="loginPage">
   <div class="container">
     <div class="row">
@@ -111,12 +115,19 @@
       <div class="col-sm-10" style="border: solid 1px black" id="loginform">
         <form action="" method="post" id="login">
           <h3>Login</h3>
-          <div class="form-group">
-            <input type="email" class="form-control" id="loginemail" aria-describedby="emailHelp" placeholder="Enter email">
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control" id="loginpassword" placeholder="Password">
-          </div>
+          <hr>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">&#9993</span>
+                </div>
+                <input type="email" class="form-control" id="loginemail" aria-describedby="emailHelp" placeholder="Enter email">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">&#128477</span>
+                </div>
+                <input type="password" class="form-control" id="loginpassword" placeholder="Password">
+              </div>
           <button type="submit" class="btn btn-primary bg-dark" id="loginButton">Login</button>
           <hr>
           <p>using google? click this button below</p>
@@ -124,22 +135,36 @@
         </form>
       </div>
       <div class="col-sm-10" style="border: solid 1px black" id="registerform">
+
           <form action="" method="post" id="register">
             <h3>Register</h3>
-            <div class="form-group">
+            <hr>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">&#128100</span>
+                </div>
                 <input type="text" class="form-control" id="registername" placeholder="Username">
               </div>
-            <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">&#9993</span>
+              </div>
               <input type="email" class="form-control" id="registeremail" aria-describedby="emailHelp" placeholder="Enter email">
             </div>
-            <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">&#128477</span>
+              </div>
               <input type="password" class="form-control" id="registerpassword"  placeholder="Password">
             </div>
+            <div id="err"></div>
             <button type="submit" class="btn btn-primary bg-dark" id="registerButton">Register</button>
           </form>
+        
         </div>
     </div>
   </div>
+  
 </section>
   
   <script src="./script/script.js"></script>
