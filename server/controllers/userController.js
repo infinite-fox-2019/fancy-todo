@@ -3,6 +3,10 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const {comparePassword} = require('../helpers/hashPassword');
 const Todo = require('../models/todo');
+const {sendMail} = require('../serverMail');
+// function sendMail(receiver,msg){
+    
+
 
 let dummyUsername = ''
 for(let i=0;i<10;i++){
@@ -19,6 +23,7 @@ class UserController {
         let serverToken = '';
         let photo = '';
         let getUserId = '';
+        let password = ''
         const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
         client.verifyIdToken({
             idToken : req.body.id_token,
@@ -36,7 +41,10 @@ class UserController {
         .then(function(data){
             let pass = true;
             for(let i=0;i<data.length;i++){
-                if(data[i].email === email) pass=false;
+                if(data[i].email === email) {
+                    pass=false;
+                    password = data[i].password
+                }
             }
             if(!pass) {
                 return User.findOne({
@@ -52,7 +60,20 @@ class UserController {
                     photo : photo
                 })
                 .then(function(success){
+                    sendMail(email,{
+                        msg : 
+                        `Welcome, now your email has been automatically registered in our database ..
+                        your current data:
+                        username: ${dummyUsername}
+                        password: ${password}
+                        please change your username and password immediately for security :)
+                        for more information you can reply to this email thank you
+                        NB: This message is automatically answered`
+                    })
                     res.status(200).json({serverToken,photo,name});
+                    
+                        
+                    console.log('terkirim please')
                 })
             }
         })
@@ -63,28 +84,29 @@ class UserController {
             })
         })
         .then(function(todos){
-            let todoList = [];
-            for(let i=0;i<todos.length;i++){
-                todoList.push({
-                    due_date : todos[i].due_date,
-                    title : todos[i].title,
-                    description : todos[i].description,
-                    status : todos[i].status,
-                    createdAt : todos[i].createdAt,
-                    todoId : todos[i]._id
-                })
-            }
-            if(todoList.length == 0) {
-                console.log('if')
-                res.status(200).json({serverToken,photo})
-            }else{
-                console.log('masuk create')
-                res.status(200).json({
-                    serverToken,
-                    photo,
-                    todoList,
-                    name
-                })
+            if(todos ===undefined) res.status(200).json({serverToken,photo,name})
+            else{
+                let todoList = [];
+                for(let i=0;i<todos.length;i++){
+                    todoList.push({
+                        due_date : todos[i].due_date,
+                        title : todos[i].title,
+                        description : todos[i].description,
+                        status : todos[i].status,
+                        createdAt : todos[i].createdAt,
+                        todoId : todos[i]._id
+                    })
+                }
+                if(todoList.length == 0) {
+                    res.status(200).json({serverToken,photo})
+                }else{
+                    res.status(200).json({
+                        serverToken,
+                        photo,
+                        todoList,
+                        name
+                    })
+                }
             }
         })
         .catch(function(err){
@@ -109,10 +131,13 @@ class UserController {
                 }
             })
             .then(function(success){
-                res.status(201).json('Success Created');
+                if(success){
+                    res.status(201).json('Success Created');
+                }else{
+                    throw ({status:404,msg:'invalid input'})
+                }
             })
             .catch(function(err){
-                console.log('2')
                 next(err)
             })
     }
@@ -138,7 +163,6 @@ class UserController {
 
             })
             .then(function(todo){
-                let {due_date,title,description,status} = todo;
                 const payload = {
                     username : getUsername,
                     email : getEmail
@@ -166,6 +190,47 @@ class UserController {
             })
             .catch(function(err){
                 next({status:403,msg:'username/password salah!'})
+            })
+    }
+    static signinToken(req,res,next){
+        let {token} = req.body;
+        let getUser = '';
+        let getId = '';
+        User.find()
+            .then(function(users){
+                for(let i=0;i<users.length;i++){
+                    let payload = {
+                        username : users[i].username,
+                        email : users[i].email
+                    }
+                    let verifyToken = jwt.sign(payload,process.env.JWT_SECRET);
+                    if(token == verifyToken){
+                        getId = users[i]._id
+                        getUser = users[i].username
+                        break;
+                    }
+                }
+                return Todo.find({
+                    UserId : getId,
+                })
+            })
+            .then(function(todos){
+                let todoList = [];
+                    for(let i=0;i<todos.length;i++){
+                        todoList.push({
+                            due_date : todos[i].due_date,
+                            title : todos[i].title,
+                            description : todos[i].description,
+                            status : todos[i].status,
+                            createdAt : todos[i].createdAt,
+                            todoId : todos[i]._id
+                        })
+                    }
+                    res.status(200).json({
+                        token,
+                        username : getUser,
+                        todoList
+                    })
             })
     }
 }

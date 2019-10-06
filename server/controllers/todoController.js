@@ -4,15 +4,17 @@ const jwt = require('jsonwebtoken');
 
 class TodoController {
     static create(req,res,next){
+        console.log(req.body)
+        console.log('error apa ini')
         let {token,date,title,description}= req.body;
         let decode = jwt.decode(token);
         let idUser = '';
-        console.log(date,title,description)
         User.findOne({
             email : decode.email
         })
             .then(function(user){
                 // console.log(user._id)
+                console.log('di dalam users todo')
                 idUser = user._id;
                 if(date.length==0) throw({status:403,msg:'Wajib di pilih tanggal!'});
                 else{
@@ -30,10 +32,36 @@ class TodoController {
                     date,title,description
                 }})
             })
-            .catch(function(err){
-                console.log('pasti masuk sini kenapa ya')
-                next(err)
+            .catch(next)
+    }
+    static updateStatus(req,res,next){
+        let id = req.body.todoId
+        Todo.find({
+            _id : id
+        })
+            .then(function(todo){
+                let getTodo = todo[0];
+                return Todo.findByIdAndUpdate(getTodo._id,{status:true})
             })
+            .then(function(ssc){
+                console.log(ssc)
+                res.status(201).json({msg : "Yeah kamu Melakukan dengan baik!!"})
+            })
+            .catch(next)
+    }
+    static deleteTodo(req,res,next){
+        let id =  req.body.todoId;
+        Todo.find({
+            _id: id
+        })
+            .then(function(todo){
+                let getTodo = todo[0];
+                return Todo.findByIdAndDelete(getTodo._id)
+            })
+            .then(function(success){
+                res.status(201).json({msg:"Todo berhasil di hapus.. HaveFun!!"})
+            })
+            .catch(next)
     }
 }
 

@@ -13,6 +13,15 @@
     input{
         border-radius: 10px;
     }
+    .blue{
+        color :blue;
+    }
+    .redd{
+        color : red;
+    }
+    .green{
+        background-color:green;
+    }
     </style>
   </head>
   <body background='./picture//36081864414_d9514e3a53_b.jpg' style='background-repeat: no-repeat;background-size:100%'>
@@ -31,11 +40,12 @@
         </nav>
     </div>
     <section id='main-container'>
+            <div class="se-pre-con"></div>
         <div class="container" style='margin:10px auto;height:100px;width: 100%;'>
             <div class="row" style='height:100%'>
                 <div class="col-3" id='row1'>
                 </div>
-                <div class="col-9" id='row2' style='justify-content:center;background-image:url(https://cdn-image.hipwee.com/wp-content/uploads/2014/09/DIY-To-Do-Weekly-Agenda-List-Notepad-Free-Printable-Download.jpg); background-position-x:50px; background-position-y: -30px'>
+                <div class="col-9" id='row2' style='height:15vw;justify-content:center;background-image:url(https://cdn-image.hipwee.com/wp-content/uploads/2014/09/DIY-To-Do-Weekly-Agenda-List-Notepad-Free-Printable-Download.jpg); background-position-x:50px; background-position-y: -30px'>
                 </div>
             </div>
         </div>
@@ -83,8 +93,10 @@
                 </div>
                 <div class="col-11 mt-1 d-flex align-items-stretch justify-content-center"
                     style="height: 70vh; width: 100%;">
-                    <div class="card ml-5 mr-n5" style="min-width: 80vw; height:20vw;">
-                        <div class="card-body overflow-auto" style='background-color: transparent' id='inputTodo'>
+                    <div class="card ml-5 mr-n5" style="min-width: 80vw; height:30vw;">
+                        <div class="card-body overflow-auto" style='background-color: transparent'>
+                            <div class='row'style='padding:10px' id='inputTodo'>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -147,7 +159,7 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td id='text-errorregister' style='color:red'></td>
+                            <td id='text-errorregister' style='color:red'> </td>
                         </tr>
                     </table>
                     <div class="g-signin2" data-onsuccess="onSignIn" style='height:30px;width:100px; margin:10px 100px;'></div>

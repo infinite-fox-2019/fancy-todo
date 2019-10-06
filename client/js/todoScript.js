@@ -7,7 +7,7 @@ function createTodo(){
     let description = $('#description').val();
     $.ajax({
         method : 'post',
-        url : `${baseUrl}/todos/create`,
+        url : `${baseUrl}/todos/`,
         data : {
             date,
             title,
@@ -16,24 +16,18 @@ function createTodo(){
         }
     })
         .done(function(success){
+            $('#text-errorTodo').empty();
             console.log(success.data)
             let todo = success.data
             console.log('ini di dalam todoScript done')
             $('#inputTodo').append(`
-            <div class="mb-2">
-                <div class="card text-center">
-                    <div class="card-header">
-                        New Update
-                    </div>
-                        <div class="card-body">
-                            <h5 class="card-title">${todo.title}</h5>
-                            <p class="card-text">${todo.description}</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    <div class="card-footer text-muted">
-                        New Update
-                    </div>
-                </div>
+            <div class="card border-success mb-5" style="max-width: 18rem;">
+            <div class="card-header bg-transparent border-success">${todo.title}</div>
+            <div class="card-body text-success">
+            <h5 class="card-title">Data Berhasil di Simpan</h5>
+            <p class="card-text">silahkan muat ulang tautan :)</p>
+            </div>
+            <div class="card-footer bg-transparent border-success">Due_date ${todo.date}</div>
             </div>
             `)
             $('#text-errorTodo').append(success.msg)
@@ -44,7 +38,26 @@ function createTodo(){
         })
 }
 
+//delete Todo
 
+
+function deleteTodo(id){
+
+    let getId = id;
+    $.ajax({
+        method : 'delete',
+        url : 'http://localhost:3000/todos',
+        data : {
+            todoId : getId
+        }
+    })
+        .done(function(message){
+            $(`#todo-message${getId}`).append(message.msg);
+            $('.progress-bar').empty()
+            truee--
+        })
+        .fail(console.log)
+}
 
 //kosongkan
 function empty(){
