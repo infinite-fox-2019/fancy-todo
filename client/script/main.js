@@ -27,6 +27,7 @@ function register () {
         .done ( user => {
             $("#login").show()
             $("#register").hide()
+            $("#showLogin").hide()
             console.log(user);
         })
         .fail ( msg => {

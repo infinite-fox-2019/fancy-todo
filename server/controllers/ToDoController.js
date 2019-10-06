@@ -15,11 +15,7 @@ class ToDoController {
             }
         )
         .then ( (result) => {
-            res.status(201).json(
-                {
-                    msg: "Sukses"
-                }
-            )
+            res.status(201).json(result)
         })
         .catch ( err => {
             res.status(404).json(err)
@@ -46,7 +42,7 @@ class ToDoController {
             else res.status(404).json( { msg: "Data Tidak Ada"})
         })
         .catch ( err => {
-            console.log(err);
+           res.status(500).json(err)
         })
     }
 

@@ -15,12 +15,13 @@ class UserController {
             }
         )
         .then ( result => {
+            console.log(result)
             res.status(201).json(result)
         })
         .catch ( err => {
             res.status(404).json(
                 {
-                    msg: "username telah terdaftar"
+                    msg: "email telah terdaftar"
                 }
             )
         })
@@ -46,9 +47,9 @@ class UserController {
                 res.status(200).json(token)
             } else {
                 console.log("error")
-                res.status(404).json(
+                res.status(403).json(
                     {
-                        msg: "password"
+                        msg: "password salah"
                     }
                 )
             }
@@ -57,7 +58,7 @@ class UserController {
             console.log("error username")
             res.status(404).json(
                 {
-                    msg: "email"
+                    msg: "email tidak ditemukan"
                 }
             )
         })
