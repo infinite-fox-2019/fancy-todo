@@ -8,7 +8,6 @@ function hideAll() {
 //google sign in
 function onSignIn(googleUser) {
   const id_token = googleUser.getAuthResponse().id_token;
-  console.log('test')
   $.ajax({
     method: "post",
     url: "http://localhost:3000/users/googleSignIn",
