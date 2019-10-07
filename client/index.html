@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="/css/style.css">
+
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id"
+        content="486246287217-tvgs9t5j0i86rkqtl8o1rkdl83jlq7b4.apps.googleusercontent.com">
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <!--Navbar-->
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Travelite</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a id="homepage-link" href="">Home</a></li>
+                <li><a id="my-plans-link" href="">My plans</a></li>
+                <li><a id="my-itineraries-link" href="">My itineraries</a></li>
+                <li><a href="#" id="sign-out-link" onclick="signOut();">Sign out</a></li>
+                <li id="sign-in-link"><a class="waves-effect waves-light modal-trigger" href="#sign-in-modal">Sign
+                        in</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div id="bro"></div>
+
+    <!--Modal for sign in/sign up-->
+    <div id="sign-in-modal" class="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 id="login-header" class="modal-title w-100 font-weight-bold">Log in</h4>
+                    <h4 id="logup-header" class="modal-title w-100 font-weight-bold">Register</h4>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <input type="text" id="default-form-username" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="default-form-username">Your Username</label>
+                    </div>
+                    <div id="email-form" class="md-form mb-5">
+                        <i class="fas fa-envelope prefix grey-text"></i>
+                        <input type="email" id="default-form-email" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="default-form-email">Your email</label>
+                    </div>
+                    <div class="md-form mb-4">
+                        <i class="fas fa-lock prefix grey-text"></i>
+                        <input type="password" id="default-form-password" class="form-control validate">
+                        <label data-error="wrong" data-success="right" for="default-form-password">Your password</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button id="login-button" class="btn btn-default">Login</button>
+                    <span id="logup-choice">Actually I don't have an <a id="show-register-form"
+                            href="">account</a></span>
+                    <span id="login-choice">...On second thought I have an <a id="show-login-form"
+                            href="">account</a></span>
+                    <button id="logup-button" class="btn btn-default">Logup</button>
+                    <button class="g-signin2" data-onsuccess="onSignIn"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Card-->
+    <div id="homepage" class="container">
+        <!-- Page Content goes here -->
+        <div class="row" id="card-list">
+            <!-- <div class="col s4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="images/sample-1.jpg">
+                        <span class="card-title">Card Title</span>
+                    </div>
+                    <div class="card-content">
+                        <p>I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">ADD</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="images/sample-1.jpg">
+                        <span class="card-title">Card Title</span>
+                    </div>
+                    <div class="card-content">
+                        <p>I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">ADD</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="images/sample-1.jpg">
+                        <span class="card-title">Card Title</span>
+                    </div>
+                    <div class="card-content">
+                        <p>I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">ADD</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="images/sample-1.jpg">
+                        <span class="card-title">Card Title</span>
+                    </div>
+                    <div class="card-content">
+                        <p>I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">ADD</a>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+    <div id="my-plans-page" class="container">
+        <div class="row" id="plans-list">
+
+        </div>
+    </div>
+
+    <div id="my-itineraries-page" class="container">
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field">
+                        <input id="itinerary-name-form" type="text" class="validate" placeholder="Insert name here...">
+                        <label for="itinerary-name-form">Itinerary name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field">
+                        <textarea id="itinerary-description-form" class="materialize-textarea" placeholder="Describe your itinerary here..."></textarea>
+                        <label for="itinerary-description-form">Itinerary summary</label>
+                    </div>
+                </div>
+                <button type="submit" id="itinerary-form-submit-button" class="btn btn-default">Create itinerary</button>
+            </form>
+        </div>
+        <ul class="row collection" id="itineraries-list">
+            
+        </ul>
+    </div>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/signin.js"></script>
+</body>
+
+</html>

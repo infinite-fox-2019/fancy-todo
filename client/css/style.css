@@ -1,0 +1,38 @@
+.card-content{
+    overflow: hidden;
+    text-overflow: ellipsis;  
+    -webkit-line-clamp: 2; /* Write the number of 
+                              lines you want to be 
+                              displayed */
+    -webkit-box-orient: vertical;
+}
+
+.card-image{
+    height: 200px; /* Your height here */
+    overflow: hidden;
+}
+
+.modal-backdrop
+{
+    opacity:0; 
+    transition:opacity .2s;
+    background-color: blue
+}
+
+.modal-backdrop.in{
+    opacity:.7;
+  }
+
+.container {
+    -webkit-filter: blur(5px) grayscale(90%);
+}
+
+.green-toast {
+    background-color: green;
+    color: white
+}
+
+.yellow-toast {
+    background-color: yellow;
+    color: black
+}
