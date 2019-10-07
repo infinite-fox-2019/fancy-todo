@@ -84,4 +84,9 @@ $(document).ready(function () {
         createNewTodo()
     })
 
+    $("#toDoing").on('click', function (e) {
+        e.preventDefault()
+        toDoing()
+    })
+
 })

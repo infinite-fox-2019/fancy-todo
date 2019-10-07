@@ -18,14 +18,15 @@ function findTodo() {
             todos.forEach(el => {
                 $('.todo-box').append(`
                 <div class="card-todo cards">
-                    <a href="#" id="task${el._id}" >${el.title}</a>
+                    <a href="#" class="task${el._id}">${el.title}</a>
                 </div>`)
-                $(`#task${el._id}`).on('click', function (e) {
+                $(`.task${el._id}`).on('click', function (e) {
                     e.preventDefault()
+                    localStorage.setItem('todoId', el._id)
                     $(`#todo-title`).html(el.title)
                     $(`#desc-todo`).html(el.description)
-                    $(`#due-date-todo`).html(`Due Date : ${new Date(el.due_date).toLocaleDateString()}`)
-                    $(`.todo-datail`).slideDown('slow')
+                    $(`#todo-due-date`).html(new Date(el.due_date).toLocaleDateString())
+                    $(`.todo-detail`).slideDown()
                 })
             });
         })
@@ -79,7 +80,6 @@ function findDone() {
         }
     })
         .done(todos => {
-            console.log(todos)
             showAllEvent()
             showMyEvent()
             $(".form-add-todo").slideUp("slow");
@@ -140,6 +140,46 @@ function createNewTodo() {
             $("#title-todo").val("")
             $("#description-todo").val("")
             $("#due-date-todo").val("")
+        })
+}
+
+function toDoing() {
+    $.ajax({
+        url: `${baseUrl}/todos/doing/${localStorage.getItem('todoId')}`,
+        method: `patch`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+        .done(response => {
+            showAllEvent()
+            showMyEvent()
+            findTodo()
+            findDoing()
+            findDone()
+        })
+        .fail(err => {
+            console.log(err)
+        })
+}
+
+function toDone() {
+    $.ajax({
+        url: `${baseUrl}/todos/done/${localStorage.getItem('todoId')}`,
+        method: `patch`,
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+        .done(response => {
+            showAllEvent()
+            showMyEvent()
+            findTodo()
+            findDoing()
+            findDone()
+        })
+        .fail(err => {
+            console.log(err)
         })
 }
 

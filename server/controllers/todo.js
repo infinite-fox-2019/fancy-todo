@@ -12,7 +12,7 @@ class TodoController {
     }
 
     static findDoing(req, res, next) {
-        Todo.find({ status: `Doing` }).sort({ createdAt: -1 })
+        Todo.find({ status: `doing` }).sort({ createdAt: -1 })
             .then(todos => {
                 res.status(200).json(todos)
             })
@@ -52,6 +52,28 @@ class TodoController {
                 res.status(201).json(todo)
             })
             .catch(next)
+    }
+
+    static toDoing(req, res, next) {
+        Todo.findByIdAndUpdate({ _id: req.params.id }, {
+            status: `doing`
+        })
+            .then((todo) => {
+                res.status(200).json(todo)
+            })
+            .catch(next)
+
+    }
+
+    static toDone(req, res, next) {
+        Todo.findByIdAndUpdate({ _id: req.params.id }, {
+            status: `Done`
+        })
+            .then((todo) => {
+                res.status(200).json(todo)
+            })
+            .catch(next)
+
     }
 
     static update(req, res, next) {
