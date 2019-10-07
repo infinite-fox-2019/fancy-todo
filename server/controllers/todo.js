@@ -12,7 +12,8 @@ class TodoController {
     }
 
     static findDoing(req, res, next) {
-        Todo.find({ status: `doing` }).sort({ createdAt: -1 })
+        let { eventId } = req.query
+        Todo.find({ status: `doing`, eventId: eventId }).sort({ createdAt: -1 })
             .then(todos => {
                 res.status(200).json(todos)
             })
@@ -20,7 +21,8 @@ class TodoController {
     }
 
     static findDone(req, res, next) {
-        Todo.find({ status: `Done` }).sort({ createdAt: -1 })
+        let { eventId } = req.query
+        Todo.find({ status: `Done`, eventId: eventId }).sort({ createdAt: -1 })
             .then(todos => {
                 res.status(200).json(todos)
             })
@@ -81,7 +83,11 @@ class TodoController {
     }
 
     static delete(req, res, next) {
-
+        Todo.findByIdAndDelete(req.params.id)
+            .then(() => {
+                res.status(204).json({ message: `Delete Todo is Successfully` })
+            })
+            .catch(next)
     }
 }
 

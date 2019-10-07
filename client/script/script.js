@@ -89,4 +89,14 @@ $(document).ready(function () {
         toDoing()
     })
 
+    $("#toDone").on('click', function (e) {
+        e.preventDefault()
+        toDone()
+    })
+
+    $("#deleteTodo").on('click', function (e) {
+        e.preventDefault()
+        deleteTodo()
+    })
+
 })

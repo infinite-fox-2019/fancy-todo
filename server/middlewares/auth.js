@@ -13,7 +13,14 @@ function Authentication(req, res, next) {
 }
 
 function Authorization(req, res, next) {
-    Event.findById(req.params.id)
+    let eventId = null
+    if (req.query.eventId) {
+        eventId = req.query.eventId
+    } else {
+        eventId = req.query.eventId
+    }
+
+    Event.findById(eventId)
         .then(event => {
             if (event.member == req.decode.id) {
                 next()

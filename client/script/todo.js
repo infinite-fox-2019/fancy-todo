@@ -23,10 +23,10 @@ function findTodo() {
                 $(`.task${el._id}`).on('click', function (e) {
                     e.preventDefault()
                     localStorage.setItem('todoId', el._id)
+                    $(`.todo-detail`).slideDown()
                     $(`#todo-title`).html(el.title)
                     $(`#desc-todo`).html(el.description)
                     $(`#todo-due-date`).html(new Date(el.due_date).toLocaleDateString())
-                    $(`.todo-detail`).slideDown()
                 })
             });
         })
@@ -49,15 +49,23 @@ function findDoing() {
         }
     })
         .done(todos => {
-            console.log(todos)
             showAllEvent()
             showMyEvent()
             $(".form-add-todo").slideUp("slow");
+            $('.doing-box').empty()
             todos.forEach(el => {
                 $('.doing-box').prepend(`
                 <div class="card-todo cards">
-                    <a href="#" id="task" >${el.title}</a>
+                    <a href="#" class="task${el._id}" >${el.title}</a>
                 </div>`)
+                $(`.task${el._id}`).on('click', function (e) {
+                    e.preventDefault()
+                    localStorage.setItem('todoId', el._id)
+                    $(`.todo-detail`).slideDown()
+                    $(`#todo-title`).html(el.title)
+                    $(`#desc-todo`).html(el.description)
+                    $(`#todo-due-date`).html(new Date(el.due_date).toLocaleDateString())
+                })
             });
         })
         .fail(err => {
@@ -82,12 +90,21 @@ function findDone() {
         .done(todos => {
             showAllEvent()
             showMyEvent()
-            $(".form-add-todo").slideUp("slow");
+            $(".form-add-todo").slideUp("slow")
+            $('.done-box').empty()
             todos.forEach(el => {
                 $('.done-box').prepend(`
                 <div class="card-todo cards">
-                    <a href="#" id="task" >${el.title}</a>
+                    <a href="#" class="task${el._id}" >${el.title}</a>
                 </div>`)
+                $(`.task${el._id}`).on('click', function (e) {
+                    e.preventDefault()
+                    localStorage.setItem('todoId', el._id)
+                    $(`.todo-detail`).slideDown()
+                    $(`#todo-title`).html(el.title)
+                    $(`#desc-todo`).html(el.description)
+                    $(`#todo-due-date`).html(new Date(el.due_date).toLocaleDateString())
+                })
             });
         })
         .fail(err => {
@@ -147,11 +164,15 @@ function toDoing() {
     $.ajax({
         url: `${baseUrl}/todos/doing/${localStorage.getItem('todoId')}`,
         method: `patch`,
+        data: {
+            eventId: localStorage.getItem('eventId')
+        },
         headers: {
             token: localStorage.getItem('token')
         }
     })
         .done(response => {
+            $(".form-add-todo").slideUp('slow')
             showAllEvent()
             showMyEvent()
             findTodo()
@@ -167,11 +188,15 @@ function toDone() {
     $.ajax({
         url: `${baseUrl}/todos/done/${localStorage.getItem('todoId')}`,
         method: `patch`,
+        data: {
+            eventId: localStorage.getItem('eventId')
+        },
         headers: {
             token: localStorage.getItem('token')
         }
     })
         .done(response => {
+            $(".form-add-todo").slideUp('slow')
             showAllEvent()
             showMyEvent()
             findTodo()
@@ -188,5 +213,25 @@ function updateTodo() {
 }
 
 function deleteTodo() {
-
+    $.ajax({
+        url: `${baseUrl}/todos/${localStorage.getItem('todoId')}`,
+        method: `delete`,
+        data: {
+            eventId: localStorage.getItem('eventId')
+        },
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+        .done(response => {
+            $(".form-add-todo").slideUp('slow')
+            showAllEvent()
+            showMyEvent()
+            findTodo()
+            findDoing()
+            findDone()
+        })
+        .fail(err => {
+            console.log(err)
+        })
 }
