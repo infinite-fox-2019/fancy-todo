@@ -47,13 +47,6 @@ $(document).ready(function () {
         $('.thirdPage').hide()
     })
 
-    $('.detail').on('click', function (e) {
-        e.preventDefault()
-        $('.firstPage').hide()
-        $('.secondPage').show()
-        $('.thirdPage').hide()
-    })
-
     $('#thirdPage').on('click', function (e) {
         e.preventDefault()
         showMyEvent()
@@ -71,14 +64,24 @@ $(document).ready(function () {
         }
     })
 
-    $('#task').on('click', function (e) {
-        e.preventDefault()
-        $('.todo-detail').slideDown("slow")
-    })
-
     $('#close-task').on('click', function (e) {
         e.preventDefault()
         $('.todo-detail').slideUp("slow")
+    })
+
+    $('#addtodoshow').on('click', function (e) {
+        e.preventDefault()
+        $(".form-add-todo").slideDown('slow')
+    })
+
+    $("#close-todo").on('click', function (e) {
+        e.preventDefault()
+        $(".form-add-todo").slideUp('slow')
+    })
+
+    $("#btn-createTodo").on('click', function (e) {
+        e.preventDefault()
+        createNewTodo()
     })
 
 })

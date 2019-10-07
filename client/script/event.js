@@ -54,16 +54,51 @@ function showAllEvent() {
                             <img src="src/img/logo.png" alt="Logo">
                             <div class="text">
                                 <div class="head">
-                                    <h3><a href="#" class="detail">${el.title}</a></h3>
+                                    <h3><a href="#" class="detail${el._id}">${el.title}</a></h3>
                                     <div class="body">
                                         <p>Start Date : ${new Date(el.start_date).toLocaleDateString()}</p>
                                         <p>End Date : ${new Date(el.end_date).toLocaleDateString()}</p>
                                         <p>Location : ${el.location}</p>
                                     </div>
                                 </div>
-                                <button>Join</button>
+                                <button id="join" class="btn-join${el._id}">JOIN</button>
                             </div>
                     </div>`)
+                    $(`.detail${el._id}`).click(() => {
+                        let members = el.member
+                        $('#title-event').html(el.title)
+                        $('#start-date-event').html(new Date(el.start_date).toLocaleDateString())
+                        $('#end-date-event').html(new Date(el.end_date).toLocaleDateString())
+                        $('#location-event').html(el.location)
+                        $('#join-event').attr('class', `join-event${el._id}`)
+                        members.forEach(member => {
+                            $('#member-event').append(`
+                            <li>${member.name}</li>
+                            `)
+
+                            if (member._id == localStorage.getItem('id')) {
+                                $(`.join-event${el._id}`).attr('disabled', true)
+                            }
+                        })
+
+                        findTodo()
+                        findDoing()
+                        findDone()
+                        $('.firstPage').hide()
+                        $('.secondPage').show()
+                        $('.thirdPage').hide()
+                    })
+
+                    el.member.forEach(member => {
+                        if (member._id == localStorage.getItem('id')) {
+                            $(`.btn-join${el._id}`).attr('disabled', true)
+                        }
+                    })
+
+                    $(`.btn-join${el._id}`).on('click', function (e) {
+                        e.preventDefault()
+                        joinEvent(el._id)
+                    })
                 });
             }
 
@@ -89,12 +124,13 @@ function showMyEvent() {
                 `)
             } else {
                 eventId.forEach(el => {
+                    console.log()
                     $('.my-events').prepend(`
                     <div class="card">
                             <img src="src/img/logo.png" alt="Logo">
                             <div class="text">
                                 <div class="head">
-                                    <h3><a href="#" class="detail">${el.title}</a></h3>
+                                    <h3><a href="#" class="detail${el._id}">${el.title}</a></h3>
                                     <div class="body">
                                         <p>Start Date : ${new Date(el.start_date).toLocaleDateString()}</p>
                                         <p>End Date : ${new Date(el.end_date).toLocaleDateString()}</p>
@@ -104,6 +140,31 @@ function showMyEvent() {
                                 <button>Detail</button>
                             </div>
                     </div>`)
+                    $(`.detail${el._id}`).on('click', function (e) {
+                        e.preventDefault()
+                        let members = el.member
+                        localStorage.setItem('eventId', el._id)
+                        $('#title-event').html(el.title)
+                        $('#start-date-event').html(new Date(el.start_date).toLocaleDateString())
+                        $('#end-date-event').html(new Date(el.end_date).toLocaleDateString())
+                        $('#location-event').html(el.location)
+                        members.forEach(member => {
+                            $('#member-event').append(`
+                            <li>${member.name}</li>
+                            `)
+
+                            if (member._id == localStorage.getItem('id')) {
+                                $('#join-event').attr('disabled', true)
+                            }
+                        })
+                        findTodo()
+                        findDoing()
+                        findDone()
+                        $('.firstPage').hide()
+                        $('.secondPage').show()
+                        $('.thirdPage').hide()
+                    })
+
                 });
             }
         })
@@ -112,10 +173,21 @@ function showMyEvent() {
         })
 }
 
-function eventById() {
 
-}
 
-function joinEvent() {
-
+function joinEvent(id) {
+    $.ajax({
+        url: `${baseUrl}/events/${id}`,
+        method: 'patch',
+        headers: {
+            token: localStorage.getItem('token')
+        }
+    })
+        .done(response => {
+            console.log(response)
+            showAllEvent()
+        })
+        .fail(err => {
+            console.log(err)
+        })
 }

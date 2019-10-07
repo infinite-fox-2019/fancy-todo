@@ -13,7 +13,15 @@ class userController {
     }
 
     static findById(req, res, next) {
-        User.findById(req.params.id).populate('eventId')
+        User.findById(req.params.id).populate({
+            path: 'eventId',
+            model: `Event`,
+            populate: {
+                path: 'member',
+                select: 'name',
+                model: 'User'
+            }
+        })
             .then(user => {
                 res.status(200).json(user)
             })

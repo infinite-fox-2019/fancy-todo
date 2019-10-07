@@ -90,16 +90,28 @@
             </form>
         </div>
 
+        <div class="form-add-todo" style="display: none">
+            <a href="#" id="close-todo">x</a>
+            <h1>Create New Todo</h1>
+            <form>
+                <input type="text" placeholder="Title" id="title-todo">
+                <input type="text" placeholder="description" id="description-todo">
+                <input type="date" id="due-date-todo">
+                <input type="submit" value="Create Todo" id="btn-createTodo">
+            </form>
+        </div>
+
         <div class="todo-detail" style="display: none">
             <a href="#" id="close-task">X</a>
-            <h1>Title</h1>
+            <h1 id="todo-title">Title</h1>
             <h2>Description : </h2>
             <div>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit quidem fugit pariatur ratione
+                <p id="desc-todo">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit quidem fugit
+                    pariatur ratione
                     atque. Vero id in eligendi illum labore a quibusdam nostrum molestiae aut, eaque, provident
                     voluptatibus tempora magni.</p>
             </div>
-            <p>due date</p>
+            <p id="due-date-todo">due date</p>
             <button>DOING</button>
             <button>DONE</button>
             <button>Edit</button>
@@ -115,32 +127,27 @@
 
         <div class="secondPage" style="display: none">
             <div class="box-main">
-                <h1>Title</h1>
+                <h1 id="title-event"></h1>
                 <div class="box-board">
                     <div class="todo box">
                         <h1>TO DO</h1>
                         <div class="todo-box boards">
                         </div>
                         <div class="add-todo">
-                            <a href="#">Add To Do</a>
+                            <a href="#" id="addtodoshow">Add To Do</a>
                         </div>
                     </div>
 
                     <div class="doing box">
                         <h1>DOING</h1>
                         <div class="doing-box boards">
-                            <div class="card-doing cards">
-                                <p>Ini DOING</p>
-                            </div>
+
                         </div>
                     </div>
 
                     <div class="done box">
                         <h1>DONE</h1>
                         <div class="done-box boards">
-                            <div class="card-done cards">
-                                <p>Ini DONE</p>
-                            </div>
                         </div>
 
                     </div>
@@ -150,19 +157,18 @@
             <div class="info-event">
                 <div class="info-detail">
                     <p>Start Date</p>
-                    <p>20 September 2019</p>
+                    <p id="start-date-event"></p>
                     <p>End Date</p>
-                    <p> 10 Oktober 2019</p>
+                    <p id="end-date-event"></p>
                     <p>Location</p>
-                    <p>Jakarta</p>
+                    <p id="location-event">Jakarta</p>
                     <p>Member</p>
                     <div class="box-member">
-                        <ul>
-                            <li>asdasd</li>
+                        <ul id="member-event">
                         </ul>
                     </div>
                 </div>
-                <button>Join</button>
+                <button id="join-event">Join</button>
             </div>
 
             <!-- <div class="comment-box" style="display: none">
@@ -194,17 +200,8 @@
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="script/sign.js"></script>
     <script src="script/event.js"></script>
+    <script src="script/todo.js"></script>
     <script src="script/pagenation.js"></script>
-
-    <script>
-
-        for (let i = 0; i < 2; i++) {
-            $('.todo-box').prepend(`
-            <div class="card-todo cards">
-                <a href="#" id="task" >Ini TODO</a>
-            </div>`)
-        }
-    </script>
 </body>
 
 </html>

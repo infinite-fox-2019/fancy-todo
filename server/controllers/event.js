@@ -49,10 +49,10 @@ class EventController {
             .catch(next)
     }
 
-    static Join(req, res, next) {
+    static join(req, res, next) {
         Event.findByIdAndUpdate({ _id: req.params.id }, {
             $push: {
-                member: req.body.member
+                member: req.decode.id
             }
         })
             .then(event => {

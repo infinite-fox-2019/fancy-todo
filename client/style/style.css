@@ -306,3 +306,15 @@ input[type=submit]{
     height: 50px;
     margin: 10px auto;
 }
+
+/* Form Todo */
+.form-add-todo{
+    width: 600px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: #87CEFA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
