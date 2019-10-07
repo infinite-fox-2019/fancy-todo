@@ -14,7 +14,6 @@ router.use('/:projectId', authzMember) //Authorization Member of Project
 //CRUD Todo By Member & Owner
 router.get('/:projectId', ProjectController.projectAndTodos)
 router.get('/:projectId/todo/:id', TodoController.getOne)
-router.put('/:projectId/todo/:id', TodoController.update)
 router.delete('/:projectId/todo/:id', TodoController.destroy)
 router.patch('/:projectId/todo/:id', TodoController.changeStatus)
 

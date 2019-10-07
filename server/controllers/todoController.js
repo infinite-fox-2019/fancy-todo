@@ -12,7 +12,7 @@ class TodoController {
       project
     })
       .then(newTodo => {
-        res.status(200).json({
+        res.status(201).json({
           message: 'Success create new todo',
           newTodo
         })

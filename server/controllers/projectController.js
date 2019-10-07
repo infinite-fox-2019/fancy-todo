@@ -77,7 +77,7 @@ class projectController {
     Project.deleteOne({ _id: req.params.projectId })
       .then(data => {
         res.status(200).json({
-          data
+          message : "Success delete project"
         })
       }).catch(next)
   }

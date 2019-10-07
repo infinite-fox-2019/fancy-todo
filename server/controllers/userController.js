@@ -17,7 +17,7 @@ class UserController {
     })
       .then(data => {
         const {_id} = data
-        res.status(200).json({
+        res.status(201).json({
           message: 'Your account success created',
           _id, name, email,
           token : getToken({_id : data._id, email : data.email})
