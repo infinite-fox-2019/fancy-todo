@@ -17,24 +17,22 @@ function todoAuthorization(req, res, next) {
     .then(todo => {
       if (todo.userId == userId) {
         next();
-      } else if (todo.projectId !== null) {
-        return Project.findById(todo.projectId);
+      } else if (todo.projectId) {
+        Project.findById(todo.projectId).then(project => {
+          if (project.users.includes(userId)) {
+            next();
+          } else
+            next({
+              statusCode: 401,
+              msg: "not authorized"
+            });
+        });
       } else {
         next({
           statusCode: 401,
           msg: "not authorized"
         });
       }
-    })
-    .then(project => {
-      if (project.users.includes(userId)) {
-        next();
-      } else(
-          next({
-            statusCode : 401,
-            msg: "not authorized"
-          })
-      )
     })
     .catch(next);
 }

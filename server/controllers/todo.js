@@ -3,22 +3,26 @@ const { Todo, Project } = require("../models");
 class TodoController {
   static create(req, res, next) {
     const userId = req.loggedInUser._id;
-    const { name, description, dueDate, projectId } = req.body;
+    let { name, description, dueDate, projectId } = req.body;
+    dueDate = new Date(dueDate);
+    console.log(dueDate);
     if (new Date(dueDate) < new Date()) {
       next({
         statusCode: 400,
         message: "invalid due date"
       });
     } else {
-      if (projectId === null) {
+      if (projectId == -1) {
         Todo.create({
           name,
           description,
           dueDate,
           userId
-        }).then(todo => {
-          res.status(201).json(todo);
-        });
+        })
+          .then(todo => {
+            res.status(201).json(todo);
+          })
+          .catch(next);
       } else {
         let newTodo;
         Todo.create({
@@ -64,7 +68,7 @@ class TodoController {
   }
 
   static updateOnId(req, res, next) {
-    const id = req.params.id
+    const id = req.params.id;
     const { name, description, dueDate, projectId, status } = req.body;
     const update = { name, description, dueDate, projectId, status };
     Todo.findByIdAndUpdate(id, update, {

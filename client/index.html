@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="google-signin-client_id"
+    content="951369963210-ontd8mvgldstu6pf2617qk1rulsbjs53.apps.googleusercontent.com" />
+  <title>Travel Todo</title>
+  <link rel="stylesheet" href="./css/bootstrap.css" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="./css/travel-todo.css" />
+</head>
+
+<body>
+  <!-- Landing Page -->
+  <section id="landing-page" style="display: none">
+    <div class="d-flex align-items-center fw fh">
+      <div class="container"">
+        <div class=" row">
+        <div class="col-md-12 d-flex justify-content-center">
+          <img src="./img/logo.png" alt="logo" style="height: 90px;" />
+        </div>
+        <div class="col-md-12 d-flex justify-content-center mt-3">
+          <h3>Check and save your travel todo list for free.</h3>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center mt-3">
+          <button class="btn btn-primary" id="getstarted">Get Started</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  <!-- POST /users/login -->
+  <section id="login-page" style="display: none">
+    <div class="d-flex align-items-center fw fh">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-center fw">
+              <a href="#" class="home-button">
+                <img src="./img/logo.png" alt="logo" style="height: 60px;" />
+              </a>
+            </div>
+          </div>
+          <div class="col-md-12 mt-3">
+            <div class="row">
+              <div class="col-md-6 offset-md-3">
+                <div class="card">
+                  <div class="card-header">
+                    Login
+                  </div>
+                  <div class="card-body">
+                    <form id="login-form" name="login-form">
+                      <div class="form-group">
+                        <label for="login-email">Email address</label>
+                        <input autofocus name="email" type="email" class="form-control" id="login-email"
+                          aria-describedby="emailHelp" placeholder="Enter email" />
+                      </div>
+                      <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input name="password" type="password" class="form-control" id="login-password"
+                          placeholder="Password" />
+                      </div>
+
+                      <button type="submit" class="btn btn-primary">
+                        Login
+                      </button>
+                      <hr />
+                      <span>
+                        No account ?
+                        <a id="linkregister" href="#"><b>Create an account</b></a>
+                        to use travel todo for free!
+                      </span>
+                      <hr />
+                      Or you can Sign In with your Google Account
+                      <div class="g-signin2 mt-2" data-onsuccess="onSignIn"></div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- POST /users/register -->
+  <section id="register-page" style="display: none">
+    <div class="d-flex align-items-center fw fh">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-center fw">
+              <a href="#" class="home-button">
+                <img src="./img/logo.png" alt="logo" style="height: 60px;" />
+              </a>
+            </div>
+          </div>
+          <div class="col-md-12 mt-3">
+            <div class="row">
+              <div class="col-md-6 offset-md-3">
+                <div class="card">
+                  <div class="card-header">
+                    Register
+                  </div>
+                  <div class="card-body">
+                    <form id="register-form" name="register-form">
+                      <div class="form-group">
+                        <label for="reg-name"> Your Name </label>
+                        <input autofocus name="name" type="text" class="form-control" id="reg-name"
+                          placeholder="Enter yourname" />
+                      </div>
+                      <div class="form-group">
+                        <label for="reg-email">Email address</label>
+                        <input name="email" type="email" class="form-control" id="reg-email"
+                          aria-describedby="emailHelp" placeholder="Enter email" />
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                          else.</small>
+                      </div>
+                      <div class="form-group">
+                        <label for="reg-password">Password</label>
+                        <input name="password" type="password" class="form-control" id="reg-password"
+                          placeholder="Password" />
+                      </div>
+
+                      <button type="submit" class="btn btn-primary">
+                        Register
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- GET /todos -->
+  <section id="get-todos-page" style="display: none">
+    <nav id="navbar">
+      <div class="container" style="display: flex;
+        justify-content: space-between;
+        align-items: center; height: 100%;">
+        <a href="#" class="home-button">
+          <img src="./img/logo.png" alt="logo" style="height: 50px;" />
+        </a>
+        <button class="logout btn btn-primary">Logout</button>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mt-5">
+          <div class="card">
+            <div class="card-header">Navigation Menu</div>
+            <div class="card-body">
+              <p>
+                <a class="aGoHome" href="#">My Destination</a>
+              </p>
+              <p>
+                <a class="aGoGroup" href="#">Group Travel</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 mt-5">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <button onclick="goCreateTodo()" class="btn btn-primary">Add Destination</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card-columns" id="todo-list">
+                <!-- todo list -->
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- POST /todos -->
+  <section id="post-todos-page" style="display: none">
+    <div class="d-flex align-items-center fw fh">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-center fw">
+              <a href="#" class="home-button">
+                <img src="./img/logo.png" alt="logo" style="height: 60px;" />
+              </a>
+            </div>
+          </div>
+          <div class="col-md-12 mt-3">
+            <div class="row">
+              <div class="col-md-6 offset-md-3">
+                <div class="card">
+                  <div class="card-header">
+                    Add Destination
+                  </div>
+                  <div class="card-body">
+                    <form id="add-todo-form">
+                      <div class="form-group">
+                        <label for="#"> Destination name </label>
+                        <input autofocus type="text" class="form-control" id="add-todo-name"
+                          placeholder="enter destination" />
+                      </div>
+                      <div class="form-group">
+                        <label for="#"> Description </label>
+                        <textarea class="form-control" id="add-todo-description" rows="3"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label>Due date</label>
+                        <div class="input-group date">
+                          <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                          </div>
+                          <input placeholder="Due date" type="text" class="form-control datepicker" id="add-todo-date">
+                        </div>
+                      </div>
+                      <div id="containInput">
+                        <!-- <input id="add-todo-project" type="hidden" value=""> -->
+                      </div>
+                      <button type="submit" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- GET /projects -->
+  <section id="get-projects-page" style="display: none">
+    <nav id="navbar">
+      <div class="container" style="display: flex;
+        justify-content: space-between;
+        align-items: center; height: 100%;">
+        <a href="#" class="home-button">
+          <img src="./img/logo.png" alt="logo" style="height: 50px;" />
+        </a>
+        <button class="logout btn btn-primary">Logout</button>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mt-5">
+          <div class="card">
+            <div class="card-header">Navigation Menu</div>
+            <div class="card-body">
+              <p>
+                <a class="aGoHome" href="#">My Destination</a>
+              </p>
+              <p>
+                <a class="aGoGroup" href="#">Group Travel</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 mt-5">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <button onclick="goCreateProject()" class="btn btn-primary">Add Group Travel</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card-columns" id="project-list">
+                <!-- project list -->
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- POST /projects -->
+  <section id="post-projects-page" style="display: none">
+    <div class="d-flex align-items-center fw fh">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="d-flex justify-content-center fw">
+              <a href="#" class="home-button">
+                <img src="./img/logo.png" alt="logo" style="height: 60px;" />
+              </a>
+            </div>
+          </div>
+          <div class="col-md-12 mt-3">
+            <div class="row">
+              <div class="col-md-6 offset-md-3">
+                <div class="card">
+                  <div class="card-header">
+                    Add Group Travel
+                  </div>
+                  <div class="card-body">
+                    <form id="add-project-form">
+                      <div class="form-group">
+                        <label for="#"> Group name </label>
+                        <input autofocus type="text" class="form-control" id="add-project-name"
+                          placeholder="enter destination" />
+                      </div>
+                      <div class="form-group">
+                        <label for="#"> Description </label>
+                        <textarea class="form-control" id="add-project-description" rows="3"></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- GET /projects/:id -->
+  <section id="get-projects-id-page" style="display: none">
+    <nav id="navbar">
+      <div class="container" style="display: flex;
+        justify-content: space-between;
+        align-items: center; height: 100%;">
+        <a href="#" class="home-button">
+          <img src="./img/logo.png" alt="logo" style="height: 50px;" />
+        </a>
+        <button class="logout btn btn-primary">Logout</button>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 mt-5">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <div class="card">
+                <div class="card-header">Navigation Menu</div>
+                <div class="card-body">
+                  <p>
+                    <a class="aGoHome" href="#">My Destination</a>
+                  </p>
+                  <p>
+                    <a class="aGoGroup" href="#">Group Travel</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <div class="card">
+                <div class="card-header">Add Group Member</div>
+                <div class="card-body">
+                  <form id="add-member-form">
+                    <div class="form-group">
+                      <label for="#">Email</label>
+                      <div id="containId">
+                        <!-- <input type="hidden" id="add-member-id" value=""> -->
+                      </div>
+                      <input type="text" id="add-member-email" class="form-control">
+                    </div>
+                    <button class="btn btn-primary btn-sm">Add</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-3">
+              <div id="containExit">
+                <!-- <button class="btn btn-danger fw" onclick="exitGroup()">Exit Group</button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-9 mt-5">
+          <div class="row">
+            <div class="col-md-12 mb-3" id="containBtn">
+              <!-- <button onclick="goCreateTodo()" class="btn btn-primary">Add Group Destination</button> -->
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card-columns" id="group-todo-list">
+                <!-- todo list -->
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
+  </script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="./js/todo.js"></script>
+  <script src="./js/function.js"></script>
+  <script src="./js/spa.js"></script>
+  <script src="./js/user.js"></script>
+  <script src="./js/project.js"></script>
+
+</body>
+
+</html>
