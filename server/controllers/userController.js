@@ -96,7 +96,7 @@ class UserController {
     static allTodo(req, res, next){
         User.findOne({username:req.loggedUser.username})
             .then(user => {
-                // console.log(user.todo_list);
+                console.log(user.todo_list);
                 res.status(200).json(user.todo_list)
             })
             .catch(next)
@@ -105,6 +105,7 @@ class UserController {
         // console.log('tesssssssssss');
         
         let {title,description,dueDate} = req.body
+        req.body.status = 'on progress'
         if(title && dueDate) {
             User.findOne({username:req.loggedUser.username})
             .then(user=>{
@@ -144,7 +145,7 @@ class UserController {
     static updateTodo(req,res,next) {
         console.log('tes');
         
-        let {title, dueDate} = req.body
+        let {title, dueDate,status} = req.body
         if(title && dueDate){
             console.log('tes');
             User.update(

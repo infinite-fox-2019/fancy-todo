@@ -183,12 +183,29 @@ function allTodo() {
     .done(data=>{
         console.log(data);
         $('.todo-list').empty()
-        $('.modalUpdate').empty()
         for(let i = 0; i < data.length; i++) {
-            if(new Date(data[i].dueDate) >= new Date()) {
-                $(".sticky").attr('style','background-color: red !important;')
+            console.log(Date(data[i].dueDate));
+            
+            if(Date(data[i].dueDate) <= new Date()) {
+                $(`.sticky${data[i].id}`).css('background-color','red')
+                // $('.todo-list').empty()
+            } else {
+                $(`.sticky${data[i].id}`).css('background-color','yellow')
             }
-            $('.modalUpdate').append(`
+            $('.todo-list').append(`
+            <div class="post-it">
+            <p class="sticky${`${data[i].id}`} taped sticky style="font-weight: normal; ">
+                <span style="font-weight: bold;">${data[i].title}</span> <br>
+                    ${data[i].description}
+                </p>
+                <a href="#" onclick="deleteTodo(${data[i].id})" style="color:white;margin-left:5px;"><i class="fas fa-trash-alt"></i></a>
+                <a href="#" id="updateButton${data[i].id}" data-toggle="modal" data-target="#formTodoModalUpdate${data[i].id}" style="color:white;margin-left:5px;"><i class="fas fa-pencil-alt"></i></a>
+            </div>
+            `)
+            $(`#updateButton${data[i].id}`).on('click',(e)=>{
+                e.preventDefault()
+                $('.modalUpdate').empty()
+                $('.modalUpdate').append(`
             <div class="modal fade" id="formTodoModalUpdate${data[i].id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -227,16 +244,10 @@ function allTodo() {
             </div>
           </div>
             `)
-            $('.todo-list').append(`
-            <div class="post-it">
-            <p class="sticky taped" style="font-weight: normal; ">
-                <span style="font-weight: bold;">${data[i].title}</span> <br>
-                    ${data[i].description}
-                </p>
-                <a href="#" onclick="deleteTodo(${data[i].id})" style="color:white;margin-left:5px;"><i class="fas fa-trash-alt"></i></a>
-                <a href="#" onclick="updateTodo(${data[i].id})" data-toggle="modal" data-target="#formTodoModalUpdate${data[i].id}" style="color:white;margin-left:5px;"><i class="fas fa-pencil-alt"></i></a>
-            </div>
-            `)
+           
+            updateTodo(`${data[i].id}`)
+            })
+            
         }
         // refresh()
     
@@ -279,7 +290,7 @@ function updateTodo(id) {
                 title: `${$(`#titleTodoUpdate${id}`).val()}`,
                 description : `${$(`#descriptionTodoUpdate${id}`).val()}`,
                 dueDate : `${$(`#dateTodoUpdate${id}`).val()}`,
-                // status : `${$(`#status option:selected${id}`).text()}`,
+                status : `${$(`#status${id} option:selected`).text()}`,
                 id
             },
             headers: {
@@ -289,10 +300,11 @@ function updateTodo(id) {
             .done( msg => {
                 // alert('tes')
                 // console.log(msg);
+                refresh()
+                // location.reload();
                 setTimeout(function(){
                     $(`#formTodoModalUpdate${id}`).modal('hide')
                 }, 1000);
-                refresh()
             })
             .fail(err => {
                 console.log('error nih');
@@ -305,7 +317,7 @@ function updateTodo(id) {
 }
 
 function onSignIn(googleUser) {
-    // SING IN GOOGLE NYA BLM BISAAAAAAAAAAAAAAAAAAAAAAA ???????????????
+    
     var profile = googleUser.getBasicProfile();
     var id_token = googleUser.getAuthResponse().id_token;   
     $.ajax({
@@ -328,34 +340,10 @@ function signOut() {
     auth2.signOut().then(function () {
       console.log('User signed out.');
     });
-    // SIGN OUT NYA BLM BISAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    
     
     localStorage.removeItem('token')
     $('.successLogin').hide()
 
     refresh()
 }
-
-function cekLogin(cb){
-    if (localStorage.getItem('token')){
-        $.ajax({
-            url: 'http://localhost:3000/user/authentication',
-            method: 'get',
-            headers: {
-                token : localStorage.getItem('token')
-            }
-        })
-            .done(status =>{
-                cb(true)
-            })
-            .fail(err => {
-                
-                $(`#modalForm`).modal("show")
-                cb(false)
-            })
-    }
-    else{
-        $(`#modalForm`).modal("show")
-        cb(false)
-    }
-} 
