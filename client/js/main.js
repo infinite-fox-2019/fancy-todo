@@ -1,5 +1,5 @@
-const host = 'http://192.168.0.100:3000'
-// const host = 'http://localhost:3000'
+// const host = 'http://192.168.0.100:3000'
+const host = 'http://localhost:3000'
 
 // * Axios Config
 const ajax = axios.create({
