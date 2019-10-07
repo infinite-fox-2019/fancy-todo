@@ -18,6 +18,5 @@ $ live-server --host=localhost --port=8080
 **Note: Client must be running using live-server.**
 
 ## Documentation (using POSTMAN's API Documentation)
-```
+
 https://documenter.getpostman.com/view/8977787/SVtSUoaY
-```
