@@ -59,7 +59,7 @@ class TodoController {
     const { id } = req.params;
     Todo.deleteOne({ _id: id })
       .then(data => {
-        res.status(204).json(data);
+        res.status(200).json(data);
       })
       .catch(err => {
         next(err);
