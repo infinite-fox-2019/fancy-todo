@@ -1,10 +1,11 @@
 module.exports = (err, req, res, next) => {
-    console.log(`
-    =============ERROR============
-    ${err}
-    ==============================
+    console.log(
+        `=============ERROR============
+    ${JSON.stringify(err, null, 2)}
+ ==============================
     `)
 
+    console.log(err);
     let status
     let message
 
