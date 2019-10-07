@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 function getAllToDo() {
   $.ajax({
-    post: "get",
+    method: "get",
     url: "http://localhost:3000/todos",
     headers: {
       "Authorization":localStorage.getItem('token')
@@ -40,7 +40,7 @@ function getAllToDo() {
                 ${data[i].description}
               </p>
               <a href="#" class="card-link">Done</a>
-              <a href="#" class="card-link">Delete</a>
+              <button type="button" onclick="removeToDo('${idString}');" class="btn btn-primary btn-sm">Delete</button>
             </div>
           </div>
         </div>
@@ -58,7 +58,7 @@ function getAllToDo() {
 
 function getAllDoneToDo(){
   $.ajax({
-    post: "get",
+    method: "get",
     url: "http://localhost:3000/todos/done",
     headers: {
       "Authorization":localStorage.getItem('token')
@@ -83,7 +83,6 @@ function getAllDoneToDo(){
               </p>
               <a href="#" class="card-link">Done</a>
               <button type="button" onclick="removeToDo('${idString}');" class="btn btn-primary btn-sm">Delete</button>
-              
             </div>
           </div>
         </div>
@@ -101,7 +100,7 @@ function getAllDoneToDo(){
 
 function getAllUndoneToDo(){
   $.ajax({
-    post: "get",
+    method: "get",
     url: "http://localhost:3000/todos/undone",
     headers: {
       "Authorization":localStorage.getItem('token')
@@ -124,7 +123,7 @@ function getAllUndoneToDo(){
                 ${data[i].description}
               </p>
               <a href="#" class="card-link">Done</a>
-              <a href="#" class="card-link">Delete</a>
+              <button type="button" onclick="removeToDo('${idString}');" class="btn btn-primary btn-sm">Delete</button>
             </div>
           </div>
         </div>
@@ -144,7 +143,7 @@ function removeToDo(id){
   console.log('masuk hapus')
   console.log(typeof id)
   $.ajax({
-    post: "delete",
+    method: "delete",
     url: `http://localhost:3000/todos/${String(id)}`,
     headers: {
       "Authorization":localStorage.getItem('token')
@@ -205,4 +204,9 @@ function logout() {
   localStorage.removeItem("token");
   $("#homepage").show();
   $("#content").hide();
+}
+
+
+function register(){
+  
 }
