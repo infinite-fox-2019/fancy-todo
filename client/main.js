@@ -18,7 +18,7 @@ function textshow(){
     $(`#textModal`).modal("show")
 }
 function imgshow(){
-    // $(`#textModal`).modal("show")
+    // $(`#imgModal`).modal("show")
 }
 
 function cekLogin(){
@@ -27,7 +27,8 @@ function cekLogin(){
             todolist(true)
             refresh()
             search()
-            addToDo()
+            addText()
+            addImg()
             register()
             login()
         }
@@ -241,7 +242,7 @@ function del(id){
         })
 }
 
-function addToDo(){
+function addText(){
     $(`#addtodotext`).on('submit' , (e) => {
         e.preventDefault()
     $.ajax({
@@ -250,6 +251,43 @@ function addToDo(){
         data : {
             title: `${$("#title").val()}`,
             description : `${$("#description").val()}`,
+            duedate : `${$("#duedate").val()}`,
+            status : "On Progress",
+            type : "text"
+            },
+            headers: {
+            token : localStorage.getItem('token')
+        }
+    })
+        .done( msg => {
+            $('.errAddText').empty()
+            console.log(msg);
+            setTimeout(function(){
+                $('#textModal').modal('hide')
+            }, 1000);
+            refresh()
+        })
+        .fail(err => {
+            $('.errAddText').empty()
+            $('.errAddText').append(`<p style="color:red;">${err.responseJSON.message}</p>`)
+        })
+        .always(() =>{
+            $("#title").val('')
+            $("#description").val('')
+            $("#duedate").val('')
+        })
+    })
+}
+
+function addImg(){
+    $(`#addtodoimg`).on('submit' , (e) => {
+        e.preventDefault()
+    $.ajax({
+        method: 'post',
+        url:  `http://localhost:3000/img`,
+        data : {
+            title: `${$("#title").val()}`,
+            img : `${$("#img").val()}`,
             duedate : `${$("#duedate").val()}`,
             status : "On Progress",
             type : "text"

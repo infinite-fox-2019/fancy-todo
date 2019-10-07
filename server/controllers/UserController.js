@@ -50,7 +50,13 @@ class UserController {
         const client = new OAuth2Client(process.env.CLIENT_ID);
         let username
         let email
+        console.log("--------");
+        
+        console.log(req.body.id_token);
+        console.log("--------");
+
         client.verifyIdToken({
+            
             idToken: req.body.id_token,
             audience: process.env.GOOGLE
         })
