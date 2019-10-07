@@ -9,7 +9,7 @@ const defaultPas = process.env.DEFAULT_PS
 class UserController {
   static create(req, res, next) {
     const { name, email, password } = req.body
-    console.log(req.body);
+    // console.log(req.body);
     User.create({
       name,
       email,
@@ -60,7 +60,7 @@ class UserController {
       audience: clientID
     })
       .then(user => {
-        console.log('1 disini')
+        // console.log('1 disini')
         let password = defaultPas
         let { email, name } = user.payload
         User.findOne({ email })
@@ -77,14 +77,14 @@ class UserController {
             }
           })
           .then(userLogin => {
-            console.log(userLogin);
+            // console.log(userLogin);
             let payload = {
               _id: userLogin._id,
               email: userLogin.email
             }
-            console.log('buat token');
+            // console.log('buat token');
             let token = getToken(payload)
-            console.log(token);
+            // console.log(token);
             res.status(200).json({
               token,
               _id : userLogin._id

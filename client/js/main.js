@@ -1,6 +1,7 @@
 $(document).ready(function () {
   $('.todo.default').empty()
-  $('.todo.default').append(`<div class="headerTodo mx-5 my-4">
+  $('.todo.default').append(`
+  <div class="headerTodo mx-5 my-4">
         <div class="api">
             <button class="btn btn-light btn-lg" onclick="getJoke()"  id="todoButtonCreate" data-toggle="modal"
             data-target="#ModalJoke">Get Jokes</button>
@@ -35,7 +36,4 @@ $(document).ready(function () {
             </div>
         </div>
     `)
-
-
-
 })

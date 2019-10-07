@@ -26,7 +26,7 @@ function authzProject(req, res, next){
   Project.findById(req.params.projectId)
   .then(result =>{
     
-    console.log(result, '<<<<');
+    // console.log(result, '<<<<');
     if (result.owner == req.decoded._id){
         next()
       }
@@ -48,7 +48,7 @@ function authzProject(req, res, next){
 function authzMember(req, res, next){
   Project.findById(req.params.projectId)
   .then(result =>{
-    console.log(result, '????');
+    // console.log(result, '????');
     if (result.owner == req.decoded._id){
       next()
     }

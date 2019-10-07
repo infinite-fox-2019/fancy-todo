@@ -9,7 +9,7 @@ function fetchProjects() {
     .then(({ data }) => {
       $('.listgroup').empty()
       let myid = localStorage.getItem('_id')
-      console.log(data);
+      // console.log(data);
       let html
       data.forEach(el => {
         if (el.owner._id === myid) {
@@ -31,7 +31,7 @@ function fetchProjects() {
                         </div>
                     </div>
                     `
-          console.log('here');
+          // console.log('here')
         }
         else {
           html = `
@@ -52,7 +52,13 @@ function fetchProjects() {
       })
     })
     .catch(err => {
-      console.log(err)
+      Swal.fire({
+      title: 'Error!',
+      text: '',
+      type: 'error',
+      confirmButtonText: 'Oke'
+    })
+    // console.log(err);
     })
 }
 
@@ -68,7 +74,13 @@ function deleteProject(id) {
       fetchProjects()
     })
     .catch(err => {
-      console.log(err);
+      Swal.fire({
+      title: 'Error!',
+      text: '',
+      type: 'error',
+      confirmButtonText: 'Oke'
+    })
+      // console.log(err);
     })
 }
 
@@ -88,13 +100,18 @@ function leaveProject(id) {
       fetchProjects()
     })
     .catch(err => {
-      console.log(err);
+      Swal.fire({
+      title: 'Error!',
+      text: '',
+      type: 'error',
+      confirmButtonText: 'Oke'
+    })
+      // console.log(err);
     })
 }
 let addToProject;
 let peoples;
 function getPeoples(id) {
-  console.log('yuhu')
   axios({
     method: 'get',
     url: baseUrl + '/projects/' + id + '/user',
@@ -115,10 +132,16 @@ function getPeoples(id) {
                     `)
 
       })
-      console.log(data);
+      // console.log(data);
     })
     .catch(err => {
-      console.log(err);
+      Swal.fire({
+      title: 'Error!',
+      text: '',
+      type: 'error',
+      confirmButtonText: 'Oke'
+    })
+      // console.log(err);
     })
 
 }
@@ -127,7 +150,7 @@ $(document).ready(function () {
   $('#input-serach-name').keyup(function (event) {
     $('.res-search').empty()
     let search = $('#input-serach-name').val()
-    console.log(search)
+    // console.log(search)
     peoples.forEach(el => {
       if (el.name.includes(search) || el.email.includes(search)) {
         $('.res-search').append(`
@@ -139,7 +162,7 @@ $(document).ready(function () {
         `)
       }
     })
-    console.log(peoples);
+    // console.log(peoples);
   })
 
   $('.createMe').click(function () {
@@ -162,7 +185,7 @@ function addMe(id) {
     }
   })
     .then(() => {
-      console.log('some swall')
+      // console.log('some swall')
       peoples.forEach((el, i) => {
         if (el._id === id) {
           peoples.splice(i, 1)
@@ -171,12 +194,20 @@ function addMe(id) {
       })
       // console.log(peoples);
     })
+    .catch(err =>{
+      Swal.fire({
+      title: 'Error!',
+      text: '',
+      type: 'error',
+      confirmButtonText: 'Oke'
+    })
+    })
 }
 
 function createProject() {
   let test = $('#input-projectname').val()
-  console.log(test);
-  console.log(baseUrl);
+  // console.log(test);
+  // console.log(baseUrl);
   axios({
     method: 'post',
     url: baseUrl + '/projects',
@@ -189,10 +220,16 @@ function createProject() {
   })
     .then(result => {
       fetchProjects()
-      console.log(result.data);
+      // console.log(result.data);
     })
     .catch(err => {
-      console.log(err);
+      let text = err.response.data.msg.join('<br>')
+      Swal.fire({
+      title: 'Error!',
+      html: text,
+      type: 'error',
+      confirmButtonText: 'Oke'
+    })
     })
   $('#input-projectname').val('')
 }

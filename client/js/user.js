@@ -7,7 +7,7 @@ $(document).ready(function () {
     createTodo()
   })
 })
-//  #D6CCBD #C8BEB9 #B7AFA8 #EFDFD4
+
 $('form').click(function name(event) {
   event.preventDefault();
 })
@@ -35,7 +35,14 @@ function registerMe() {
 
     })
     .catch(err => {
-      console.log(err.response.data.msg);
+      let text = err.response.data.msg.join('<br>')
+      Swal.fire({
+      title: 'Error!',
+      html: text,
+      type: 'error',
+      confirmButtonText: 'Oke'
+    })
+      // console.log(err.response.data.msg);
     })
   $('input').val('')
 }
@@ -43,10 +50,10 @@ function registerMe() {
 function signMe() {
   let email = $('#emailSign').val()
   let password = $('#passwordSign').val()
-  console.log({
-    email,
-    password
-  })
+  // console.log({
+  //   email,
+  //   password
+  // })
   axios({
     method: 'post',
     url: baseUrl + '/users/login',
@@ -58,13 +65,20 @@ function signMe() {
     .then(({
       data
     }) => {
-      console.log(data);
+      // console.log(data);
       localStorage.setItem('token', data.token)
       localStorage.setItem('_id', data._id)
       isLogin()
     })
     .catch(err => {
-      console.log(err.response.data.msg)
+      let text = err.response.data.msg.join('<br>')
+      Swal.fire({
+      title: 'Error!',
+      html: text,
+      type: 'error',
+      confirmButtonText: 'Oke'
+    })
+      // console.log(err.response.data.msg)
     })
   $('input').val('')
 }
@@ -113,10 +127,10 @@ function personalTodo(){
                 <p>${el.dueDate}</p>
               </article>
               <aside class="d-flex justify-content-end align-items-center m-2">
-              <button class="btn btn-yel btn-circle" onclick="changeStatus('${el._id}', false)"><i class="fas fa-undo-alt"></i></button>
-              <button class="btn btn-grey btn-circle" onclick="todoDetails('${el._id}')"  id="todoButtonCreate" data-toggle="modal"
-              data-target="#ModalEdit"><i class="fas fa-pencil-alt"></i></button>
-              <button class="btn btn-dark btn-circle"  onclick="deleteTodo('${el._id}')"><i class="fas fa-trash"></i></button>
+                <button class="btn btn-yel btn-circle" onclick="changeStatus('${el._id}', false)"><i class="fas fa-undo-alt"></i></button>
+                <button class="btn btn-grey btn-circle" onclick="todoDetails('${el._id}')"  id="todoButtonCreate" data-toggle="modal"
+                data-target="#ModalEdit"><i class="fas fa-pencil-alt"></i></button>
+                <button class="btn btn-dark btn-circle"  onclick="deleteTodo('${el._id}')"><i class="fas fa-trash"></i></button>
               </aside>
             </div>
               `
@@ -132,10 +146,10 @@ function personalTodo(){
                   <p>${el.dueDate}</p>
                 </article>
                 <aside class="d-flex justify-content-end align-items-center m-2">
-                <button class="btn btn-soft btn-circle"><i class="fas fa-check" onclick="changeStatus('${el._id}', true)"></i></button>
-                <button class="btn btn-grey btn-circle" onclick="todoDetails('${el._id}')"  id="todoButtonCreate" data-toggle="modal"
-                data-target="#ModalEdit"><i class="fas fa-pencil-alt"></i></button>
-                <button class="btn btn-dark btn-circle"  onclick="deleteTodo('${el._id}')"><i class="fas fa-trash"></i></button>
+                  <button class="btn btn-soft btn-circle"><i class="fas fa-check" onclick="changeStatus('${el._id}', true)"></i></button>
+                  <button class="btn btn-grey btn-circle" onclick="todoDetails('${el._id}')"  id="todoButtonCreate" data-toggle="modal"
+                  data-target="#ModalEdit"><i class="fas fa-pencil-alt"></i></button>
+                  <button class="btn btn-dark btn-circle"  onclick="deleteTodo('${el._id}')"><i class="fas fa-trash"></i></button>
                 </aside>
               </div>
               `
@@ -146,6 +160,12 @@ function personalTodo(){
       }
     })
     .catch(err => {
+      Swal.fire({
+      title: 'Error!',
+      text: '',
+      type: 'error',
+      confirmButtonText: 'Oke'
+    })
       // console.log(err);
     })
 }

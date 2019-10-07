@@ -18,7 +18,7 @@ class projectController {
   static getAll(req, res, next) {
     console.log(req.headers.token);
     let id = req.decoded._id
-    console.log(id);
+    // console.log(id);
     Project.find({
       $or: [
          { owner: id },
@@ -30,7 +30,7 @@ class projectController {
       .sort({'createdAt': -1})
       .populate({ path: 'owner', select: 'email name' })
       .then(data => {
-        console.log(data);
+        // console.log(data);
         res.status(200).json(data)
 
 
@@ -49,7 +49,7 @@ class projectController {
 
 
   static projectAndTodos(req, res, next) {
-    console.log('........');
+    // console.log('........');
     Project.findById(req.params.projectId)
       .populate({ path: 'owner', select: 'email name' })
       .populate({ path: 'members', select: 'email name' })
@@ -58,8 +58,8 @@ class projectController {
           .sort({ 'createdAt': -1 })
           .populate({ path: 'user', select: 'email name', options: { sort: { 'name': 1 } } })
           .then(data => {
-            console.log(data);
-            console.log(project);
+            // console.log(data);
+            // console.log(project);
             res.status(200).json({
               project: project,
               todos: data
