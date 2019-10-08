@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <title>Movie Time</title>
+
+    <meta
+      name="google-signin-client_id"
+      content="73466446457-o33l3k8s3dpakj1ekpsiuf6c0ibqonf1.apps.googleusercontent.com"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Anton|Baumans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/materia-bootstrap.min.css" />
+    <link rel="stylesheet" href="./css/landingpage.css" />
+    <link rel="stylesheet" href="./css/detail.css" />
+    <style>
+      #navbar {
+        background: #fff;
+        width: 100%;
+        height: 70px;
+        box-shadow: rgb(157, 165, 171) 0px 0px 2.25rem;
+      }
+
+      .fit {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+      }
+
+      .summary {
+        font-size: 12px;
+        white-space: normal;
+        height: 60px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LANDINGPAGE -->
+    <section id="landing-page">
+      <div id="landing-container">
+        <div class="appName">
+          <h2>Movie </h2>
+          <h1>Time</h1>
+        </div>
+        <div id="btn-start">
+          <button class="btn btn-warning my-3" id="getstarted">
+            Get Started
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOGINPAGE -->
+    <section
+      id="login-page"
+      class="flex-center flex-column px-2 align-items:center"
+      style="height: 100vh; display: none; background: url('../img/login-bg.jpg');"
+    >
+      <div>
+        <!-- Login // id = "login-container" -->
+        <div id="login-container" class="container">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="card mt-5">
+                <div class="card-header">
+                  Login
+                </div>
+                <div class="card-body">
+                  <form id="login-form" name="login-form">
+                    <div class="form-group">
+                      <label for="login-email">Email address</label>
+                      <input
+                        autofocus
+                        name="email"
+                        type="email"
+                        class="form-control"
+                        id="login-email"
+                        aria-describedby="emailHelp"
+                        placeholder="Enter email"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="login-password">Password</label>
+                      <input
+                        name="password"
+                        type="password"
+                        class="form-control"
+                        id="login-password"
+                        placeholder="Password"
+                      />
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-primary">
+                      Login
+                    </button>
+                    <hr />
+                    <span>
+                      No account ?
+                      <a id="linkregister" href="#"><b>Create an account</b></a>
+                    </span>
+                    <hr />
+                    Or you can Sign In with your Google Account
+                    <div class="g-signin2 mt-2" data-onsuccess="onSignIn"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END LOGIN -->
+      </div>
+    </section>
+    
+
+    <!-- REGISTERPAGE -->
+    
+    <section id="register-page" style="height: 100vh; display: none; background: url('../img/login-bg.jpg');">
+      <div class="flex-center flex-column px-2">
+        <!-- Login // id = "login-container" -->
+        <div id="login-container" class="container">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <div class="card my-5">
+                <div class="card-header">
+                  Register
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="reg-email">Email address</label>
+                    <input
+                      name="email"
+                      type="email"
+                      class="form-control"
+                      id="reg-email"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter email"
+                    />
+                    <small id="emailHelp" class="form-text text-muted"
+                      >We'll never share your email with anyone else.</small
+                    >
+                  </div>
+                  <form id="register-form" name="register-form">
+                    <div class="form-group">
+                      <label for="reg-name"> Username </label>
+                      <input
+                        autofocus
+                        name="username"
+                        type="text"
+                        class="form-control"
+                        id="reg-username"
+                        placeholder="Username"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label for="reg-password">Password</label>
+                      <input
+                        name="password"
+                        type="password"
+                        class="form-control"
+                        id="reg-password"
+                        placeholder="Password"
+                      />
+                    </div>
+
+                    <button type="submit" class="btn btn-outline-primary">
+                      Register
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END LOGIN -->
+      </div>
+      
+    </section>
+
+    <!-- HOMEPAGE -->
+    <section id="home-page">
+      <div id="navbar">
+        <div
+          class="container"
+          style="display: flex;
+        justify-content: space-between;
+        align-items: center; height: 100%;"
+        >
+          <img src="./img/logo.png" style="height: 50px;" alt="" />
+          <a href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-movie">Add Movie</a>
+          <button id="logout" class="btn btn-primary">Logout</button>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div id="add-movie" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" style="text-align: left">Add Movie</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div id="content" class="my-5" style="width:100%">
+        <div class="container">
+          <div class="row" id="row-cards"></div>
+        </div>
+      </div>
+      <!-- <div
+        id="content-mangas-detail"
+        class="my-5"
+        style="width:100%; display: none"
+      >
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 mb-3" id="detailnya-manga"></div>
+            <div class="col-md-8" id="daftar-komentar">
+              <div class="card" style="width:100%;">
+                <div class="card-header">
+                  Comment Netizen
+                </div>
+                <div class="card-body" style="height: calc(100vh - 200px)">
+                  <div
+                    style="padding: 15px; overflow-y: scroll; width: 100%; height: calc(100vh - 300px)"
+                  >
+                    <div class="card">
+                      <div class="card-body">
+                        comment
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </section>
+
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./script/todos.js"></script>
+    <script src="./script/spa.js"></script>
+    <script src="./script/function.js"></script>
+    <script src="./script/user.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+  </body>
+</html>

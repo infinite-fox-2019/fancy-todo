@@ -1,0 +1,36 @@
+.appName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.appName h2 {
+  color: rgb(247, 244, 244);
+  font-family: 'Anton', cursive;
+  font-size: 65pt;
+}
+
+.appName h1 {
+  color: #f1d450;
+  font-family: 'Anton', cursive;
+  font-size: 72pt;
+}
+
+#landing-page {
+  background: url('../img/landing-page-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+#btn-start {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
