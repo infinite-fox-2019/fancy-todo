@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="shortcut icon" href="images/icon.ico">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <meta name="google-signin-client_id" content="892845584166-gl7d7hdkqkrr49o5cnfnd7s35dsgjti5.apps.googleusercontent.com">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet"> 
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+        <!-- Main css -->
+        <link rel="stylesheet" href="css/style.css">
+
+        <title>TodoFancy</title>
+    </head>
+    <body>
+        <!-- NavBar -->
+        <nav id="navbar" class="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
+            <div class="container-nav">
+                <a class="navbar-brand" href="#">Todo-Fancy</a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" id="home" onclick="homeButton()">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="signout" class="nav-link" href="#" onclick="signOut();">Sign out</a>
+                    </li>
+                    <li class="nav-item">
+                            <button class=" btn btn-danger btn-lg" id="register" onclick="displayRegister()">Register HERE!</a>
+                    </li>
+                </ul>
+            </div>
+        </nav><br>
+        <div id="login-button">
+            <center><img id="home_picture" src="images/todo.jpg" alt="sing up image"> <br><br>
+            <h6>Already have an account?</h6>
+            <button class="btn btn-outline-success my-2 my-sm-0" onclick="displayLogin()" type="submit">Login</button></center>
+        </div>
+        
+
+        <div class="main">
+            <!-- Sign up form -->
+            <section class="signup">
+                <div class="container">
+                    <div class="signup-content">
+                        <div class="signup-form">
+                            <h2 class="form-title">Sign up</h2>
+                            <form class="register-form" id="register-form">
+                                <div class="form-group">
+                                    <input type="text" name="name" id="name" placeholder="Your Name"/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" id="email" placeholder="Your Email"/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="pass" id="pass" placeholder="Password"/>
+                                </div>
+                             
+                                <div class="form-group form-button">
+                                    <input type="submit" onclick="register(event)" name="signup" id="signup" class="form-submit" value="Register"/>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="signup-image">
+                            <figure><img src="images/signup-image.jpg" alt="sing up image"></figure>
+                        </div>
+                    </div>
+                </div>
+            </section>
+    
+            <!-- Sign in  Form -->
+            <section class="sign-in">
+                <div class="container">
+                    <div class="signin-content">
+                        <div class="signin-image">
+                            <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>
+                            <a href="#" onclick="displayRegister()" class="signup-image-link">Create an account</a>
+                        </div>
+    
+                        <div class="signin-form">
+                            <h2 class="form-title">Sign In</h2>
+                            <form class="register-form" id="login-form">
+                                <div class="form-group">
+                                    <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                    <input type="text" id="your_name" placeholder="Your Name"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
+                                    <input type="password" id="your_pass" placeholder="Password"/>
+                                </div>
+                                <div class="form-group form-button">
+                                    <input type="submit" onclick="standardSignIn(event)" id="signin" class="form-submit" value="Log in"/>
+                                </div>
+                            </form>
+                            <div class="social-login">
+                                <span class="social-label">Or login with</span>
+                                <ul class="socials">
+                                    <li><div id="gsignin" class="g-signin2" data-onsuccess="onSignIn"></div></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+            <!-- TodoList:Main -->
+            <center>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group-task"><br>
+                                <h1>To-Do <small>List</small></h1>
+                                <form role="form">
+                                    <input type="text" class="form-control" placeholder="Your Task" id="task">
+                                </form> <br>
+                                <input type="submit" onclick="addTask()" id="addTask" class="form-submit btn-outline-success btn-lg" value="Add"/><br>
+                            </div> 
+                        </div>
+                        
+                        <div class="col">
+                            <div id="todos_list"><br>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div id="edit_form"><br>
+                                <p id="taskId"> </p>
+                                <h5>Name</h5><br>
+                                <input type="text" id="new_name" class="form-control" placeholder="Enter Todo's new name"> 
+                                <input type="submit" id="editTask" onclick="updateTask()" class="form-submit btn-outline-success btn-lg" value="Submit"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+
+
+      
+        <!-- JS -->
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+    </body>
+</html>
