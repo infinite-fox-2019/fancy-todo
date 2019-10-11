@@ -17,7 +17,10 @@ app.use(express.urlencoded({extended : false}))
 app.use(cors())
 app.use(morgan('dev'))
 
-mongoose.connect('mongodb://localhost/fancyTodo',{useNewUrlParser:true, useUnifiedTopology:true})
+// mongoose.connect('mongodb://localhost/fancyTodo',{useNewUrlParser:true, useUnifiedTopology:true})
+mongoose.connect(process.env.MONGOOSE_CONNECT,{useNewUrlParser:true, useUnifiedTopology:true},()=>{
+  console.log('connected')
+})
 
 
 db.on('error', console.error.bind(console, 'connection error:'));
