@@ -44,6 +44,9 @@ class User {
           let data = {token,name}
           return res.status(200).json(data);
         } else {
+          // next({
+          //   name: ""
+          // })
           let msg = "wrong email/password";
           return res.status(401).json(msg);
         }

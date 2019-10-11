@@ -11,6 +11,7 @@ const authentications = (req,res,next) => {
 }
 
 const authorizations = (req,res,next) =>{
+  // disini ambil model todo. cek nya pake model tsb
   if (req.loggedUser._id === req.body.userId){
     next()
   } else {

@@ -1,6 +1,12 @@
 $(document).ready(()=>{
   console.log('dom is ready')
   loginPage()
+  let token = localStorage.getItem('token')
+  if(token){
+  // console.log(token)
+  todoPage()
+  getCards()
+}
 })
 const show = (element)=>{
   $(element).show()
@@ -27,6 +33,10 @@ const todoPage = ()=>{
   show('#signoutClick')
   show('#modalButton')
 }
+
+
+
+
 
 function onSignIn(googleUser) {
   var profile = googleUser.getBasicProfile();
