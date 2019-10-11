@@ -47,7 +47,7 @@ function onSignIn(googleUser) {
   var id_token = googleUser.getAuthResponse().id_token;
   $.ajax({
   method : 'post',
-  url : 'http://localhost:3000/users/loginOAuth',
+  url : 'http://fancyserver.nadhiljanitra.xyz/users/loginOAuth',
   data : {
     id_token
   }
@@ -99,7 +99,7 @@ $('#login').on('submit',(e)=>{
   let password = $('#loginpassword').val()
   $.ajax({
     method : 'post',
-    url : 'http://localhost:3000/users/login',
+    url : 'http://fancyserver.nadhiljanitra.xyz/users/login',
     data : {
       email,password
     }
@@ -123,7 +123,7 @@ $('#register').on('submit',(e)=>{
   let name = $('#registername').val()
   $.ajax({
     method : 'post',
-    url : 'http://localhost:3000/users/register',
+    url : 'http://fancyserver.nadhiljanitra.xyz/users/register',
     data : {
       email,password,name
     }
@@ -158,7 +158,7 @@ $('#addTodo').on('submit',(e)=>{
   $('#exampleModal').modal('toggle');
   $.ajax({
     method : 'post',
-    url : 'http://localhost:3000/todos/add',
+    url : 'http://fancyserver.nadhiljanitra.xyz/todos/add',
     data : {
       title,descriptions,dueDate
     },
@@ -183,7 +183,7 @@ function getCards(){
   let token = localStorage.getItem('token')
   $.ajax({
     method : 'get',
-    url : 'http://localhost:3000/users/find',
+    url : 'http://fancyserver.nadhiljanitra.xyz/users/find',
     headers : {
       token
     }
@@ -234,7 +234,7 @@ function addTodoCards(id,element,token){
   $(`#delete${element._id}`).click(function(){
     $.ajax({
       method : 'delete',
-      url : 'http://localhost:3000/todos/delete',
+      url : 'http://fancyserver.nadhiljanitra.xyz/todos/delete',
       data : {
         _id : element._id,
         userId : element.userId
@@ -282,7 +282,8 @@ const updateHandler = (userId, id)=>{
   let status = $('#updateTodoStatus').val()
   $.ajax({
     method : 'patch',
-    url : 'http://localhost:3000/todos/update',
+    url : 'http://fancyserver.nadhiljanitra.xyz
+    +/todos/update',
     data : {
       status,userId,_id: id
     },
