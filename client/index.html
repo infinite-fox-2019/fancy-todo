@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style/style.css">
+    <meta name="google-signin-client_id"
+        content="385113193051-ltbp5ghkmmofraiqde1iu72cn85adplt.apps.googleusercontent.com">
+    <title>Event Todos</title>
+</head>
+
+<body>
+
+    <!-- landing page -->
+    <div class="landingPage" style="display: none">
+        <div class="logo">
+            <h1>Event</h1>
+            <h1>T O D O S</h1>
+        </div>
+        <div class="account">
+            <div class="register-box" style="display: none">
+                <h1>Sign Up</h1>
+                <form>
+                    <div class="input">
+                        <input type="text" placeholder="Name" id="nameregis">
+                    </div>
+
+                    <div class="input">
+                        <input type="password" placeholder="Password" id="passwordregis">
+                    </div>
+
+                    <div class="input">
+                        <input type="email" placeholder="Email" id="emailregis">
+                    </div>
+                    <input type="submit" value="Register" id="btn-register">
+                </form>
+                <p>Already have an Event Todos Account? Sign In <a href="#" id="toLogin">here</a></p>
+            </div>
+
+            <div class="login-box">
+                <h1>Sign In</h1>
+                <form>
+                    <div class="input">
+                        <input type="email" placeholder="Email" id="emailLogin">
+                    </div>
+
+                    <div class="input">
+                        <input type="password" placeholder="Password" id="passwordLogin">
+                    </div>
+                    <input type="submit" value="Sign In" id="btn-login">
+                    <p>Don't have an Event Todos Account? Create <a href="#" id="toRegister">here</a></p>
+                    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Page -->
+    <div class="main" style="display: none">
+        <nav>
+            <img src="src/img/logo.png" alt="Logo" id="firstPage">
+            <a href="#" id="thirdPage">My Event</a>
+            <div class="right">
+                <a href="#" id="add-event">Add Event</a>
+                <a href="#" onclick="signOut()" id=" logout">Logout</a>
+            </div>
+        </nav>
+
+        <div class="form-add-event" style="display: none">
+            <div class="close">
+                <p>x</p>
+            </div>
+            <h1>Create New Event</h1>
+            <form>
+                <input type="text" placeholder="Name Event" id="nameEventIn">
+                <input type="text" placeholder="Location Event" id="locationEventIn">
+                <div class="date-event">
+                    <div class="start-date">
+                        <label> Start Date</label>
+                        <input type="date" id="startEventIn">
+                    </div>
+                    <div class="end-date">
+                        <label>End Date</label>
+                        <input type="date" id="endEventIn">
+                    </div>
+                </div>
+                <input type="submit" value="Create Event" id="createEvent">
+            </form>
+        </div>
+
+        <div class="form-add-todo" style="display: none">
+            <a href="#" id="close-todo">x</a>
+            <h1>Create New Todo</h1>
+            <form>
+                <input type="text" placeholder="Title" id="title-todo">
+                <input type="text" placeholder="description" id="description-todo">
+                <input type="date" id="due-date-todo">
+                <input type="submit" value="Create Todo" id="btn-createTodo">
+            </form>
+        </div>
+
+        <div class="todo-detail" style="display: none">
+            <a href="#" id="close-task">X</a>
+            <h1 id="todo-title">Title</h1>
+            <h2>Description : </h2>
+            <div>
+                <p id="desc-todo">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit quidem fugit
+                    pariatur ratione
+                    atque. Vero id in eligendi illum labore a quibusdam nostrum molestiae aut, eaque, provident
+                    voluptatibus tempora magni.</p>
+            </div>
+            <p id="todo-due-date">due date</p>
+            <button id="toDoing">DOING</button>
+            <button id="toDone">DONE</button>
+            <button id="editTodo">Edit</button>
+            <button id="saveTodo">Save</button>
+            <button id="deleteTodo">Delete</button>
+        </div>
+
+        <div class="firstPage">
+            <div class="board">
+
+            </div>
+        </div>
+
+        <div class="secondPage" style="display: none">
+            <div class="box-main">
+                <h1 id="title-event"></h1>
+                <div class="box-board">
+                    <div class="todo box">
+                        <h1>TO DO</h1>
+                        <div class="todo-box boards">
+                        </div>
+                        <div class="add-todo">
+                            <a href="#" id="addtodoshow">Add To Do</a>
+                        </div>
+                    </div>
+
+                    <div class="doing box">
+                        <h1>DOING</h1>
+                        <div class="doing-box boards">
+
+                        </div>
+                    </div>
+
+                    <div class="done box">
+                        <h1>DONE</h1>
+                        <div class="done-box boards">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-event">
+                <div class="info-detail">
+                    <p>Start Date</p>
+                    <p id="start-date-event"></p>
+                    <p>End Date</p>
+                    <p id="end-date-event"></p>
+                    <p>Location</p>
+                    <p id="location-event">Jakarta</p>
+                    <p>Member</p>
+                    <div class="box-member">
+                        <ul id="member-event">
+                        </ul>
+                    </div>
+                </div>
+                <button id="join-event">Join</button>
+            </div>
+
+            <!-- <div class="comment-box" style="display: none">
+                <div class="comments">
+
+                </div>
+                <form>
+                    <label>Comment</label>
+                    <input type="text">
+                    <input type="submit">
+                </form>
+            </div> -->
+        </div>
+
+        <div class="thirdPage" style="display: none">
+            <div class="my-events">
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="https://kit.fontawesome.com/5cd1e1d933.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="script/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="script/sign.js"></script>
+    <script src="script/event.js"></script>
+    <script src="script/todo.js"></script>
+    <script src="script/pagenation.js"></script>
+</body>
+
+</html>
