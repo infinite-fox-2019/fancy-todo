@@ -3,7 +3,7 @@ $(document).ready(() => {
 
     addTask = () => {
         $.ajax({
-            url: 'http://localhost:3000/tasks',
+            url: 'http://timehuntserver.satyowicaksana.online/tasks',
             type: 'post',
             data: {
                 name: $('#name-add-task').val(),
@@ -35,7 +35,7 @@ $(document).ready(() => {
             dueDate: $('#due-date-update-task').val() !== '' ? $('#due-date-update-task').val() : undefined
         }
         $.ajax({
-            url: 'http://localhost:3000/tasks/' + $('#id-update-task').val(),
+            url: 'http://timehuntserver.satyowicaksana.online/tasks/' + $('#id-update-task').val(),
             type: 'patch',
             data: set,
             headers: {
@@ -63,7 +63,7 @@ $(document).ready(() => {
             .then((willDelete) => {
             if (willDelete) {
                 $.ajax({
-                    url: 'http://localhost:3000/tasks/' + $('#id-update-task').val(),
+                    url: 'http://timehuntserver.satyowicaksana.online/tasks/' + $('#id-update-task').val(),
                     type: 'delete',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -84,7 +84,7 @@ $(document).ready(() => {
     $('#sign-up').submit((e) => {
         e.preventDefault()
         $.ajax({
-            url: 'http://localhost:3000/users/signUp',
+            url: 'http://timehuntserver.satyowicaksana.online/users/signUp',
             type: 'post',
             data: {
                 email: $('#email-sign-up').val(),
@@ -104,7 +104,7 @@ $(document).ready(() => {
     $('#sign-in').submit((e) => {
         e.preventDefault()
         $.ajax({
-            url: 'http://localhost:3000/users/signIn',
+            url: 'http://timehuntserver.satyowicaksana.online/users/signIn',
             type: 'post',
             data: {
                 email: $('#email-sign-in').val(),
@@ -128,7 +128,7 @@ $(document).ready(() => {
         const token = googleUser.getAuthResponse().id_token;
         $.ajax({
             method:'post',
-            url: 'http://localhost:3000/users/googleSignIn',
+            url: 'http://timehuntserver.satyowicaksana.online/users/googleSignIn',
             data : {
             token
             }
@@ -180,7 +180,7 @@ $(document).ready(() => {
     getAllTasks = () => {
         $('#show-all-tasks').empty()
         $.ajax({
-            url: 'http://localhost:3000/tasks/',
+            url: 'http://timehuntserver.satyowicaksana.online/tasks/',
             type: 'get',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -208,7 +208,7 @@ $(document).ready(() => {
     getNowTasks = () => {
         $('#show-now-tasks').empty()
         $.ajax({
-            url: 'http://localhost:3000/tasks/now',
+            url: 'http://timehuntserver.satyowicaksana.online/tasks/now',
             type: 'get',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -309,7 +309,7 @@ $(document).ready(() => {
                 status: !task.status
             }
             $.ajax({
-                url: 'http://localhost:3000/tasks/' + $('#id-update-task').val(),
+                url: 'http://timehuntserver.satyowicaksana.online/tasks/' + $('#id-update-task').val(),
                 type: 'patch',
                 data: set,
                 headers: {
@@ -333,7 +333,7 @@ $(document).ready(() => {
             timepoint
         }
         $.ajax({
-            url: 'http://localhost:3000/users/',
+            url: 'http://timehuntserver.satyowicaksana.online/users/',
             type: 'patch',
             data: set,
             headers: {
@@ -364,7 +364,7 @@ $(document).ready(() => {
     
     showProfile = () => {
         $.ajax({
-            url: 'http://localhost:3000/users/',
+            url: 'http://timehuntserver.satyowicaksana.online/users/',
             type: 'get',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
