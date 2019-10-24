@@ -1,4 +1,6 @@
 $(document).ready(() => {
+
+
     addTask = () => {
         $.ajax({
             url: 'http://localhost:3000/tasks',
@@ -386,5 +388,13 @@ style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-w
         <small style="color: rgb(241, 255, 161);">${diffDays} ${diffDays < 2? 'day' : 'days'} ${diffHrs < 10 && diffHrs >= 0  ? '0'+diffHrs : diffHrs}:${diffMins < 10 && diffMins >= 0 ? '0'+diffMins : diffMins} ${diffHrs < 2 ? 'hour' : 'hours'}</small>`)
         })
         .fail(showSwal)
+    }
+
+    if(localStorage.token) {
+      $('#auth-page').hide()
+      $('#page-container').show()
+      getNowTasks()
+      $('#sign-out').show()
+      showProfile()
     }
 })
