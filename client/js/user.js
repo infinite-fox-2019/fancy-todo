@@ -55,6 +55,7 @@ function login() {
             localStorage.setItem('username', username)
             localStorage.setItem('gravatar', gravatar)
             localStorage.setItem('id', id)
+            ajax.defaults.headers.token = token
             Swal.close()
             checkLogin()
         }).catch(({ response: { data: error } }) => Swal.fire({
@@ -146,6 +147,7 @@ function register() {
             localStorage.setItem('username', username)
             localStorage.setItem('gravatar', gravatar)
             localStorage.setItem('id', id)
+            ajax.defaults.headers.token = token
             showContent()
             Swal.close()
         }).catch(({ response: { data: error } }) => {
