@@ -20,9 +20,9 @@ const express = require('express'),
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-mongoose.connect(url + db + environment, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
     .then(() => {
-        console.log("Connected to MongoDB " + db + environment)
+        console.log("Connected to MongoDB", url)
     }).catch((err) => {
         console.log(err);
         console.log("Failed to connect to MongoDB");

@@ -46,12 +46,7 @@ class UserController {
     }
 
     static verify(req, res, next) {
-        try {
-            verifyUser(req.headers.token)
-            res.status(200).json({ message: "User Verified" })
-        } catch (err) {
-            next(err)
-        }
+        res.status(200).json({ message: "User Verified" })
     }
 
     static googleSignIn(req, res, next) {
