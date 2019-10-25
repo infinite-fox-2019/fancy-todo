@@ -178,6 +178,7 @@ $(document).ready(() => {
     }
 
     getAllTasks = () => {
+      console.log('masuk all')
         $('#show-all-tasks').empty()
         $.ajax({
             url: 'http://timehuntserver.satyowicaksana.online/tasks/',

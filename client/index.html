@@ -16,7 +16,7 @@
         <nav class="navbar navbar-light yellowish-bg">
             <a class="navbar-brand">
                 <img src="https://image.flaticon.com/icons/svg/60/60481.svg" width="30" height="30" alt="">
-                Timehunt
+                <span style="color: black;">Timehunt</span>
                 <a id="sign-out" onclick="signOut();" style="color: rgb(98, 105, 54); display: none;">Sign out</a>
             </a>
         </nav>
@@ -55,8 +55,8 @@
             <div class="row">
                 <div class="col-2 pr-0" style="margin-left: 60px;">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link active" id="show-now-tasks-tab" data-toggle="pill" role="tab" aria-controls="show-now-tasks" aria-selected="true" onclick="showNowTasks()">What to do now</a>
-                    <a class="nav-link" id="show-all-tasks-tab" data-toggle="pill" role="tab" aria-controls="show-all-tasks" aria-selected="false" onclick="showAllTasks()">All tasks</a>
+                    <a class="nav-link active" id="show-now-tasks-tab" data-toggle="pill" href="#show-now-tasks" role="tab" aria-controls="show-now-tasks" aria-selected="true" onclick="showNowTasks()">What to do now</a>
+                    <a class="nav-link" id="show-all-tasks-tab" data-toggle="pill" href="#show-all-tasks" role="tab" aria-controls="show-all-tasks" aria-selected="false" onclick="showAllTasks()">All tasks</a>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                             width="24" height="24"
@@ -147,7 +147,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="node_modules/jquery-datetimepicker/jquery.datetimepicker.js"></script>
     <script src="scripts/jquery-datetimepicker.js"></script>
     <script src="index.js"></script>
     <script>
