@@ -10,6 +10,9 @@ const todoSchema = new Schema({
     type: Boolean,
     default: false
   },
+  due_date: {
+    type: Date,
+  },
   description: String,
   tags: String,
   userId: {

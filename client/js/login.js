@@ -1,6 +1,10 @@
 $(document).ready(() => {
   $('#nav').hide()
   $('#linkLogout').hide()
+  if(localStorage.getItem('token')) {
+    doneLogin(localStorage.getItem('username'))  
+    generateTodo()
+  }
 })
 
 function showRegister() {

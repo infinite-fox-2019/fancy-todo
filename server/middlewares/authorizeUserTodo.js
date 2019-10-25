@@ -5,10 +5,7 @@ module.exports = (req, res, next) => {
   Todo
     .findOne({ _id: req.params.id })
     .then(todo => {
-      // console.log(req.loggedUser.payload._id == todo.userId)
-      // console.log(req.loggedUser.payload._id)
-      // console.log(todo.userId)
-      if(req.loggedUser.payload._id == todo.userId) next()
+      if(req.loggedUser._id == todo.userId) next()
       else next({status: 401, message:"User not authorized to do this action"})
     })
     .catch(next)

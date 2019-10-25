@@ -2,13 +2,16 @@ const Todo = require('../models/todo')
 
 class TodoController {
   static create(req, res, next) {
-    const { todo, description, tags} = req.body
-    const userId = req.loggedUser.payload._id
+    const { todo, description, due_date, tags } = req.body
+    const userId = req.loggedUser._id
+
+    let date = due_date < new Date() ? new Date() : due_date
 
     Todo
       .create({
         todo,
         description,
+        due_date: date,
         tags,
         userId
       })
@@ -19,8 +22,8 @@ class TodoController {
   }
 
   static getTodos(req, res, next) {
-    const userId = req.loggedUser.payload._id
-
+    const userId = req.loggedUser._id
+    console.log('galo')
     Todo
       .find({
         userId

@@ -8,7 +8,7 @@ module.exports = (err, req, res, next) => {
     // console.log(err.errors)
     for (let el in err.errors) {
       if (err.errors[el].kind === 'unique') {
-        errArray.push(`This ${el} is already registered`)
+        errArray.push(`This el is already registered`)
       } else {
         errArray.push(err.errors[el].message)
       }

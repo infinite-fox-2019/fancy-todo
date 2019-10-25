@@ -23,12 +23,15 @@ function generateTodo() {
     .done(todos => {
 
       $.each(todos, function (index, todo) {
+        let date = new Date(todo.due_date).toDateString()
+        console.log(date)
         console.log(todo)
         $('.listTodo').append(`
           <div id='todo${index}' class="card bg-light mb-3" style="width:100%; height: 30%;">
             <div class="card-header d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
-              <h5 class="my-0 mr-md-auto titleTodo">${todo.todo}</h5>
+              <h5 class="my-0 mr-md-auto titleTodo">${todo.todo}</h5> 
               <div class="my-2 my-md-0 mr-md-3">
+                <p>${date}</p>
                 <i class="fas fa-circle" style="color: ${todo.status ? '#86ff57' : '#ff1957'}; font-size:2rem;"></i>
               </div>              
               </div>
@@ -94,6 +97,10 @@ function generateTodo() {
                 <input type="text" class="form-control" id="descriptionEdit" value="${todo.description}">
               </div>
               <div class="form-group">
+                <label>Due Date</label>
+                <input type="date" class="form-control" id="descriptionEdit" value="${todo.due_date}">
+              </div>
+              <div class="form-group">
                 <label>Tag</label>
                 <input type="text" class="form-control" placeholder="Add tag" id="tagEdit" value="${todo.tags === undefined ? '' : todo.tags}">
               </div>
@@ -120,6 +127,7 @@ function createTodo() {
     url: 'http://localhost:3000/todos',
     data: {
       todo: $('#todoForm').val(),
+      due_date: $('#dueDateForm').val(),
       description: $('#descriptionForm').val(),
       tags: $('#tagForm').val()
     },
@@ -131,6 +139,7 @@ function createTodo() {
       $('#alertValidate').remove()
       $('#todoForm').val('')
       $('#descriptionForm').val('')
+      $('#dueDateForm').val('')
       $('#tagForm').val('')
       $('.listTodo').empty()
       generateTodo()
@@ -167,6 +176,7 @@ function updateTodo(id) {
     url: `http://localhost:3000/todos/${id}`,
     data: {
       todo: $('#todoEdit').val(),
+      due_date: $('#dueDateForm').val(),
       description: $('#descriptionEdit').val(),
       tags: $('#tagEdit').val(),
       status: statusUpdate
