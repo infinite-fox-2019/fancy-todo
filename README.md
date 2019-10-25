@@ -1,7 +1,5 @@
 # fancy-todo
 
-# Todotive (fancy-todo)
-
 ## How to use
 
 ```
