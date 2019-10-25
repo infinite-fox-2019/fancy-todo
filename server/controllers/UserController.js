@@ -2,7 +2,9 @@ const User = require('../model/user')
 const { OAuth2Client } = require('google-auth-library')
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || '';
 const client = new OAuth2Client(GOOGLE_CLIENT_ID);
-const { generateToken, verifyToken } = require('../helpers/jwt')
+const { generateToken } = require('../helpers/jwt')
+const { compare } = require('../helpers/bcrypt')
+
 
 class UserController {
 
@@ -10,32 +12,40 @@ class UserController {
         let { username, email, password } = req.body
         User.create({ username, email, password })
             .then((user) => {
-                const payloadJwf = { id: user._id }
-                let token = generateToken(payloadJwf, process.env.SECRET_JWT)
+                const payloadJwt = { id: user._id }
+                let token = generateToken(payloadJwt)
                 res.status(201).json({ token, user })
             })
             .catch(next)
     }
 
-    static manualLogin(req, res, next) {
+    static login(req, res, next) {
         let { email, password } = req.body
-        User.findOne({ email, password })
+        User.findOne({ email })
             .then((user) => {
-                if (!user) {
+                if(user){
+                    if(compare(password, user.password)){
+                        const payloadJwt = { id: user._id }
+                        let token = generateToken(payloadJwt)
+                        res.status(201).json({ token, user })
+                    } else{
+                        next({
+                            status: 400,
+                            msg: ['username or password is wrong']
+                        })
+                    }
+                }else{
                     next({
                         status: 400,
                         msg: ['username or password is wrong']
                     })
-                } else {
-                    const payloadJwf = { id: user._id }
-                    let token = generateToken(payloadJwf, process.env.SECRET_JWT)
-                    res.status(200).json({ token, user })
                 }
             })
             .catch(next)
     }
 
     static googleLogin(req, res, next) {
+
         let payload = null
         client.verifyIdToken({
             idToken: req.body.id_token,
@@ -52,13 +62,13 @@ class UserController {
                     return User.create({
                         username: payload.name,
                         email: payload.email,
-                        password: 'RAHASIA'
+                        password: process.env.DEFAULT_PASS
                     })
                 }
             })
             .then((user) => {
                 const payloadJwf = { id: user._id }
-                let token = generateToken(payloadJwf, process.env.SECRET_JWT)
+                let token = generateToken(payloadJwf)
                 res.status(200).json({ token, user })
             })
             .catch(next);

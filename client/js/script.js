@@ -2,263 +2,148 @@ const url = `http://localhost:3000`
 
 $(document).ready(() => {
 
-    // kondisi ketika user meng-CLICK tombol login
-    $('#loginbtn').click(function (event) {
-        event.preventDefault()
-        let data = $('#getLoginFrom input').serialize()
-        $.ajax({
-            url: `${url}/user/manualLogin`,
-            method: 'post',
-            data: data
-        })
-            .done(response => {
-                localStorage.setItem('token', response.token)
-                avatar(response.user)
-                userLogged()
-            })
-            .fail(err => {
-                console.log(err);
-                let msg = err.responseJSON
-                let text = ''
-                msg.forEach(el => {
-                    text += el + ', '
-                });
-
-                Swal.fire({
-                    type: 'error',
-                    title: 'Oops...',
-                    text,
-                })
-            })
-    })
-
-    // kondisi ketika user melakukan REGISTER dan meng-CLICK tombol register
-    $('#registerBtn').click(function (event) {
-        event.preventDefault()
-        let data = $('#getRegisterForm input').serialize()
-
-        $.ajax({
-            url: `${url}/user/register`,
-            method: 'post',
-            data: data
-        })
-            .done(response => {
-                localStorage.setItem('token', response.token)
-                avatar(response.user)
-                userLogged()
-            })
-            .fail(err => {
-                console.log(err);
-                let msg = err.responseJSON
-                let text = ''
-                msg.forEach(el => {
-                    text += el + ', '
-                });
-
-                Swal.fire({
-                    type: 'error',
-                    title: 'Oops...',
-                    text,
-                })
-            })
-    })
-
-    //kondisi ketika user meng-CLICK tombol LOGOUT
-    $('#logout').click(function (event) {
-        event.preventDefault()
-        localStorage.removeItem('token');
-        userNotLogged()
-
-    })
+    if(!localStorage.getItem('token')){
+        $('#loginPage').show()
+    } else{
+        $('#loginPage').hide()
+        // homeTodo()
+        fetchTodo()
+        $('#home').show()
+        
+    }
 
 })
 
-
-function PersonBtn() {
-    $('#personalTodolist').hide
-
-
-
-}
-
-
-function profileData() {
-    Swal.mixin({
-        input: 'text',
-        confirmButtonText: 'Next &rarr;',
-        showCancelButton: true,
-        progressSteps: ['1', '2', '3']
-    }).queue([
-        {
-            title: 'Alamat',
-            text: 'masukan alamat anda ex: Jakarta Selatan'
-        },
-        {
-            title: 'Nomor Telepon',
-            text: 'masukan nomor telepon anda'
-        },
-        {
-            title: 'Moto hidup',
-            text: 'masukan moto hidup anda ex: sleep only for the week'
-        }
-    ]).then((result) => {
-        if (result.value) {
-            Swal.fire({
-                title: 'All done!',
-                html:
-                    'Your answers: <pre><code>' +
-                    JSON.stringify(result.value) +
-                    '</code></pre>',
-                confirmButtonText: 'Lovely!'
+function register() { 
+    let data = $('#getRegisterForm input').serialize()
+        $.ajax({
+            url: `${url}/users/register`,
+            method: 'post',
+            data: data
+        })
+            .done(response => {
+                localStorage.setItem('token', response.token)
+                userLogged()
             })
-
-
-        }
-    })
-}
-
-function avatar(user) {
-
-    let data = `
-    <button onclick="signOut()">Logout</button>
-    <div class="presonalInfo">
-        <p>${user.username}</p>
-        <p>${user.motto}</p>
-    </div>
-    <img src="https://api.adorable.io/avatars/285/${user.email}.png" alt="">
-
-    <div class="footer">
-        <p>Lokasi: ${user.location}</p>
-        <p>Nomor Hp: ${user.phone}</p>
-        <p>email: ${user.email}</p>
-    </div>
-    <button onclick="profileData()">Edit Profil</button>`
-    $('.profile').html('')
-    $('.profile').html(data)
-}
-
-function createNewTodo() {
-    $('.middleDiv').hide()
-    $('#createTodoFrom').html(`
-
-    <form id = "todoFrom" class="formTodo" method = "patch" >
-        <h1>: Create New Todo</h1>
-        <input type="text" name="title" placeholder="Enter Title">
-            <input type="text" name="description" placeholder="Enter Description">
-                <input type="text" name="status" placeholder="Enter Status">
-                    <input type="date" name="dueDate" placeholder="Enter DueDate">
-                        <button type="button" onclick="return createTodo()" id="createBtn" >Add</button>
-    </form>
-                    `)
-    $('#createTodoFrom').show()
-}
-
-function projectMenu() {
-    $.ajax({
-        url: `${url}/todo/show`,
-        method: 'get',
-        headers: {
-            'access_token': localStorage.getItem('token')
-        }
-    })
-        .done(todos => {
-            if (todos.length) {
-                todos.forEach(todo => {
-                    showTodoList(todo)
+            .fail(err => {
+                let msg = err.responseJSON
+                let text = ''
+                msg.forEach(el => {
+                    text += el + ', '
                 });
-            }
-        })
-        .fail(err => {
-            console.log(err);
-            let msg = err.responseJSON
-            let text = ''
-            msg.forEach(el => {
-                text += el + ', '
-            });
 
-            Swal.fire({
-                type: 'error',
-                title: 'Oops...',
-                text,
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text,
+                })
             })
-        })
+    
 }
 
-// fungsi untuk membuat create baru
-function createTodo() {
-    let data = $('#todoFrom input').serialize()
+function homeTodo(){
+    $('#home').append(`
+    <div>
+        <div class="d-flex m-3" >
+            <button type="button" class="btn-addtodo" data-toggle="modal" data-target="#addTodoModal">add todo</button>
+        </div>
 
-    $.ajax({
-        url: `${url}/todo/create`,
-        method: 'post',
-        data: data,
-        headers: {
-            'access_token': localStorage.getItem('token')
-        }
-    })
-        .done(todo => {
-            $('#createTodoFrom').hide()
-            $('#createTodoFrom').html('')
-            showTodoList(todo)
-            $('.middleDiv').show()
+        <!-- Modal -->
+            <div class="modal fade" id="addTodoModal" tabindex="-1" role="dialog" aria-labelledby="addTodoModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header ">
+                    <h5 class="modal-title" id="addTodoModalLabel">Add New Todo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    
+                    <form method="POST" class="myFrom" id="addTodo">
+                        <input name="title" type="text" placeholder="Enter title...">
+                        <textarea class="ml-1" rows="4" cols="50" name="description" placeholder="Enter description..."></textarea>
+                        <select class="ml-1 bg-light" name="status">
+                            <option value="UNCOMPLETE">UNCOMPLETE</option>
+                            <option value="COMPLETE">COMPLETE</option>
+                        </select>   
+                        <input name="dueDate" type="date" na>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" onclick="createTodo()"  class="btn btn-primary" data-dismiss="modal">Save</button>
+                </div>
+                </div>
+            </div>
+            </div>
+
+        <div id="todo-card" class="d-flex flex-wrap todo-card-container" ></div>
+    </div>
+    `)
+}
+
+function login(){
+    let data = $('#getLoginFrom input').serialize()
+        $.ajax({
+            url: `${url}/users/login`,
+            method: 'post',
+            data: data
         })
-        .fail(err => {
-            console.log(err);
-            let msg = err.responseJSON
-            let text = ''
-            msg.forEach(el => {
-                text += el + ', '
-            });
-
-            Swal.fire({
-                type: 'error',
-                title: 'Oops...',
-                text,
+            .done(response => {
+                localStorage.setItem('token', response.token)
+                $('#loginPage').hide()
+                $('#home').show()
             })
-        })
+            .fail(err => {
+                let msg = err.responseJSON
+                let text = ''
+                msg.forEach(el => {
+                    text += el + ', '
+                });
+
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text,
+                })
+            })
 }
 
-
-// kondisi ketika user login
-function userLogged() {
-    $('#loginPage').hide()
-    getTodos()
-    $('#dashboard').show()
-}
-
-// kondisi ketika user BELUM login ATAU LOGOUT
-function userNotLogged() {
-    $('#dashboard').hide()
-    $('.profile').html('')
-    $('#personalTodolist').html('')
-    $('#personalTodolist').html(
-        `<div class="card createNewBoard" id="createPersonalTodo" onclick="createNewTodo()">
-                        <i class="far fa-plus-square"></i>
-                        <p>Create New Todo</p>
-                    </div>`
-    )
+function logout(){
+    localStorage.removeItem('token');
+    $('#home').hide()
     $('#loginPage').show()
 }
 
+function dateFormat(date) {
+    let event = new Date(date);
+    let options = {
+      weekday: "short",
+      year: "numeric",
+      month: "short",
+      day: "numeric"
+    };
+    return event.toLocaleDateString("en-US", options);
+  }
 
-// fungsi untuk menampikan semua todo
-function getTodos() {
+function fetchTodo(){
     $.ajax({
-        url: `${url}/todo/show`,
+        url: `${url}/todos`,
         method: 'get',
         headers: {
-            'access_token': localStorage.getItem('token')
+            'token': localStorage.getItem('token')
         }
     })
         .done(todos => {
             if (todos.length) {
                 todos.forEach(todo => {
-                    showTodoList(todo)
+                    todoCard(todo)
                 });
             }
         })
         .fail(err => {
-            console.log(err);
             let msg = err.responseJSON
             let text = ''
             msg.forEach(el => {
@@ -273,223 +158,178 @@ function getTodos() {
         })
 }
 
+function todoCard(todo){
 
-// fungsi untuk mengubah format tanggal
-function awesomeDate(date) {
-    let event = new Date(date);
-    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    return event.toLocaleDateString('en-US', options)
+    $('#todo-card').append(`
+    <div class="todo-card d-flex flex-column justify-content-between">
+        <div class="todo-title">
+            <p class="text-center">${todo.title}</p>
+        </div>
+        <div class="todo-content">
+            <p>${todo.description}</p>
+        </div>
+        <div class="todo-footer d-flex align-items-center justify-content-between">
+            <div>
+                <span class="text-white">${todo.status}</span>
+                <p>due date: ${dateFormat(todo.dueDate)}</p>
+            </div>
+            <div>
+                <i data-toggle="modal" data-target="#editTodoModal${todo._id}" class="far fa-edit"></i>
+                <i onclick="deleteTodo('${todo._id}')" class="fas fa-trash"></i>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="editTodoModal${todo._id}" tabindex="-1" role="dialog" aria-labelledby="addTodoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header ">
+                <h5 class="modal-title" id="addTodoModalLabel">Add New Todo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                <form method="POST" class="myFrom" id="EditTodo${todo._id}">
+                    <input value="${todo.title}" name="title" type="text" placeholder="Enter title...">
+                    <textarea class="ml-1" rows="4" cols="50" name="description" placeholder="Enter description...">${todo.description}</textarea>
+                    <select class="ml-1 bg-light" name="status">
+                        <option value="UNCOMPLETE">UNCOMPLETE</option>
+                        <option value="COMPLETE">COMPLETE</option>
+                    </select>   
+                    <input value="${todo.dueDate}" name="dueDate" type="date" na>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button onclick="updateTodo('${todo._id}')" type="button" class="btn btn-primary" data-dismiss="modal">Save</button>
+            </div>
+            </div>
+        </div>
+    </div>
+    `)
 }
 
-
-// show detail todo
-function showOneTodo(id) {
-    $.ajax({
-        url: `${url}/todo/showOne/${id}`,
-        method: 'get',
-        headers: {
-            'access_token': localStorage.getItem('token')
-        }
-    })
-        .done(todo => {
-            $('.middleDiv').hide()
-            let data =
-                `
-            <div class="showSingleTodoCard">
-                        <div class="SingleTodo">
-                            <p>${todo.title}</p>
-                        </div>
-                        <div class="descriptionSingleTodo">
-                            <p>
-                               ${todo.description}
-                            </p>
-                        </div>
-                        <div class="SingleTodo">
-                            <p>${todo.status}</p>
-                        </div>
-                        <div class="SingleTodo">
-                            <p>${awesomeDate(todo.dueDate)}</p>
-                        </div>
-                        <div class="options">
-                            <button onclick="return editTodo('${todo._id}')" >Edit</button>
-                            <button onclick="return deleteTodo('${todo._id}')" >Delete</button>
-                        </div>
-                    </div>
-            `
-
-            $('#showSingleTodo').html(data)
-            $('#showSingleTodo').show()
-        })
-        .fail(err => {
-            console.log(err);
-            let msg = err.responseJSON
-            let text = ''
-            msg.forEach(el => {
-                text += el + ', '
-            });
-
-            Swal.fire({
-                type: 'error',
-                title: 'Oops...',
-                text,
-            })
-        })
-}
-
-
-// untuk mengedit todo
-function editTodo(id) {
-    $.ajax({
-        url: `${url}/todo/showOne/${id}`,
-        method: 'get',
-        headers: {
-            'access_token': localStorage.getItem('token')
-        }
-    })
-        .done(todo => {
-            let event = new Date(todo.dueDate);
-            let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            $('.middleDiv').hide()
-            $('#showSingleTodo').hide()
-            $('#showSingleTodo').html('')
-
-            let data =
-                `
-                <form action="" id="updateTodo" class="formTodo" method="patch">
-                <h1>: Edit Todo</h1>
-                <input type="text" value="${todo.title}" name="title" placeholder="Enter Title">
-                <input type="text" value="${todo.description}" name="description" placeholder="Enter Description">
-                <input type="text" name="status" value="${todo.status}" placeholder="Enter Status">
-                <label style="font-size: 15px;" >Current Date:</label>
-                <input type="text" style="font-size: 15px; background-color: rgba(0, 0, 0, 0.449);" value="${awesomeDate(todo.dueDate)}" readonly>
-                <input type="date" value="${todo.dueDate}" name="dueDate">
-                <button type="button" onclick="updateTodo('${todo._id}')" id="UpdateBtn">Edit</button>
-            </form>`
-            $('#updateTodoForm').append(data)
-            $('#updateTodoForm').show()
-        })
-        .fail(err => {
-            console.log(err);
-            let msg = err.responseJSON
-            let text = ''
-            msg.forEach(el => {
-                text += el + ', '
-            });
-
-            Swal.fire({
-                type: 'error',
-                title: 'Oops...',
-                text,
-            })
-        })
-}
-
-
-// MNECETAK tudo BUKAN ngambil dari data base
-function showTodoList(todo) {
-    let todolist =
-        `
-    <div class="card" onclick="return showOneTodo('${todo._id}')">
-                        <h3>${todo.title}</h3>
-                        <p>${todo.description}</p>
-                    </div>
-                    `
-    $('#personalTodolist').prepend(todolist)
-}
-
-
-// memasukkan data updatetan ke database
-function updateTodo(id) {
-    let data = $('#updateTodo input').serialize()
-    $.ajax({
-        url: `${url}/todo/update/${id}`,
-        method: 'patch',
-        data: data,
-        headers: {
-            'access_token': localStorage.getItem('token')
-        }
-    })
-        .done(todo => {
-            $('#createTodoFrom').hide()
-            $('#updateTodoForm').html('')
-            $('#personalTodolist').html('')
-            $('#personalTodolist').html(
-                `<div class="card createNewBoard" id="createPersonalTodo" onclick="createNewTodo()">
-                        <i class="far fa-plus-square"></i>
-                        <p>Create New Todo</p>
-                    </div>`
-            )
-            getTodos()
-            $('.middleDiv').show()
-        })
-        .fail(err => {
-            let msg = err.responseText
-            $(`#errorLogin`).html(msg);
-        })
-}
-
-
-// menghapus todo
-function deleteTodo(id) {
-
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: 'btn btn-success',
-            cancelButton: 'btn btn-danger'
-        },
-        buttonsStyling: false
-    })
-
-    swalWithBootstrapButtons.fire({
+function deleteTodo(todoId){
+    Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
         type: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-    }).then((result) => {
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
         if (result.value) {
             $.ajax({
-                url: `${url}/todo/delete/${id}`,
+                url: `${url}/todos/${todoId}`,
                 method: 'delete',
                 headers: {
-                    'access_token': localStorage.getItem('token')
+                    'token': localStorage.getItem('token')
                 }
             })
-                .done(todo => {
-                    swalWithBootstrapButtons.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
-                    $('#showSingleTodo').html('')
-                    $('#showSingleTodo').hide()
-                    $('#personalTodolist').html('')
-                    $('#personalTodolist').html(
-                        `<div class="card createNewBoard" id="createPersonalTodo" onclick="createNewTodo()">
-                        <i class="far fa-plus-square"></i>
-                        <p>Create New Todo</p>
-                        </div>`
-                    )
-                    getTodos()
-                    $('.middleDiv').show()
+            .done(response => {
+                $('#todo-card').html('')
+                fetchTodo()
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                  )
+            })
+            .fail(err => {
+                let msg = err.responseJSON
+                let text = ''
+                msg.forEach(el => {
+                    text += el + ', '
+                });
+
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text,
                 })
-                .fail(err => {
-                    let msg = err.responseText
-                    $(`#errorLogin`).html(msg);
-                })
-        } else if (
-            /* Read more about handling dismissals below */
-            result.dismiss === Swal.DismissReason.cancel
-        ) {
-            swalWithBootstrapButtons.fire(
-                'Cancelled',
-                'Your imaginary file is safe :)',
-                'error'
-            )
+            })
+        }
+      })
+}
+
+function createTodo(){
+    let data = $('#addTodo textarea').serialize() + '&'
+        data += $('#addTodo input').serialize()
+
+    $.ajax({
+        url: `${url}/todos`,
+        method: 'post',
+        data: data,
+        headers: {
+            'token': localStorage.getItem('token')
         }
     })
+        .done(todo => {
+            $('#todo-card').html('')
+            fetchTodo()
+            Swal.fire(
+                'Success',
+                'Success add new todo.',
+                'success'
+              )
+        })
+        .fail(err => {
+            let msg = err.responseJSON
+            let text = ''
+            msg.forEach(el => {
+                text += el + ', '
+            });
+
+            Swal.fire({
+                type: 'error',
+                title: 'Oops...',
+                text,
+            })
+        })
+
+}
 
 
+
+function updateTodo(todoId){
+    let data = $(`#EditTodo${todoId} textarea`).serialize() + '&'
+    data += $(`#EditTodo${todoId} select`).serialize() + '&'
+    data += $(`#EditTodo${todoId} input`).serialize()
+
+    $.ajax({
+        url: `${url}/todos/${todoId}`,
+        method: 'patch',
+        data: data,
+        headers: {
+            'token': localStorage.getItem('token')
+        }
+    })
+    .done(todo => {
+        fetchTodo()
+        $('#todo-card').html('')
+        // Swal.fire(
+        //     'Success',
+        //     'Success edit todo.',
+        //     'success'
+        //   )
+    })
+    .fail(err => {
+        console.log(err);
+        let msg = err.responseJSON
+        let text = ''
+        msg.forEach(el => {
+            text += el + ', '
+        });
+
+        Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text,
+        })
+    })
 }

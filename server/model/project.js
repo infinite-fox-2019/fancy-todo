@@ -14,6 +14,11 @@ const ProjectSchema = new Schema({
     dueDate: {
         type: Date
     },
+    status: {
+        type: String,
+        required: [true, 'Status is required'],
+        default: 'UNCOMPLETE'
+    },
     todoList: [{
         type: ObjectId,
         ref: 'Todo'
@@ -21,9 +26,14 @@ const ProjectSchema = new Schema({
     member: [{
         type: ObjectId,
         ref: 'User'
-    }]
+    }],
+    UserId: {
+        type: ObjectId,
+        ref: 'User',
+        required: true
+    }
 })
 
-const Project = mongoose.model('Todo', ProjectSchema);
+const Project = mongoose.model('Project', ProjectSchema);
 
-module.exports = Todo;
+module.exports = Project;

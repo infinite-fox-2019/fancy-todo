@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-const TodoSchema = new Schema({
+const todoSchema = new Schema({
     title: {
         type: String,
         required: [true, 'Title is required']
@@ -13,7 +13,8 @@ const TodoSchema = new Schema({
     },
     status: {
         type: String,
-        required: [true, 'Status is required']
+        required: [true, 'Status is required'],
+        default: 'UNCOMPLETE'
     },
     dueDate: {
         type: Date
@@ -22,13 +23,9 @@ const TodoSchema = new Schema({
         type: ObjectId,
         ref: 'User',
         required: true
-    },
-    projectId: [{
-        type: ObjectId,
-        ref: 'Project'
-    }]
+    }
 }, { timestamps: true })
 
-const Todo = mongoose.model('Todo', TodoSchema);
+const Todo = mongoose.model('Todo', todoSchema);
 
 module.exports = Todo;

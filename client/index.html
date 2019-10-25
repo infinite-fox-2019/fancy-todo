@@ -9,12 +9,10 @@
         content="583795514429-8p6sbj437qgi758gal9tdonj67n1rebm.apps.googleusercontent.com">
     <title>Document</title>
     <!-- My Own CSS File -->
-    <link href="https://fonts.googleapis.com/css?family=Kalam|Questrial|Shadows+Into+Light&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="dashboard.css">
-    <link rel="stylesheet" href="from.css">
-    <link rel="stylesheet" href="showOneTodo.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <script src="https://kit.fontawesome.com/6f6910560f.js" crossorigin="anonymous"></script>
@@ -22,145 +20,112 @@
 </head>
 
 <body>
-
-
-    <!-- =================== LOGIN PAGE START=======================-->
-    <div id="loginPage">
-        <div class="container">
-            <div class="window">
-                <div class="box">
-                    <h1>Lets you work more collaboratively and get more done.</h1>
-                    <div class="imgContainer">
-                        <img id="loginPageImg" src="loginPage.jpg" alt="people work">
+        <div id="loginPage" style="display: none">
+                <div class="board d-flex">
+                    <div class="d-flex flex-column justify-content-center w-50">
+                        <h1 class="login-title" style="font-family: 'Quicksand', sans-serif;">Lets you work more collaboratively and get more done.</h1>
+                        <img class="login-form-img" src="./loginFrom.svg" alt="">
                     </div>
-                </div>
-
-                <div class="box">
-                    <div class="loginPageFrom">
-                        <!-- LOGIN FORM START HERE-->
-                        <form action="" class="loginFrom" id="getLoginFrom">
-
-                            <input type="text" name="email" placeholder="Enter email">
-                            <input type="password" name="password" placeholder="Enter password">
-                            <button type="submit" id="loginbtn">Login</button>
-
-                            <!-- LOGIN BUTTON DARI GOOGLE -->
-                            <div class="g-signin2" style="margin-top: 5px;" data-onsuccess="onSignIn"></div>
-
-                        </form>
-
-                        <!-- REGISTER FORM START HERE-->
-                        <form action="" class="registerFrom" id="getRegisterForm">
-                            <h1>: register</h1>
-                            <input type="text" name="username" placeholder="Enter username">
-                            <input type="text" name="email" placeholder="Enter email">
-                            <input type="password" name="password" placeholder="Enter password">
-                            <button type="submit" id="registerBtn">Sign Up</button>
-
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- =================== LOGIN PAGE END=======================-->
-
-
-
-    <!-- =================== DASHBOARD PAGE START=======================-->
-    <div id="dashboard">
-        <div class="window">
-            <nav>
-                <i class="fas fa-user-shield" title="personal todo"></i>
-                <i class="fas fa-user-friends" title="Project" onclick="projectMenu()"></i>
-                <i class="fas fa-list-ul" title="List"></i>
-            </nav>
-
-
-            <div class="mainMenu">
-
-                <!-- ================= MIDDLE DIV ====================-->
-                <!-- ++++++++++++++++++ PERSONAL ++++++++++++++++++++-->
-
-                <div class="middleDiv">
-
-                    <h2>Personal Todo List</h2>
-
-                    <div class="menu" id="personalTodolist">
-
-                        <div class="card createNewBoard" id="createPersonalTodo" onclick="createNewTodo()">
-                            <i class="far fa-plus-square"></i>
-                            <p>Create New Todo</p>
+                    <div class="w-50">
+                        <div class="g-signin2 ml-1" style="margin-top: 5px;" data-onsuccess="onSignIn"></div>
+                            <div class="h-25 mb-3 login-input d-flex align-items-center" id="getLoginFrom">
+                                <input type="text" name="email" placeholder="Enter email">
+                                <input type="password" name="password" placeholder="Enter password">
+                                <button class="btn btn-success" onclick="return login()">login</button>
+                            </div>
+                        <div>
+                            <form class="register d-flex flex-column" id="getRegisterForm">
+                                <h1>: register</h1>
+                                <input id="r-1" type="text" name="username" placeholder="Enter username">
+                                <input id="r-2" type="text" name="email" placeholder="Enter email">
+                                <input id="r-3" type="password" name="password" placeholder="Enter password">
+                            </form>
+                            <button class="btn btn-info mt-3" type="submit" onclick="return register()" >Sign Up</button>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- ++++++++++++++++++ PROJECT ++++++++++++++++++++-->
+    <div id="home" style="display: none;">
+        <nav class="d-flex justify-content-between align-items-center">
+            <div>
+                FANCY TODO
+            </div>
+            <div>
+                <span>My Todo</span> | 
+                <span>Project</span>
+            </div>
+            <div>
+                <button onclick=" return signOut()" class="btn btn-danger">logout</button>
+            </div>
+        </nav>
+        <div>
+            <div class="d-flex m-3" >
+                <button type="button" class="btn-addtodo" data-toggle="modal" data-target="#addTodoModal">add todo</button>
+            </div>
 
-                <div class="menu" id="ProjectTodolist">
+            <!-- Modal -->
+                <div class="modal fade" id="addTodoModal" tabindex="-1" role="dialog" aria-labelledby="addTodoModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header ">
+                        <h5 class="modal-title" id="addTodoModalLabel">Add New Todo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <form method="POST" class="myFrom" id="addTodo">
+                            <input name="title" type="text" placeholder="Enter title...">
+                            <textarea class="ml-1" rows="4" cols="50" name="description" placeholder="Enter description..."></textarea>
+                            <select class="ml-1 bg-light" name="status">
+                                <option value="UNCOMPLETE">UNCOMPLETE</option>
+                                <option value="COMPLETE">COMPLETE</option>
+                            </select>   
+                            <input name="dueDate" type="date" na>
+                        </form>
 
-                    <div class="card createNewBoard" id="createPersonalTodo" onclick="createNewTodo()"
-                        style="display: none">
-                        <i class="far fa-plus-square"></i>
-                        <p>Create New Project</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" onclick="createTodo()"  class="btn btn-primary" data-dismiss="modal">Save</button>
+                    </div>
                     </div>
                 </div>
-
-                <!-- ================= MIDDLE DIV ====================-->
-
-
-
-                <!-- ================= TODO FORM ====================-->
-
-                <div id="createTodoFrom" class="createTodo" style="display: none">
-
-                </div>
-                <!-- ================= TODO FORM ====================-->
-
-
-
-
-                <div id="showSingleTodo" style="display: none">
-
                 </div>
 
 
-
-                <!-- ================= UPDATE TODO FORM ====================-->
-
-                <div id="updateTodoForm" class="createTodo" style="display: none">
-
+            <div id="todo-card" class="d-flex flex-wrap todo-card-container" >
+                
+                <!-- <div class="todo-card d-flex flex-column justify-content-between">
+                    <div class="todo-title">
+                        <p class="text-center">Lorem ipsum dolor sit amet.</p>
+                    </div>
+                    <div class="todo-content">
+                        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Iste veritatis ut soluta ipsum deleniti perspiciatis.</p>
+                    </div>
+                    <div class="todo-footer d-flex align-items-center justify-content-between">
+                        <div>
+                            <span class="text-white">UNCOMPLETE</span>
+                            <p>due date</p>
+                        </div>
+                        <div>
+                            <i class="far fa-edit"></i>
+                            <i class="fas fa-trash"></i>
+                        </div>
+                    </div>
                 </div>
-
-                <!-- ================= UPDATE TODO FORM ====================-->
-
-
+                 -->
             </div>
 
-
-
-
-            <div class="profile">
-                <button onclick="signOut()">Logout</button>
-                <div class="presonalInfo">
-                    <p>Uzai Sindiko</p>
-                    <p>lokasi @ lokasi</p>
-                </div>
-                <img src="https://www.gravatar.com/avatar/${md5(el.email)}" alt="">
-
-                <div class="footer">
-                    <p>Lokasi: Banda Aceh</p>
-                    <p>Nomor Hp: 085261400506</p>
-                    <p>email: uzai@sindiko</p>
-                </div>
-                <button onclick="profileData()">Edit Profil</button>
-
-            </div>
 
         </div>
     </div>
-    <!-- =================== DASHBOARD PAGE END=======================-->
+
+
+
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -177,19 +142,28 @@
             let id_token = googleUser.getAuthResponse().id_token
 
             $.ajax({
-                url: `${url}/user/googleLogin`,
+                url: `${url}/users/googleLogin`,
                 method: 'post',
                 data: { id_token }
             })
                 .done(response => {
-                    console.log(response);
                     localStorage.setItem('token', response.token)
-                    avatar(response.user)
-                    userLogged()
+                    $('#loginPage').hide()
+                    $('#home').show()
                 })
-                .fail((err) => {
-                    console.log(err);
+                .fail(err => {
+                let msg = err.responseJSON
+                let text = ''
+                msg.forEach(el => {
+                    text += el + ', '
+                });
+
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text,
                 })
+            })
         }
 
         function signOut() {
@@ -197,8 +171,8 @@
             auth2.signOut()
                 .then(function () {
                     localStorage.removeItem('token');
-                    userNotLogged()
-                    console.log('User signed out');
+                    $('#home').hide()
+                    $('#loginPage').show()
                 });
         }
 

@@ -20,5 +20,4 @@ app.use(express.json())
 app.use('/', routes)
 app.use(errorHandler)
 
-app.listen(PORT, () =>
-    console.log('listening to port ', PORT))
+app.listen(PORT, () => console.log('listening to port ', PORT))

@@ -1,5 +1,5 @@
 module.exports = (err, req, res, next) => {
-    console.log(err)
+    console.log(err);
     let status = err.status
     let message = err.msg
 
@@ -28,7 +28,5 @@ module.exports = (err, req, res, next) => {
                 message = err.message || err.msg || 'Internal Server Error'
                 break;
         }
-    console.log(status);
-    console.log(message);
     res.status(status).json(message)
 }

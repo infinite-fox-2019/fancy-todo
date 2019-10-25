@@ -4,55 +4,57 @@ class ProjectController {
 
     static create(req, res, next) {
         let UserId = req.decode.id
-        const { title, description, status, dueDate } = req.body
-        Todo.create({ title, description, dueDate, status, UserId })
-            .then(todo => {
-                res.status(200).json(todo)
+        const { title, description, dueDate, status, todoList, member } = req.body
+        Project.create({  title, description, dueDate, status, todoList, member, UserId })
+            .then(project => {
+                res.status(200).json(project)
             })
             .catch(next)
     }
 
     static find(req, res, next) {
         let UserId = req.decode.id
-        Todo.find({ UserId })
-            .then(todos => {
-                res.status(200).json(todos)
+        Project.find({ UserId })
+            .then(projects => {
+                res.status(200).json(projects)
             })
             .catch(next)
     }
 
     static findById(req, res, next) {
         let { id } = req.params
-        Todo.findById(id)
-            .then(todo => {
-                res.status(200).json(todo)
+        Project.findById(id)
+            .then(project => {
+                res.status(200).json(project)
             })
             .catch(next)
 
     }
 
     static updatePatch(req, res, next) {
-        const { title, description, status, dueDate } = req.body
+        const { title, description, dueDate, status, todoList, member } = req.body
         let id = req.params.id
-        Todo.findById(id)
-            .then(todo => {
-                if (title) todo.title = title
-                if (description) todo.description = description
-                if (status) todo.status = status
-                if (dueDate) todo.dueDate = new Date(dueDate)
-                return todo.save()
+        Project.findById(id)
+            .then(project => {
+                if (title) project.title = title
+                if (description) project.description = description
+                if (status) project.status = status
+                if (dueDate) project.dueDate = new Date(dueDate)
+                if (todoList) project.todoList = todoList
+                if (member) project.member = member
+                return project.save()
             })
-            .then(updatedTodo => {
-                res.status(200).json(updatedTodo)
+            .then(project => {
+                res.status(200).json(project)
             })
             .catch(next)
     }
 
     static deleteOne(req, res, next) {
         let id = req.params.id
-        Todo.deleteOne({ _id: id })
-            .then(todo => {
-                res.status(200).json(todo)
+        Project.deleteOne({ _id: id })
+            .then(project => {
+                res.status(200).json(project)
             })
             .catch(next)
     }

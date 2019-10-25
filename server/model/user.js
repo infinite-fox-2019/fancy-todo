@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { hash } = require('../helpers/bcrypt')
 
-const UserSchema = new Schema({
+const userSchema = new Schema({
     username: {
         type: String,
         required: [true, 'username is required']
@@ -32,26 +33,19 @@ const UserSchema = new Schema({
             }
         ],
     },
-    phone: {
-        type: String,
-        default: '086561400506',
-        minlength: [11, 'Phone Number length must be between 11 and 13'],
-        maxlength: [13, 'Phone Number length must be between 11 and 13']
-    },
-    location: {
-        type: String,
-        default: 'Bumi',
-    },
-    motto: {
-        type: String,
-        default: 'Sleep only For the Week',
-    },
     password: {
         type: String,
         required: [true, 'password is required']
     }
 })
 
-const User = mongoose.model('User', UserSchema);
+
+userSchema.pre('save', function(next){
+    this.password = hash(this.password)
+    next()
+})
+
+
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
