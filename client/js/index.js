@@ -1,6 +1,6 @@
 'use strict'
 
-const url = 'http://localhost:3000'
+const url = 'https://server-todone.andreassosilo.co'
 
 // Check if all document ready
 $(document).ready(function () {
@@ -65,7 +65,7 @@ $(document).ready(function () {
 })
 
 // Select the current page, by default show login form page
-function currentPage() {
+function currentPage () {
   if (localStorage.getItem('token')) {
     if (localStorage.currentPage === 'viewTodo') {
       showTodo()
@@ -88,7 +88,7 @@ function currentPage() {
 }
 
 // Show login form
-function showLogin() {
+function showLogin () {
   localStorage.setItem('currentPage', 'login')
   $('#register-form').hide()
   $('#dashboard').hide()
@@ -108,7 +108,7 @@ function showLogin() {
 }
 
 // Show register form
-function showRegister() {
+function showRegister () {
   localStorage.setItem('currentPage', 'register')
   $('#login-form').hide()
   $('#dashboard').hide()
@@ -130,7 +130,7 @@ function showRegister() {
 }
 
 // Register a new user
-function register() {
+function register () {
   $.ajax({
     url: `${url}/users/register`,
     method: 'POST',
@@ -159,7 +159,7 @@ function register() {
 }
 
 // Login to the server
-function login() {
+function login () {
   $.ajax({
     url: `${url}/users/login`,
     method: 'POST',
@@ -185,7 +185,7 @@ function login() {
 }
 
 // Login to server using Google Account (OAuth)
-function onSignIn(googleUser) {
+function onSignIn (googleUser) {
   const profile = googleUser.getBasicProfile()
   const id_token = googleUser.getAuthResponse().id_token
   $.ajax({
@@ -206,7 +206,7 @@ function onSignIn(googleUser) {
     })
 }
 
-function logout() {
+function logout () {
   const auth2 = gapi.auth2.getAuthInstance()
   auth2.signOut().then(function () {
     console.log('User signed out successfuly.')
@@ -216,7 +216,7 @@ function logout() {
 }
 
 // Show to-do list
-function showTodo() {
+function showTodo () {
   localStorage.setItem('currentPage', 'viewTodo')
   $('#login-form').hide()
   $('#register-form').hide()
@@ -245,7 +245,7 @@ function showTodo() {
   // $('#createTodo').hide()
 }
 
-function readTodo(id, tag, find) {
+function readTodo (id, tag, find) {
   $.ajax({
     url: `${url}/todos?status=false`,
     method: 'GET',
@@ -304,7 +304,7 @@ function readTodo(id, tag, find) {
 }
 
 // Create a new to-do when create to-do button clicked
-function createTodo() {
+function createTodo () {
   $.ajax({
     url: `${url}/todos`,
     method: 'POST',
@@ -329,7 +329,7 @@ function createTodo() {
 }
 
 // Show create model when create new to-do button is clicked
-function showCreate() {
+function showCreate () {
   localStorage.setItem('currentPage', 'create')
   $('#login-form').hide()
   $('#register-form').hide()
@@ -343,7 +343,7 @@ function showCreate() {
   $('#createModal').show()
 }
 
-function deleteTodo(id) {
+function deleteTodo (id) {
   $.ajax({
     url: `${url}/todos/${id}`,
     method: 'DELETE',
@@ -361,7 +361,7 @@ function deleteTodo(id) {
 }
 
 // Show delete modal when create new to-do button is clicked
-function showDelete(id) {
+function showDelete (id) {
   $('#login-form').hide()
   $('#register-form').hide()
   $('#createModal').hide()
@@ -373,7 +373,7 @@ function showDelete(id) {
 }
 
 // Show edit modal when edit to-do button is clicked
-function showEdit(id, title, description, dueDate, urgency) {
+function showEdit (id, title, description, dueDate, urgency) {
   console.log(urgency)
   $('#login-form').hide()
   $('#register-form').hide()
@@ -413,7 +413,7 @@ function showEdit(id, title, description, dueDate, urgency) {
 }
 
 // Set status to-do to "done"
-function doneTodo(id, value) {
+function doneTodo (id, value) {
   $.ajax({
     url: `${url}/todos/${id}`,
     method: 'PATCH',
@@ -439,7 +439,7 @@ function doneTodo(id, value) {
 }
 
 // Show archive page for todos that already finished
-function showArchive() {
+function showArchive () {
   localStorage.setItem('currentPage', 'archive')
   $('#login-form').hide()
   $('#register-form').hide()
@@ -466,7 +466,7 @@ function showArchive() {
 }
 
 // Read todos that have already been done, show it to the table in archive
-function readArchive() {
+function readArchive () {
   $.ajax({
     url: `${url}/todos?status=true`,
     method: 'GET',
@@ -524,7 +524,7 @@ function readArchive() {
 }
 
 // Edit todo information
-function editTodo(id) {
+function editTodo (id) {
   console.log($('#urgencyEditModal').is(':checked'), 'ini element')
   $.ajax({
     url: `${url}/todos/${id}`,
