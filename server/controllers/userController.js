@@ -28,7 +28,7 @@ class UserController {
 
         .then(user => {
             if (user) {
-                const token = generateToken({ id: ObjectId(user._id) })
+                const token = generateToken({ id: user._id })
                 res.status(200).json(token)
                 next()
             } else {
@@ -38,9 +38,7 @@ class UserController {
         })
 
         .then(user => {
-
-            const token = generateToken({ id: ObjectId(user._id) })
-
+            const token = generateToken({ id: user._id })
             res.status(200).json(token)
         })
 

@@ -6,12 +6,7 @@ body {
     /* height: 100vh; */
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
-    font-size: 85%;
-}
-
-body {
-    background: #007bff;
-    background: linear-gradient(to bottom, rgb(5, 207, 218), rgb(28, 51, 66));
+    font-size: 80%;
 }
 
 .navbar {
@@ -41,7 +36,11 @@ body {
 }
 
 .card {
-    border-radius: 15px;
+    border-radius: 5px;
+    -webkit-box-shadow: 10px 10px 5px -9px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px -9px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px -9px rgba(0,0,0,0.75);
+    margin: 5px 20px;
 }
 
 .card-title {
@@ -50,14 +49,8 @@ body {
     text-align: center;
 }
 
-.main-content {
-    /* display: flex; */
-    /* width: 80%; */
-    /* margin: 0, auto; */
-}
 
 .userDahsboard {
-    /* flex: 1; */
     background-color: rgb(35, 35, 35);
     margin: 10px;
 }

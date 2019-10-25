@@ -1,15 +1,16 @@
 const host = 'http://localhost:3000'
-const access_token = localStorage.getItem('token')
+
 
 $(document).ready(function() {
     console.log('ready');
-
     // landingPage()
-    loggedOut()
+
+    if(localStorage.getItem('token')) {mainPage()}
+
+    // loggedOut()
     $('.btn').click(function(event) {
         event.preventDefault()
     })
-
     $('#loginButton').click(function(event) {
         event.preventDefault()
 
@@ -121,37 +122,28 @@ function registerPage() {
                     <hr class="my-4">
                     <button id="registerButton" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Register</button>
                     <hr class="my-4">
-                    <button  class="btn btn-lg btn-success btn-block text-uppercase" id="loginButton" type="submit">Sign in</button>
+                    <a id=loginButton style="color:blue; cursor: pointer;">Have an account? Login instead</a>
                 </form>
             </div>
         </div>
     </div>
 </div>`
 
-
     $('.page').html('')
-
-
     $('.page').append(page)
 
     $('#registerButton').click(function(event) {
         event.preventDefault()
         register()
     })
-
     $('.g-signin2').click(function(event) {
         event.preventDefault()
         onSignIn()
     })
-
-
     $('#loginButton').click(function(event) {
         event.preventDefault()
         landingPage()
     })
-
-
-
 }
 
 function landingPage() {
@@ -159,49 +151,38 @@ function landingPage() {
     <div class="row">
     <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card card-signin my-5">
-            <div class="card-body">
+            <div class="card-body" style="background-color: #d3c9bd; border-radius: 15px;">
                 <h5 class="card-title text-center">Sign In</h5>
                 <form class="form-signin">
                     <div class="form-label-group">
                         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" autofocus>
                         <label for="inputEmail">Email address</label>
                     </div>
-
                     <div class="form-label-group">
                         <input type="password" id="inputPassword" class="form-control" placeholder="Password">
                         <label for="inputPassword">Password</label>
                     </div>
-
-
                     <button  class="btn btn-lg btn-primary btn-block text-uppercase" id="loginButton" type="submit">Sign in</button>
                     <hr class="my-4">
-                    <button id="registerButton" class="btn btn-lg btn-success btn-block text-uppercase" type="submit">Register</button>
+                    <a id=registerButton style="color:blue; cursor: pointer;">Don't have account? Register here</a>
                 </form>
             </div>
         </div>
     </div>`
     $('.page').html('')
-
     $('.page').append(page)
-
     $('.g-signin2').click(function(event) {
         event.preventDefault()
         onSignIn()
     })
-
     $('#loginButton').click(function(event) {
         event.preventDefault()
-
         normalLogin()
     })
-
-
     $('#registerButton').click(function(event) {
         event.preventDefault()
-
         registerPage()
     })
-
 }
 
 function getTodos() {
@@ -209,36 +190,32 @@ function getTodos() {
         url: `${host}/todos`,
         method: 'GET',
         headers: {
-            access_token
+            token : localStorage.getItem('token')
         }
     })
-
     .done(todos => {
             // console.log(todos);
             todos.forEach(todo => {
                 $('.todos').prepend(`
-                <div class="card"  style="width: 25rem; margin: 5px; " >
+                <div class="card"  style="width: 400px; margin: 5px; " >
                     <div class="card-body">
-                        <h5 class="card-title" id="${todo._id}todo" >Name: ${todo.name}</h5>
+                        <h5 class="card-title" id="${todo._id}todo" >${todo.name}</h5>
                     </div>               
                     <ul class="list-group list-group-flush" id="${todo._id}">
                         <li class="list-group-item">
                             <div class="searchBox d-flex-inline">
                                 <form class="form-inline"> 
-                                    <input class="form-control mr-md-2" type="text" id="${todo._id}new" placeholder="new item" >
-                                    <button type="button" onclick="addContent('${todo._id}')" class="btn btn-primary">Add</button>
+                                    <input  style="border:none; border-bottom: 1px solid black;" class="form-control mr-md-2" type="text" id="${todo._id}new" placeholder="new item" >
+                                    <button type="button" onclick="addContent('${todo._id}')" class="btn btn-primary mx-2">Add</button>
                                 </form>
                             </div>
                          </li>
                     </ul>
-
                     <div class="card-body">
                         <button type="button" onclick="deleteToDo('${todo._id}')" class="deleteToDo btn btn-danger">delete this to do</button>
                     </div>
-
               </div>
                 `)
-
                 todo.list.forEach(content => {
                     let buttonColor = 'secondary';
                     let statusText = 'unfinish';
@@ -251,9 +228,9 @@ function getTodos() {
                         <li class="list-group-item">
                             <div class="searchBox d-flex-inline">
                                 <form class="form-inline"> 
-                                <input class="form-control mr-md-2" type="text" id="${content._id}content" value="${content.name}" >
-                                <button type="button" onclick="updateContent('${content._id}', '${done}')" class="updateContent btn btn-${buttonColor}">${statusText}</button>
-                                <button type="button" onclick="deleteContent('${content._id}')" name="${content._id}" class="btn btn-danger deleteContent">delete</button>
+                                <input  style="border:none; " class="form-control mr-md-2" type="text" id="${content._id}content" value="${content.name}" >
+                                <button type="button" style="margin: 5px;" onclick="updateContent('${content._id}', '${done}')" class="updateContent btn btn-${buttonColor}">${statusText}</button>
+                                <button type="button" style="margin: 5px;" onclick="deleteContent('${content._id}')" name="${content._id}" class="btn btn-danger deleteContent">delete</button>
 
                                 </form>
                             </div>
@@ -272,7 +249,7 @@ function deleteToDo(todoId) {
             method: 'DELETE',
             data: { id: todoId },
             headers: {
-                access_token
+                token : localStorage.getItem('token')
             }
         })
         .done(response => {
@@ -281,10 +258,7 @@ function deleteToDo(todoId) {
         })
         .fail(console.log)
 }
-
 function deleteContent(contentId) {
-    console.log(typeof contentId);
-
     $.ajax({
             url: `${host}/todos/content`,
             method: 'DELETE',
@@ -292,7 +266,7 @@ function deleteContent(contentId) {
                 id: contentId
             },
             headers: {
-                access_token
+                token : localStorage.getItem('token')
             }
         })
         .done(response => {
@@ -300,14 +274,11 @@ function deleteContent(contentId) {
             mainPage()
         })
         .fail(console.log)
-
 }
 
 function addContent(todoId) {
-
     const name = $(`#${todoId}new`).val()
     console.log('name=========', name);
-
     $.ajax({
         url: `${host}/todos/content`,
         method: 'POST',
@@ -316,7 +287,7 @@ function addContent(todoId) {
             id: todoId
         },
         headers: {
-            access_token
+            token : localStorage.getItem('token')
         }
     })
 
@@ -330,10 +301,8 @@ function addContent(todoId) {
 }
 
 function updateContent(contentId, status) {
-
     let name = $(`#${contentId}content`).val()
     console.log(name, status);
-
     $.ajax({
         url: `${host}/todos/content`,
         method: 'PUT',
@@ -343,43 +312,27 @@ function updateContent(contentId, status) {
             id: contentId
         },
         headers: {
-            access_token
+            token : localStorage.getItem('token')
         }
-
     })
-
     .done(response => {
         console.log(response);
         mainPage()
     })
-
     .fail(console.log)
 }
-
 function userDashboard() {
     let page = `
-
     <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
         <li>
-            <h4 class="sidebar-button" id="addTodo">New To Do</h4>
+            <button class="sidebar-button" style="cursor:pointer; padding: 3px 10px; border-radius:5px; border:1px solid gray; background-color:aqua;"id="addTodo">New To Do</button>
         </li>
         <li>
             <form class="form-inline" id="formNewToDo"> 
             <label>To do name</label>
                 <input class="form-control mr-md-2" type="text" id="todoNew" placeholder="todo name" >
                 <button type="button" onclick="addToDo()" class="btn btn-light">Add</button>
-            </form>
-        </li>
-        <hr>
-        <li>
-            <h4 class="sidebar-button" id="changePassword">Change Password</h4>
-        </li>
-        <li>
-            <form class="form-inline" id="formPass"> 
-            <label>your new password</label>
-                <input class="form-control mr-md-2" type="password" id="passwordNew" >
-                <button type="button" onclick="updatePassword()" class="btn btn-warning">Update</button>
             </form>
         </li>
     </ul>
@@ -390,9 +343,7 @@ function userDashboard() {
     $('#changePassword').click(function(event) {
         event.preventDefault()
         $('#formPass').toggle()
-
     })
-
     $('#addTodo').click(function(event) {
         event.preventDefault()
         $('#formNewToDo').toggle()
@@ -409,7 +360,7 @@ function addToDo() {
             name
         },
         headers: {
-            access_token
+            token : localStorage.getItem('token')
         }
     })
 
@@ -419,8 +370,6 @@ function addToDo() {
         })
         .fail(console.log)
 }
-
-
 function updatePassword() {
     let newPassword = $('#passwordNew').val()
     let email = localStorage.getItem('email')
@@ -433,43 +382,32 @@ function updatePassword() {
             newPassword
         },
         headers: {
-            access_token
+            token : localStorage.getItem('token')
         }
     })
-
     .done(console.log)
-
     .fail(console.log)
 }
 
 function mainPage() {
     let page = `
-
     <div class="row main-content justify-content-around">
-    <div class="col-3 userDashboard" >
-     
-
+        <div class="col-3 userDashboard" >
+        </div>
+        <div class="col-8 todos grid">
+        </div>
     </div>
-    <div class="col-8 todos grid">
-   
-      
-    </div>
-  </div>
     `
     $('.page').html('')
     $('.page').append(page)
-
     getTodos()
     userDashboard()
-
     $('#logOut').click(function(event) {
         event.preventDefault()
         signOut()
     })
-
     $('.deleteContent').click(function(event) {
         event.preventDefault()
-
         deleteContent(this.name())
     })
 
@@ -477,11 +415,6 @@ function mainPage() {
     $('#formNewToDo').hide()
 
 }
-
-
-
-
-
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
     auth2.signOut().then(function() {
@@ -490,30 +423,20 @@ function signOut() {
         localStorage.removeItem('name')
         localStorage.removeItem('email')
         loggedOut()
-
     });
 }
-
 function loggedIn() {
     mainPage()
     $('.g-signin2').hide()
     $('.signOutButton').show()
-
-
-
     $('#logOut').click(function(event) {
         event.preventDefault()
         signOut()
     })
-
-
-
 }
-
 function loggedOut() {
     $('.g-signin2').show()
     $('.signOutButton').hide()
-
     $('.page').html('')
     landingPage()
 }

@@ -39,6 +39,7 @@ class ToDoController {
 
     static createToDo(req, res, next) {
         const { name } = req.body
+        console.log(name);
 
         let userId = req.loggedUser.id
 
