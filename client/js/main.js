@@ -1,10 +1,10 @@
 // const host = 'http://192.168.0.100:3000'
-const host = 'http://localhost:3000'
+const host = 'https://c-todo.crowfx.xyz/'
 
 // * Axios Config
 const ajax = axios.create({
     baseURL: host,
-    timeout: 2000,
+    timeout: 10000,
     headers: { token: localStorage.getItem('token') }
 })
 
