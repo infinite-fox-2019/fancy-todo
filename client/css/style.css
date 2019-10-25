@@ -1,0 +1,90 @@
+body {
+  background-image: linear-gradient(to bottom right, #0cbaba, #380036);
+  color: #ffffff;
+  font-family: Nunito;
+}
+
+.container {
+  color: #ffffff;
+  font-family: Nunito;
+}
+
+h1 {
+  font-size: 60px;
+}
+
+#login-form {
+  padding: 20px;
+  max-width: 40%;
+  margin-top: 30px;
+}
+
+#register-form {
+  padding: 20px;
+  max-width: 40%;
+  margin-top: 30px;
+}
+
+#dashboard {
+  padding: 20px;
+  max-width: 80%;
+  margin-top: 30px;
+}
+
+hr {
+  background-color: #ffffff;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#github {
+  margin-left: 15px;
+  border-radius: 0px;
+  width: 120px;
+  height: 36px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.abcRioButtonContents {
+  color: #000000;
+  font-family: Nunito;
+  line-height: 39px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.abcRioButtonSvg {
+  margin-left: 20px;
+}
+
+#gmail {
+  margin-left: 15px;
+}
+
+.table {
+  color: #ffffff;
+  border-collapse: collapse;
+}
+
+.modal {
+  color: #000000;
+}
+
+h3 {
+  font-size: 40px;
+  font-family: Nunito;
+  margin-left: 30px;
+  text-align: center;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+#giphy {
+  text-align: center;
+}
