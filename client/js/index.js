@@ -1,6 +1,6 @@
 'use strict'
 
-const url = 'https://server-todone.andreassosilo.co'
+const baseUrl = 'https://server-todone.andreassosilo.co'
 
 // Check if all document ready
 $(document).ready(function () {
@@ -132,7 +132,7 @@ function showRegister () {
 // Register a new user
 function register () {
   $.ajax({
-    url: `${url}/users/register`,
+    url: `${baseUrl}/users/register`,
     method: 'POST',
     data: {
       name: $('#register-name').val(),
@@ -161,7 +161,7 @@ function register () {
 // Login to the server
 function login () {
   $.ajax({
-    url: `${url}/users/login`,
+    url: `${baseUrl}/users/login`,
     method: 'POST',
     data: {
       email: $('#login-email').val(),
@@ -189,7 +189,7 @@ function onSignIn (googleUser) {
   const profile = googleUser.getBasicProfile()
   const id_token = googleUser.getAuthResponse().id_token
   $.ajax({
-    url: 'http://localhost:3000/users/logingoogle',
+    url: `${baseUrl}/users/logingoogle`,
     method: 'POST',
     data: {
       id_token: id_token
@@ -240,14 +240,11 @@ function showTodo () {
   readTodo()
   $('#createNew').show()
   $('#todo-list').show()
-
-  // $('#archiveTodo').hide()
-  // $('#createTodo').hide()
 }
 
 function readTodo (id, tag, find) {
   $.ajax({
-    url: `${url}/todos?status=false`,
+    url: `${baseUrl}/todos?status=false`,
     method: 'GET',
     headers: {
       token: localStorage.getItem('token')
@@ -306,7 +303,7 @@ function readTodo (id, tag, find) {
 // Create a new to-do when create to-do button clicked
 function createTodo () {
   $.ajax({
-    url: `${url}/todos`,
+    url: `${baseUrl}/todos`,
     method: 'POST',
     headers: {
       token: localStorage.getItem('token')
@@ -345,7 +342,7 @@ function showCreate () {
 
 function deleteTodo (id) {
   $.ajax({
-    url: `${url}/todos/${id}`,
+    url: `${baseUrl}/todos/${id}`,
     method: 'DELETE',
     headers: {
       token: localStorage.getItem('token')
@@ -415,7 +412,7 @@ function showEdit (id, title, description, dueDate, urgency) {
 // Set status to-do to "done"
 function doneTodo (id, value) {
   $.ajax({
-    url: `${url}/todos/${id}`,
+    url: `${baseUrl}/todos/${id}`,
     method: 'PATCH',
     data: {
       status: value
@@ -468,7 +465,7 @@ function showArchive () {
 // Read todos that have already been done, show it to the table in archive
 function readArchive () {
   $.ajax({
-    url: `${url}/todos?status=true`,
+    url: `${baseUrl}/todos?status=true`,
     method: 'GET',
     headers: {
       token: localStorage.getItem('token')
@@ -527,7 +524,7 @@ function readArchive () {
 function editTodo (id) {
   console.log($('#urgencyEditModal').is(':checked'), 'ini element')
   $.ajax({
-    url: `${url}/todos/${id}`,
+    url: `${baseUrl}/todos/${id}`,
     method: 'PATCH',
     data: {
       title: $('#titleEditModal').val(),
