@@ -21,7 +21,5 @@ const todoSchema = new Schema({
   }
 }, {timestamps:true,versionKey: false})
 
-//Hash password here
-
 const Todo = mongoose.model('Todo', todoSchema)
 module.exports = Todo
