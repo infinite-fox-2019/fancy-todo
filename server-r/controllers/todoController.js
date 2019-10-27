@@ -9,8 +9,18 @@ class TodoController {
           res.status(200).json(data)
         }
         else{
-          res.status(200).json({})
+          res.status(200).json([])
         }
+      })
+      .catch(next)
+  }
+
+  static findTodo(req,res,next){
+    const {_id} = req.params
+    console.log(req.params)
+    Todo.findOne({_id})
+      .then(data => {
+        res.status(200).json(data)
       })
       .catch(next)
   }
@@ -21,6 +31,25 @@ class TodoController {
     Todo.create({UserId:_id,title,description})
       .then(data => {
         res.status(201).json(data)
+      })
+      .catch(next)
+  }
+
+  static updateTodo(req,res,next){
+    const {_id} = req.params
+    const {title,description} = req.body
+    Todo.updateOne({_id},{title,description})
+      .then(data => {
+        res.status(200).json(data)
+      })
+      .catch(next)
+  }
+
+  static removeTodo(req,res,next){
+    const {_id} = req.params
+    Todo.deleteOne({_id})
+      .then(data => {
+        res.status(200).json(data)
       })
       .catch(next)
   }

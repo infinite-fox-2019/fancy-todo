@@ -8,7 +8,7 @@ class UserController {
     User.findOne({email})
       .then(data => {
         if(data && decodeHash(password, data.password)){
-          let payload = {name: data.name, email: data.email, id:data._id}
+          let payload = {name: data.name, email: data.email, _id:data._id}
           let token = generateToken(payload)
           res.status(200).json({"access_token":token, name:data.name, _id:data._id})
         }
