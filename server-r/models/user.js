@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const ObjectId = Schema.ObjectId
 const {generateHash} = require('../helpers/bcrypt')
 
 const userSchema = new Schema({
@@ -16,8 +17,11 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: "Password is required"
-  }
-
+  },
+  ProjectId: [{
+    type: ObjectId,
+    ref: 'Project'
+  }]
 },{timestamps:true,versionKey:false})
 
 userSchema.pre('save', function(next){

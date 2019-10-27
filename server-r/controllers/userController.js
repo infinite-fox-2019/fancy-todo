@@ -13,7 +13,7 @@ class UserController {
           res.status(200).json({"access_token":token, name:data.name, _id:data._id})
         }
         else{
-          throw {message:"Invalid password or email", status:200}
+          throw {message:"Invalid password or email", status:400}
         }
       })
       .catch(next)

@@ -8,5 +8,9 @@ const projectSchema = new Schema({
     ref: 'User',
   },
   TodoId: [{type: ObjectId, ref: 'Todo'}],
-  UserId: [{type: ObjectId, ref: 'User'}]
+  UserId: [{type: ObjectId, ref: 'User'}],
+  projectName: {
+    type: String,
+    required: "Project name required"
+  }
 },{timestamps:true,versionKey:false})

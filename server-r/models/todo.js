@@ -7,7 +7,7 @@ const todoSchema = new Schema({
     type: ObjectId,
     ref: 'User'
   },
-  PorjectId: {
+  ProjectId: {
     type: ObjectId,
     ref: 'Project'
   },

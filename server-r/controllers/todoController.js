@@ -20,7 +20,12 @@ class TodoController {
     console.log(req.params)
     Todo.findOne({_id})
       .then(data => {
-        res.status(200).json(data)
+        if(data){
+          res.status(200).json(data)
+        }
+        else{
+          res.status(200).json([])
+        }
       })
       .catch(next)
   }
