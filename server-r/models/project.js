@@ -14,3 +14,6 @@ const projectSchema = new Schema({
     required: "Project name required"
   }
 },{timestamps:true,versionKey:false})
+
+const Project = mongoose.model('Project', projectSchema)
+module.exports = Project

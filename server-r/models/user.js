@@ -10,19 +10,21 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
-    unique: true,
     match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
     required: "Email is required"
   },
   password: {
     type: String,
     required: "Password is required"
-  },
-  ProjectId: [{
-    type: ObjectId,
-    ref: 'Project'
-  }]
+  }
 },{timestamps:true,versionKey:false})
+
+userSchema.path('email').validate(function(value) {
+  return User.findOne({ email: value })
+    .then(user => {
+      if(user) return false 
+    })
+}, 'Email user is already registered!')
 
 userSchema.pre('save', function(next){
   this.password = generateHash(this.password)

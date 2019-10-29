@@ -1,4 +1,5 @@
 const Todo = require('../models/todo')
+const User = require('../models/user')
 
 class TodoController {
   static listTodo(req,res,next){
@@ -32,8 +33,8 @@ class TodoController {
 
   static createTodo(req,res,next){
     const {_id} = req.loggedUser
-    const {title,description} = req.body
-    Todo.create({UserId:_id,title,description})
+    const {title,description,dueDate} = req.body
+    Todo.create({UserId:_id,title,description,dueDate})
       .then(data => {
         res.status(201).json(data)
       })

@@ -1,34 +1,76 @@
 const {decodeToken} = require('../helpers/jwt')
 const Todo = require('../models/todo')
+const Project = require('../models/project')
 
 function authentication(req,res,next){
   const {authorization} = req.headers
   if(authorization){
     req.loggedUser = decodeToken(authorization)
-    next()
+    console.log(req.loggedUser)
+    return next()
   }
   else{
-    res.status(400).json({message:"Invalid Authentication"})
+    res.status(401).json({message:"Invalid Authentication"})
   }
 }
 
 function authorizationForTheirTodo(req,res,next){
   const UserId = req.loggedUser._id
-  const {_id} = req.params //Todo ID
+  const {_id} = req.params // Todo ID
   Todo.findOne({_id})
     .then(data => {
       console.log(data, "from auth")
       console.log(req.loggedUser)
       if(data){
         if(data.UserId == UserId){
-          next()
+          return next()
         }
         else{
-          res.status(400).json({message:"Invalid Authorization"})
+          res.status(401).json({message:"Invalid Authorization"})
         }
       }
       else{
-        res.status(400).json({message:"Data Not Found"})
+        res.status(404).json({message:"Data Not Found"})
+      }
+    })
+    .catch(next)
+}
+
+function authorizationForProject(req,res,next){
+  const UserId = req.loggedUser._id
+  const {_id} = req.params // Todo ID
+  Project.findOne({_id})
+    .then(data => {
+      if(data){
+        for(let i = 0; i < data.UserId.length; i++){
+          if(UserId == data.UserId[i]){
+            return next()
+          }
+        }
+        res.status(402).json({message:"Invalid Authorization"})
+      }
+      else{
+        res.status(404).json({message:"Data Not Found"})
+      }
+    })
+    .catch(next)
+}
+
+function authorizationForProjectOwner (req,res,next){
+  const UserId = req.loggedUser._id
+  const {_id} = req.params // Todo ID
+  Project.findOne({_id})
+    .then(data => {
+      if(data){
+        if(data.OwnerId == UserId){
+          return next()
+        }
+        else{
+          res.status(402).json({message:"Invalid Authorization"})
+        }
+      }
+      else{
+        res.status(404).json({message:"Data Not Found"})
       }
     })
     .catch(next)
@@ -37,5 +79,7 @@ function authorizationForTheirTodo(req,res,next){
 
 module.exports = {
   authentication,
-  authorizationForTheirTodo
+  authorizationForTheirTodo,
+  authorizationForProject,
+  authorizationForProjectOwner
 }

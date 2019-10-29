@@ -11,13 +11,21 @@ const todoSchema = new Schema({
     type: ObjectId,
     ref: 'Project'
   },
-  title:{
+  title: {
     type: String,
-    required: true
+    required: "Title required"
   },
   description: {
     type: String,
     required: "Description required"
+  },
+  dueDate: {
+    type: Date,
+    required: "Date required"
+  },
+  status: {
+    type: Boolean,
+    default: false
   }
 }, {timestamps:true,versionKey: false})
 
