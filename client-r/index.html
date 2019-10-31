@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="google-signin-client_id" content="151458736537-l3u555emh5kpm6ddo8bteqakclqhgbhe.apps.googleusercontent.com">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <title>FancyTodo</title>
+</head>
+<body>
+  
+    <div id="loginPage" style="display: ;" class="container h-100">
+      <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-10 col-md-6">
+          <h2 class="loginPage-title mb-3"> <span> <img src="https://image.flaticon.com/icons/svg/1440/1440961.svg" width="40"> </span> lovely Todo</h2>
+          <div class="jumbotron m-0 text-white bg-green-2 p-5">
+              <form id="loginForm">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" id="loginEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input type="password" class="form-control" id="loginPassword" placeholder="Password">
+                </div>
+                <div class="text-center">
+                  <small id="emailHelp" class="form-text text-white mb-3">Don't have an account? <span class="loginPage-register">Register here</span>.</small>
+                  <button type="submit" class="btn text-white bg-green-1">Login</button>
+                  <button class="g-signin2 pt-2" data-onsuccess="onSignIn"></button>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="registerPage" class="container h-100">
+      <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-10 col-md-6">
+          <h2 class="loginPage-title mb-3"> <span> <img src="https://image.flaticon.com/icons/svg/1440/1440961.svg" width="40"> </span> lovely Todo</h2>
+          <div class="jumbotron m-0 text-white bg-green-2 p-5">
+              <form id="registerForm">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Name</label>
+                  <input type="text" class="form-control" id="registerName" aria-describedby="emailHelp" placeholder="Enter name">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Email address</label>
+                  <input type="email" class="form-control" id="registerEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Password</label>
+                  <input type="password" class="form-control" id="registerPassword" placeholder="Password">
+                </div>
+                <div class="text-center">
+                  <small id="emailHelp" class="form-text text-white mb-3">Have an account? <span class="loginPage-register">Login here</span>.</small>
+                  <button type="submit" class="btn text-white bg-green-1">Register</button>
+                  <button class="g-signin2 pt-2" data-onsuccess="onSignIn"></button>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="./script.js"></script>
+</body>
+</html>

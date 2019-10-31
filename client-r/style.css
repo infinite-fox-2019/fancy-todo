@@ -1,0 +1,37 @@
+body,html{
+  height: 100%;
+  background-color: #35495e;
+}
+
+#loginPage{
+}
+
+button, input[type="submit"], input[type="reset"] {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.bg-green-1{
+  background-color: #42b883;
+  color: white;
+}
+
+.bg-green-2{
+  background-color: #347474;
+}
+
+.loginPage-title{
+  font-family: 'Fredoka One', cursive;
+  color: #ff7e67;
+}
+
+.loginPage-register{
+  color: #c3ecda;
+  cursor: pointer;
+  text-decoration: underline;
+}
