@@ -6,7 +6,7 @@ function authentication(req,res,next){
   const {authorization} = req.headers
   if(authorization){
     req.loggedUser = decodeToken(authorization)
-    console.log(req.loggedUser)
+    // console.log(req.loggedUser)
     return next()
   }
   else{
@@ -19,8 +19,6 @@ function authorizationForTheirTodo(req,res,next){
   const {_id} = req.params // Todo ID
   Todo.findOne({_id})
     .then(data => {
-      console.log(data, "from auth")
-      console.log(req.loggedUser)
       if(data){
         if(data.UserId == UserId){
           return next()
@@ -38,16 +36,17 @@ function authorizationForTheirTodo(req,res,next){
 
 function authorizationForProject(req,res,next){
   const UserId = req.loggedUser._id
-  const {_id} = req.params // Todo ID
+  const {_id} = req.params // Project ID
   Project.findOne({_id})
-    .then(data => {
+  .then(data => {
+    console.log(data,"datamasuk")
       if(data){
         for(let i = 0; i < data.UserId.length; i++){
           if(UserId == data.UserId[i]){
             return next()
           }
         }
-        res.status(402).json({message:"Invalid Authorization"})
+        res.status(401).json({message:"Invalid Authorization"})
       }
       else{
         res.status(404).json({message:"Data Not Found"})
@@ -58,7 +57,7 @@ function authorizationForProject(req,res,next){
 
 function authorizationForProjectOwner (req,res,next){
   const UserId = req.loggedUser._id
-  const {_id} = req.params // Todo ID
+  const {_id} = req.params // Project ID
   Project.findOne({_id})
     .then(data => {
       if(data){

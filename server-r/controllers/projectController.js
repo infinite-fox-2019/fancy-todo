@@ -53,7 +53,7 @@ class ProjectController {
     .populate('TodoId')
     .then(data => {
       if(data){
-        res.status(200).json(data.TodoId)
+        res.status(200).json({data:data.TodoId, projectName:data.projectName})
       }
       else{
         throw {message:"Data not found", status:404}

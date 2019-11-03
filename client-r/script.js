@@ -3,7 +3,8 @@ $(document).ready(function(){
   if(localStorage.getItem("access_token")){
     console.log("You Successfuly Login")
     renderHomePage()
-    renderProjectPage()
+    // renderProjectPage()
+    fetchListProject()
   } 
   else{
     renderLoginPage()
@@ -77,13 +78,13 @@ function renderHomePage () {
   fetchUserTodo()
 }
 
-function renderProjectPage () {
+function renderProjectPage (id) {
   $("#nav-bar").show()
   $("#projectHomeTodo").show()
   $("#userHomeTodo").hide()
   $("#loginPage").hide()
   $("#registerPage").hide()
-  // fetch todo here
+  fetchProjectTodo(id)
 }
 
 // Asyncronus Function
@@ -325,6 +326,164 @@ function deleteTodo () {
   .done(function(data){
     $("#editTodo").modal("hide")
     renderHomePage()
+  })
+  .fail(function(err){
+    console.log(err)
+  })
+}
+
+// Project Function
+
+function fetchListProject () {
+  $.ajax({
+    method: 'get',
+    url: `${ baseURL }/projects`,
+    headers:{
+      authorization: localStorage.getItem("access_token")
+    }
+  })
+  .done(function(data){
+    console.log(data)
+    $("#nav-bar-project").empty()
+    for(let i = 0; i < data.length; i++){
+      $("#nav-bar-project").append(`
+      <a class="dropdown-item" onclick="renderProjectPage('${data[i]._id}')" style="cursor: pointer;">${data[i].projectName}</a>
+      `)
+    }
+  })
+  .fail(function(err){
+    console.log(err)
+  })
+}
+
+var projectId
+
+function fetchProjectTodo (id) {
+  projectId = id
+  $.ajax({
+    method: 'get',
+    url: `${ baseURL }/projects/todo/${id}`,
+    headers: {
+      authorization: localStorage.getItem('access_token')
+    }
+  })
+  .done(function({data,projectName}){
+    console.log(data)
+    // localStorage.setItem("project_name",projectName)
+    $("#welcome-world-project").empty()
+    $("#welcome-world-project").append(projectName)
+    $("#project-todo-place").empty()
+    for(let i = 0; i < data.length; i++){
+      let dueDate = new Date(data[i].dueDate)
+      $("#project-todo-place").append(`
+      <div class="card mb-2" onclick="updateProjectTodo('${data[i]._id}')" style="cursor: pointer;">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-12 col-md-10">
+              <p class="m-0">
+                <b class="text-palegreen">
+                  ${data[i].title}
+                </b>
+              </p>
+              <p class="mt-1 mb-0 text-muted">
+                ${parseDay(dueDate.getDay())}, ${dueDate.getDate()} ${parseMonth(dueDate.getMonth())} ${dueDate.getFullYear()}
+              </p>
+            </div>
+            <div class="col-12 col-md-2 text-md-center mt-1">
+              <span class="badge badge-pill badge-info">${projectName}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      `)
+    }
+  })
+  .fail(function(err){
+    console.log(err)
+  })
+}
+
+var todoForProjectUpdate
+
+function updateProjectTodo (id) {
+  console.log(id)
+  todoForProjectUpdate = id
+  $.ajax({
+    method:'get',
+    url: `${ baseURL }/projects/todo/one/${id}`,
+    headers: {
+      authorization: localStorage.getItem("access_token")
+    }
+  })
+  .done(function(data){
+    $("#editProjectTitleTodo").val(data.title)
+    $("#editProjectDescriptionTodo").val(data.description)
+    $("#editProjectDateTodo").val( parseDate(data.dueDate) )
+    $("#editProjectTodo").modal('show')
+  })
+  .fail(function(err){
+    console.log(err)
+  })
+}
+
+function updateProjectTodoProcess () {
+  $.ajax({
+    method: 'patch',
+    url: `${ baseURL }/projects/todo/one/${todoForProjectUpdate}`,
+    data: {
+      title: $("#editProjectTitleTodo").val(),
+      description: $("#editProjectDescriptionTodo").val(),
+      dueDate: $("#editProjectDateTodo").val()
+    },
+    headers: {
+      authorization: localStorage.getItem("access_token")
+    }
+  })
+  .done(function(data){
+    $("#editProjectTodo").modal('hide')
+    fetchProjectTodo(projectId)
+  })
+  .fail(function(err){
+    console.log(err)
+  })
+}
+
+function deleteProjectTodo () {
+  $.ajax({
+    method: 'delete',
+    url: `${ baseURL }/projects/todo/${projectId}/${todoForProjectUpdate}`,
+    headers: {
+      authorization: localStorage.getItem("access_token")
+    }
+  })
+  .done(function(data){
+    fetchProjectTodo(projectId)
+    $("#editProjectTodo").modal('hide')
+  })
+  .fail(function(err){
+    console.log(err)
+  })
+}
+
+function createProjectTodo () {
+  $.ajax({
+    method: 'post',
+    url: `${ baseURL }/projects/todo/${projectId}`,
+    data: {
+      title: $("#titleProjectNewTodo").val(),
+      description: $("#descriptionProjectNewTodo").val(),
+      dueDate: $("#dueDateProjectNewTodo").val()
+    },
+    headers: {
+      authorization:localStorage.getItem("access_token")
+    }
+  })
+  .done(function(data){
+    fetchProjectTodo(projectId)
+    $("#createProjectNewTodo").modal('hide')
+    $("#titleNewTodo").val(''),
+    $("#descriptionNewTodo").val(''),
+    $("#dueDateNewTodo").val('')
   })
   .fail(function(err){
     console.log(err)
