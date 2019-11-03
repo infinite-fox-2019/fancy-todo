@@ -93,8 +93,10 @@ class ProjectController {
     const {_id} = req.params // ProjectId
     Project.findOne({_id})
       .populate('UserId')
+      .populate('OwnerId')
       .then(data => {
-        res.status(200).json(data.UserId)
+        console.log(data)
+        res.status(200).json({user:data.UserId,owner:data.OwnerId})
       })
       .catch(next)
   }

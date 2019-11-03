@@ -3,8 +3,8 @@ $(document).ready(function(){
   if(localStorage.getItem("access_token")){
     console.log("You Successfuly Login")
     renderHomePage()
-    // renderProjectPage()
     fetchListProject()
+    // renderMemberListPage()
   } 
   else{
     renderLoginPage()
@@ -62,6 +62,7 @@ function renderLoginPage () {
   $("#nav-bar").hide()
   $("#userHomeTodo").hide()
   $("#projectHomeTodo").hide()
+  $("#projectMemberList").hide()
 }
 
 function renderRegisterPage () {
@@ -75,7 +76,9 @@ function renderHomePage () {
   $("#projectHomeTodo").hide()
   $("#loginPage").hide()
   $("#registerPage").hide()
+  $("#projectMemberList").hide()
   fetchUserTodo()
+  fetchListProject()
 }
 
 function renderProjectPage (id) {
@@ -84,7 +87,23 @@ function renderProjectPage (id) {
   $("#userHomeTodo").hide()
   $("#loginPage").hide()
   $("#registerPage").hide()
+  $("#projectMemberList").hide()
   fetchProjectTodo(id)
+}
+
+$("#backToProject").click(function(event){
+  event.preventDefault()
+  renderProjectPage(projectId)
+})
+
+function renderMemberListPage () {
+  $("#nav-bar").show()
+  $("#projectMemberList").show()
+  $("#projectHomeTodo").hide()
+  $("#userHomeTodo").hide()
+  $("#loginPage").hide()
+  $("#registerPage").hide()
+  fetchDataMember()
 }
 
 // Asyncronus Function
@@ -109,6 +128,7 @@ function login () {
     .done(function(data){
       localStorage.setItem("access_token", data.access_token)
       localStorage.setItem("name", data.name)
+      localStorage.setItem("_id", data._id)
       renderHomePage()
       Swal.close()
     })
@@ -176,6 +196,7 @@ function onSignIn(googleUser) {
   .done(function(data){
     localStorage.setItem("access_token", data.access_token)
     localStorage.setItem("name", data.name)
+    localStorage.setItem("_id", data._id)
     renderHomePage()
   })
   .fail(function(err){
@@ -191,6 +212,8 @@ function onSignIn(googleUser) {
 function logout () {
   localStorage.removeItem("access_token")
   localStorage.removeItem("name")
+  localStorage.removeItem("_id")
+  localStorage.removeItem("project_name")
   var auth2 = gapi.auth2.getAuthInstance()
     auth2.signOut().then(function () {
       console.log('User signed out.')
@@ -334,6 +357,30 @@ function deleteTodo () {
 
 // Project Function
 
+var projectId
+
+function createNewProject () {
+  $.ajax({
+    method: 'post',
+    url: `${ baseURL }/projects`,
+    headers: {
+      authorization: localStorage.getItem('access_token')
+    },
+    data: {
+      projectName: $("#titleNewProject").val()
+    }
+  })
+  .done(function(data){
+    fetchListProject()
+    renderProjectPage(data._id)
+    projectId = data._id
+    $("#createNewProject").modal("hide")
+  })
+  .fail(function(err){
+    console.log(err)
+  })
+}
+
 function fetchListProject () {
   $.ajax({
     method: 'get',
@@ -356,8 +403,6 @@ function fetchListProject () {
   })
 }
 
-var projectId
-
 function fetchProjectTodo (id) {
   projectId = id
   $.ajax({
@@ -372,6 +417,8 @@ function fetchProjectTodo (id) {
     // localStorage.setItem("project_name",projectName)
     $("#welcome-world-project").empty()
     $("#welcome-world-project").append(projectName)
+    $("#welcome-world-project2").empty()
+    $("#welcome-world-project2").append(projectName)
     $("#project-todo-place").empty()
     for(let i = 0; i < data.length; i++){
       let dueDate = new Date(data[i].dueDate)
@@ -481,11 +528,196 @@ function createProjectTodo () {
   .done(function(data){
     fetchProjectTodo(projectId)
     $("#createProjectNewTodo").modal('hide')
-    $("#titleNewTodo").val(''),
-    $("#descriptionNewTodo").val(''),
-    $("#dueDateNewTodo").val('')
+    $("#titleProjectNewTodo").val(''),
+    $("#descriptionProjectNewTodo").val(''),
+    $("#dueDateProjectNewTodo").val('')
   })
   .fail(function(err){
     console.log(err)
+  })
+}
+
+function fetchDataMember () {
+  $.ajax({
+    method: 'get',
+    url: `${ baseURL }/projects/user/${ projectId }`,
+    headers: {
+      authorization: localStorage.getItem("access_token")
+    }
+  })
+  .done(function({user,owner}){
+    // console.log(user,owner)
+    $("#project-member-place").empty()
+    for(let i = 0; i < user.length; i++){
+      if(owner._id == user[i]._id){
+        $("#project-member-place").append(`
+        <div class="card mb-2" style="cursor: pointer;">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-12 col-md-10">
+                <p class="m-0">
+                  <b class="text-palegreen">
+                    ${user[i].name}
+                  </b>
+                </p>
+                <p class="mt-1 mb-0 text-muted">
+                  ${user[i].email}
+                </p>
+              </div>
+              <div class="col-12 col-md-2 text-md-center mt-1">
+                <span class="badge badge-pill badge-primary">Owner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        `)
+      }
+      else if(owner._id == localStorage.getItem('_id')){
+        $("#project-member-place").append(`
+        <div class="card mb-2" style="cursor: pointer;">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-12 col-md-10">
+                <p class="m-0">
+                  <b class="text-palegreen">
+                    ${user[i].name}
+                  </b>
+                </p>
+                <p class="mt-1 mb-0 text-muted">
+                  ${user[i].email}
+                </p>
+              </div>
+              <div class="col-12 col-md-2 text-md-center mt-1">
+                <span onclick="deleteMember('${user[i]._id}')" class="badge badge-pill badge-danger">Delete</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        `)
+      }
+      else{
+        $("#project-member-place").append(`
+        <div class="card mb-2" style="cursor: pointer;">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-12 col-md-10">
+                <p class="m-0">
+                  <b class="text-palegreen">
+                    ${user[i].name}
+                  </b>
+                </p>
+                <p class="mt-1 mb-0 text-muted">
+                  ${user[i].email}
+                </p>
+              </div>
+              <div class="col-12 col-md-2 text-md-center mt-1">
+                <span class="badge badge-pill badge-secondary">Member</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        `)
+      }
+    }
+  })
+  .fail(function(err){
+    console.log(err)
+  })
+}
+
+function addMember () {
+  $.ajax({
+    method: 'post',
+    url: `${ baseURL }/projects/user/${ projectId }`,
+    data: {
+      email: $("#emailMember").val()
+    },
+    headers: {
+      authorization: localStorage.getItem("access_token")
+    }
+  })
+  .done(function(data){
+    fetchDataMember()
+    $("#emailMember").val('')
+  })
+  .fail(function(err){
+    Swal.fire({
+      type: 'error',
+      title: 'Oops...',
+      text: err.responseJSON.message,
+      heightAuto: false
+    })
+  })
+}
+
+function deleteMember (id) {
+  console.log(id)
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, remove user!'
+  }).then((result) => {
+    if (result.value) {
+      $.ajax({
+        method: 'patch',
+        url: `${ baseURL }/projects/user/${ projectId }/${ id }`,
+        headers: {
+          authorization: localStorage.getItem("access_token")
+        }
+      })
+      .done(function(data){
+        fetchDataMember()
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+      })
+      .fail(function(err){
+        console.log(err)
+      })
+    }
+  })
+}
+
+function deleteProject () {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete this project!'
+  }).then((result) => {
+    if (result.value) {
+      $.ajax({
+        method: 'delete',
+        url: `${ baseURL }/projects/${ projectId }`,
+        headers: {
+          authorization: localStorage.getItem("access_token")
+        }
+      })
+      .done(function(data){
+        renderHomePage()
+        Swal.fire(
+          'Deleted!',
+          'Your project has been deleted.',
+          'success'
+        )
+      })
+      .fail(function(err){
+        console.log(err)
+        Swal.fire(
+          'Owww...',
+          err.responseJSON.message,
+          'error'
+        )
+      })
+    }
   })
 }

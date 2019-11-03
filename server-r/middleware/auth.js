@@ -65,7 +65,7 @@ function authorizationForProjectOwner (req,res,next){
           return next()
         }
         else{
-          res.status(402).json({message:"Invalid Authorization"})
+          res.status(401).json({message:"Invalid Authorization"})
         }
       }
       else{

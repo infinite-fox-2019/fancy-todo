@@ -127,8 +127,36 @@
 
         <div class="card mb-2 bg-whitesmoke">
           <div class="row">
-            <div class="card-body p-2 col-6 border-right border-right" data-toggle="modal" data-target="#createProjectNewTodo" style="cursor: pointer;">
+            <div class="card-body p-2 col-6 border-right" data-toggle="modal" data-target="#createProjectNewTodo" style="cursor: pointer;">
               <h3 class="m-0 text-palegreen2 text-center">+</h3>
+            </div>
+            <div class="card-body p-2 col-5 border-right" onclick="renderMemberListPage()">
+              <h3 class="m-0 text-palegreen2 text-center">ጰ</h3>
+            </div>
+            <div class="card-body p-2 col-1" onclick="deleteProject()">
+              <h3 class="m-0 text-danger text-center pr-2">x</h3>
+            </div>
+          </div>
+        </div>
+
+        <div id="project-todo-place">
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Project Member List Page -->
+  <div style="display: none;" id="projectMemberList" class="container my-3">
+    <div class="row">
+      <div class="col-12">
+
+        <h1 class="my-4 welcome-world"> <span id="welcome-world-project2"></span> member list. </h1>
+
+        <div class="card mb-2 bg-whitesmoke">
+          <div class="row">
+            <div class="card-body p-2 col-6 border-right border-right" id="backToProject" style="cursor: pointer;">
+              <h3 class="m-0 text-palegreen2 text-center"><</h3>
             </div>
             <div class="card-body p-2 col-6">
               <h3 class="m-0 text-palegreen2 text-center">ጰ</h3>
@@ -136,11 +164,15 @@
           </div>
         </div>
 
-        <div id="project-todo-place">
-
+        <div class="input-group mb-3">
+          <input id="emailMember" type="email" required class="form-control" placeholder="member email" aria-label="Recipient's username" aria-describedby="button-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-secondary" type="button" onclick="addMember()">Add Member</button>
+          </div>
         </div>
 
-        
+        <div id="project-member-place">
+        </div>
 
       </div>
     </div>
@@ -202,7 +234,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" type="submit" class="btn btn-primary">Create</button>
+              <button type="button" class="btn btn-primary" onclick="createNewProject()">Create Project</button>
             </div>
           </form>
         </div>
