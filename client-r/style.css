@@ -3,9 +3,6 @@ body,html{
   background-color: #35495e;
 }
 
-#loginPage{
-}
-
 button, input[type="submit"], input[type="reset"] {
 	background: none;
 	color: inherit;
@@ -34,4 +31,34 @@ button, input[type="submit"], input[type="reset"] {
   color: #c3ecda;
   cursor: pointer;
   text-decoration: underline;
+}
+
+.text-orange{
+  color: #ff7e67 !important;
+}
+
+.text-palegreen{
+  color: #42b883;
+}
+
+.text-palegreen2{
+  color: #347474;
+}
+
+.text-whitesmoke{
+  color: rgb(243, 243, 243);
+}
+
+.nav-bar-title{
+  font-family: 'Fredoka One', cursive;
+  color: #ff7e67 !important;
+}
+
+.bg-whitesmoke{
+  background-color: rgb(243, 243, 243);
+}
+
+.welcome-world{
+  font-family: 'McLaren', cursive;
+  color: whitesmoke;
 }

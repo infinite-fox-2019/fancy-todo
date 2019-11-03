@@ -43,8 +43,8 @@ class TodoController {
 
   static updateTodo(req,res,next){
     const {_id} = req.params
-    const {title,description} = req.body
-    Todo.updateOne({_id},{title,description})
+    const {title,description,dueDate} = req.body
+    Todo.updateOne({_id},{title,description, dueDate})
       .then(data => {
         res.status(200).json(data)
       })

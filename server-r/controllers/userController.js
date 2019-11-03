@@ -5,6 +5,7 @@ const {generateToken} = require('../helpers/jwt')
 class UserController {
   static login(req,res,next){
     const {email,password} = req.body
+    console.log(email,password)
     User.findOne({email})
       .then(data => {
         if(data && decodeHash(password, data.password)){
@@ -15,6 +16,29 @@ class UserController {
         else{
           throw {message:"Invalid password or email", status:400}
         }
+      })
+      .catch(next)
+  }
+
+  static loginGoogle(req,res,next){
+    const { email,name } = req.googleData
+    console.log(email,name)
+    const password = '123456'
+    User.findOne({email})
+      .then(data => {
+        if(data){
+          let payload = {name: data.name, email: data.email, _id:data._id}
+          let token = generateToken(payload)
+          return res.status(200).json({"access_token":token, name:data.name, _id:data._id})
+        }
+        else{
+          return User.create({email,name,password})
+        }
+      })
+      .then(data => {
+        let payload = {name: data.name, email: data.email, _id:data._id}
+        let token = generateToken(payload)
+        return res.status(200).json({"access_token":token, name:data.name, _id:data._id})
       })
       .catch(next)
   }
