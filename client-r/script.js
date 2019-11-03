@@ -3,6 +3,7 @@ $(document).ready(function(){
   if(localStorage.getItem("access_token")){
     console.log("You Successfuly Login")
     renderHomePage()
+    renderProjectPage()
   } 
   else{
     renderLoginPage()
@@ -57,6 +58,9 @@ function parseDate (dateD) {
 function renderLoginPage () {
   $("#loginPage").show()
   $("#registerPage").hide()
+  $("#nav-bar").hide()
+  $("#userHomeTodo").hide()
+  $("#projectHomeTodo").hide()
 }
 
 function renderRegisterPage () {
@@ -71,6 +75,15 @@ function renderHomePage () {
   $("#loginPage").hide()
   $("#registerPage").hide()
   fetchUserTodo()
+}
+
+function renderProjectPage () {
+  $("#nav-bar").show()
+  $("#projectHomeTodo").show()
+  $("#userHomeTodo").hide()
+  $("#loginPage").hide()
+  $("#registerPage").hide()
+  // fetch todo here
 }
 
 // Asyncronus Function
