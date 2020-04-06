@@ -1,0 +1,114 @@
+
+body{
+  background-color: #DBDEDF;
+}
+
+#nav{
+  background-color: #4F5859;
+  box-shadow: 0 5px 5px 0 rgb(158, 158, 158)
+}
+
+#modalButton{
+  width: 50%;
+  margin: 20px auto;
+}
+
+#todocol,#progcol,#donecol{
+  margin: 0 10px;
+  /* text-align: center; */
+}
+
+.card{
+  background-color: rgba(255, 255, 255, 0.199);
+  margin : 10px auto;
+  padding: 5px;
+}
+
+.card-body{
+  padding: 10px;
+}
+.card p{
+  margin: 2px;
+  font-size: 12px
+}
+.card hr{
+  margin : 5px auto;
+}
+
+.card #updel{
+  margin-top: 10px;
+}
+
+#updateform{
+  margin-top: 8px;
+}
+
+#todocol h4,
+#progcol h4,
+#donecol h4{
+  margin: 10px;
+  text-align: center;
+}
+
+#listTodo{
+  width: 90%;
+  margin: 0 auto;
+}
+.smallLogo{
+  width: 20px;
+  height: 20px;
+}
+
+#loginform,#registerform{
+  text-align: center;
+  padding: 20px;
+}
+
+#loginform p{
+  font-size: 14px;
+}
+
+#loginClick,#registerClick{
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.g-signin2{
+ display: inline-block;
+}
+
+#loginClick:hover,
+#registerClick:hover { 
+  background-color: rgb(104, 104, 104);
+}
+
+
+#loginButton,
+#registerButton{
+  width: 100%;
+  border-radius: 0px;
+}
+
+#loginPage{
+  width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}
+
+#api p{
+  margin: 2px;
+  font-size: 10px;
+}
+
+#api{
+  position: relative;
+  right: 70px;
+  color: white;
+  text-align: center;
+}
